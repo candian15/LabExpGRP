@@ -55,21 +55,28 @@ query($queryString: String!, $cursor: String, $perPage: Int!) {
 """
 
 
-def run_query(token, cursor=None, per_page=25):
+def run_query(token, cursor=None, per_page=25, max_retries=5):
     headers = {"Authorization": f"Bearer {token}"}
     variables = {
         "queryString": "stars:>1000 sort:stars-desc",
         "cursor": cursor,
         "perPage": per_page,
     }
-    resp = requests.post(
-        GITHUB_GRAPHQL_URL,
-        json={"query": QUERY, "variables": variables},
-        headers=headers,
-        timeout=30,
-    )
-    if resp.status_code != 200:
-        raise Exception(f"Erro {resp.status_code}: {resp.text}")
+    for attempt in range(1, max_retries + 1):
+        resp = requests.post(
+            GITHUB_GRAPHQL_URL,
+            json={"query": QUERY, "variables": variables},
+            headers=headers,
+            timeout=30,
+        )
+        if resp.status_code in (502, 503, 504) and attempt < max_retries:
+            wait = 2 * attempt
+            print(f"[aviso] erro {resp.status_code} (transitório), retry {attempt}/{max_retries} em {wait}s...")
+            time.sleep(wait)
+            continue
+        if resp.status_code != 200:
+            raise Exception(f"Erro {resp.status_code}: {resp.text}")
+        break
     data = resp.json()
     if "errors" in data:
         raise Exception(f"Erro GraphQL: {data['errors']}")
@@ -85,7 +92,7 @@ def calc_days_since_update(pushed_at_str):
     return delta.days
 
 
-def collect_repos(token, total_target=100, per_page=25):
+def collect_repos(token, total_target=100, per_page=10):
     repos = []
     cursor = None
 
@@ -160,3 +167,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
