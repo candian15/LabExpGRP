@@ -1,12 +1,7 @@
 """
-Extração RQ03 + RQ04 - Lab01S01
-RQ03: total de releases (releases.totalCount)
-RQ04: tempo até a última atualização (a partir de pushedAt)
-
-Segue o mesmo padrão da parte RQ01+RQ02 do grupo:
-- consulta GraphQL escrita e consumida por script próprio
-- mesmo critério de seleção: "stars:>1000 sort:stars-desc"
-- saída em CSV com chave `repo` para permitir merge dos datasets
+Extração RQ01 + RQ02 - Lab01S01
+RQ01: idade do repositório (a partir de createdAt)
+RQ02: total de pull requests aceitas (mergeadas)
 
 Uso:
     1. Crie um Personal Access Token (classic) em https://github.com/settings/tokens
@@ -14,16 +9,18 @@ Uso:
     2. Exporte a variável de ambiente:
          export GITHUB_TOKEN="seu_token_aqui"
     3. Rode:
-         python rq03_rq04_extract.py --sample        # roda só 8 repos p/ validar
-         python rq03_rq04_extract.py                  # roda os 100 completos
+         python rq01_rq02_extract.py --sample        # roda só 5-10 repos p/ validar
+         python rq01_rq02_extract.py                  # roda os 100 completos
 """
 
 import os
 import sys
 import time
 import csv
+import json
 import argparse
-import requests
+import urllib.request
+import urllib.error
 from datetime import datetime, timezone
 
 GITHUB_GRAPHQL_URL = "https://api.github.com/graphql"
@@ -43,9 +40,9 @@ query($queryString: String!, $cursor: String, $perPage: Int!) {
     nodes {
       ... on Repository {
         nameWithOwner
+        createdAt
         stargazerCount
-        pushedAt
-        releases {
+        pullRequests(states: MERGED) {
           totalCount
         }
       }
@@ -55,44 +52,55 @@ query($queryString: String!, $cursor: String, $perPage: Int!) {
 """
 
 
-def run_query(token, cursor=None, per_page=25, max_retries=5):
-    headers = {"Authorization": f"Bearer {token}"}
+def run_query(token, cursor=None, per_page=25, max_retries=6):
     variables = {
         "queryString": "stars:>1000 sort:stars-desc",
         "cursor": cursor,
         "perPage": per_page,
     }
+    payload = json.dumps({"query": QUERY, "variables": variables}).encode("utf-8")
+    req = urllib.request.Request(
+        GITHUB_GRAPHQL_URL,
+        data=payload,
+        headers={
+            "Authorization": f"Bearer {token}",
+            "Content-Type": "application/json",
+            "Accept": "application/vnd.github+json",
+        },
+        method="POST",
+    )
+    wait = 5
     for attempt in range(1, max_retries + 1):
-        resp = requests.post(
-            GITHUB_GRAPHQL_URL,
-            json={"query": QUERY, "variables": variables},
-            headers=headers,
-            timeout=30,
-        )
-        if resp.status_code in (502, 503, 504) and attempt < max_retries:
-            wait = 2 * attempt
-            print(f"[aviso] erro {resp.status_code} (transitório), retry {attempt}/{max_retries} em {wait}s...")
-            time.sleep(wait)
-            continue
-        if resp.status_code != 200:
-            raise Exception(f"Erro {resp.status_code}: {resp.text}")
-        break
-    data = resp.json()
+        try:
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                data = json.loads(resp.read())
+            break
+        except urllib.error.HTTPError as e:
+            body = e.read().decode()
+            # 403/429 = rate limit (primário ou secundário); 502/503/504 = erro transitório do servidor
+            retryable = e.code in (403, 429, 502, 503, 504)
+            if retryable and attempt < max_retries:
+                sleep_for = int(e.headers.get("Retry-After", wait))
+                print(f"[aviso] erro {e.code} (tentativa {attempt}/{max_retries}), aguardando {sleep_for}s...")
+                time.sleep(sleep_for)
+                wait = min(wait * 2, 120)
+                continue
+            raise Exception(f"Erro {e.code}: {body}")
     if "errors" in data:
         raise Exception(f"Erro GraphQL: {data['errors']}")
     return data["data"]
 
 
-def calc_days_since_update(pushed_at_str):
-    pushed = datetime.strptime(pushed_at_str, "%Y-%m-%dT%H:%M:%SZ").replace(
+def calc_age_years(created_at_str):
+    created = datetime.strptime(created_at_str, "%Y-%m-%dT%H:%M:%SZ").replace(
         tzinfo=timezone.utc
     )
     now = datetime.now(timezone.utc)
-    delta = now - pushed
-    return delta.days
+    delta = now - created
+    return round(delta.days / 365.25, 2)
 
 
-def collect_repos(token, total_target=100, per_page=10):
+def collect_repos(token, total_target=100, per_page=25):
     repos = []
     cursor = None
 
@@ -111,11 +119,9 @@ def collect_repos(token, total_target=100, per_page=10):
                 {
                     "repo": node["nameWithOwner"],
                     "stars": node["stargazerCount"],
-                    # RQ03
-                    "total_releases": node["releases"]["totalCount"],
-                    # RQ04
-                    "pushed_at": node["pushedAt"],
-                    "days_since_update": calc_days_since_update(node["pushedAt"]),
+                    "created_at": node["createdAt"],
+                    "age_years": calc_age_years(node["createdAt"]),
+                    "merged_prs": node["pullRequests"]["totalCount"],
                 }
             )
 
@@ -124,13 +130,13 @@ def collect_repos(token, total_target=100, per_page=10):
             break
         cursor = page_info["endCursor"]
 
-        time.sleep(0.5)  # gentileza com a API
+        time.sleep(2)  # gentileza com a API — evita o rate limit secundário do GitHub
 
     return repos[:total_target]
 
 
 def save_csv(repos, filename):
-    fieldnames = ["repo", "stars", "total_releases", "pushed_at", "days_since_update"]
+    fieldnames = ["repo", "stars", "created_at", "age_years", "merged_prs"]
     with open(filename, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
@@ -145,6 +151,11 @@ def main():
         action="store_true",
         help="Roda apenas uma amostra pequena (8 repos) para validação rápida",
     )
+    parser.add_argument(
+        "--full",
+        action="store_true",
+        help="Roda para 1000 repositórios (Lab01S02, com paginação completa)",
+    )
     args = parser.parse_args()
 
     token = os.environ.get("GITHUB_TOKEN")
@@ -152,8 +163,12 @@ def main():
         print("ERRO: defina a variável de ambiente GITHUB_TOKEN antes de rodar.")
         sys.exit(1)
 
-    total = 8 if args.sample else 100
-    out_file = "sample_rq03_rq04.csv" if args.sample else "rq03_rq04.csv"
+    if args.sample:
+        total, out_file = 8, "sample_rq01_rq02.csv"
+    elif args.full:
+        total, out_file = 1000, "rq01_rq02_1000.csv"
+    else:
+        total, out_file = 100, "rq01_rq02.csv"
 
     print(f"Coletando {total} repositórios...")
     repos = collect_repos(token, total_target=total)
@@ -167,4 +182,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

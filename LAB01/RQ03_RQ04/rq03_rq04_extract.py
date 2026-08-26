@@ -75,18 +75,23 @@ def run_query(token, cursor=None, per_page=10, max_retries=5):
         },
         method="POST",
     )
+    wait = 5
     for attempt in range(1, max_retries + 1):
         try:
             with urllib.request.urlopen(req, timeout=30) as resp:
                 data = json.loads(resp.read())
             break
         except urllib.error.HTTPError as e:
-            if e.code in (502, 503, 504) and attempt < max_retries:
-                wait = 2 * attempt
-                print(f"[aviso] erro {e.code} (transitório), retry {attempt}/{max_retries} em {wait}s...")
-                time.sleep(wait)
+            body = e.read().decode()
+            # 403/429 = rate limit (primário ou secundário); 502/503/504 = erro transitório do servidor
+            retryable = e.code in (403, 429, 502, 503, 504)
+            if retryable and attempt < max_retries:
+                sleep_for = int(e.headers.get("Retry-After", wait))
+                print(f"[aviso] erro {e.code} (tentativa {attempt}/{max_retries}), aguardando {sleep_for}s...")
+                time.sleep(sleep_for)
+                wait = min(wait * 2, 120)
                 continue
-            raise Exception(f"Erro {e.code}: {e.read().decode()}")
+            raise Exception(f"Erro {e.code}: {body}")
     if "errors" in data:
         raise Exception(f"Erro GraphQL: {data['errors']}")
     return data["data"]
@@ -133,7 +138,7 @@ def collect_repos(token, total_target=100, per_page=10):
             break
         cursor = page_info["endCursor"]
 
-        time.sleep(0.5)  # gentileza com a API
+        time.sleep(2)  # gentileza com a API — evita o rate limit secundário do GitHub
 
     return repos[:total_target]
 
