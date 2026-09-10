@@ -1,0 +1,9 @@
+# LAB02 - dependencias Python do experimento (ver README.md)
+pytest==8.3.3      # testes de aceitacao dos katas (RQ2)
+radon==6.0.1       # complexidade ciclomatica, Indice de Manutenibilidade e LOC (RQ3)
+pandas==2.2.3      # analise dos CSVs (S03)
+matplotlib==3.9.2  # dashboard (S03)
+seaborn==0.13.2    # dashboard (S03)
+scipy==1.14.1      # teste de Wilcoxon pareado (S03)
+# jscpd (duplicacao de codigo) e uma ferramenta Node, nao pip:
+#   npm install -g jscpd     (ou deixe o metrics.py chamar via npx)
