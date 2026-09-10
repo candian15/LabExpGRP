@@ -1,0 +1,64 @@
+{
+  "katas": [
+    {
+      "id": 1,
+      "titulo": "Normalizador de agenda de horários",
+      "descricao": "Dada uma lista de intervalos de horário (ex.: reuniões), mesclar os intervalos sobrepostos e retornar a lista consolidada, ordenada.",
+      "dificuldade": "media",
+      "fonte": "autoral (grupo)",
+      "testes_aceitacao": 6,
+      "loc_estimado_referencia": 35,
+      "justificativa_baixa_indexacao": "Variante autoral do problema clássico de 'merge intervals', com nomenclatura de domínio (agenda/reuniões) e regras de borda específicas do grupo, reduzindo a chance de solução memorizada por um assistente de IA."
+    },
+    {
+      "id": 2,
+      "titulo": "Validador de senha customizado",
+      "descricao": "Implementar validação de senha com um conjunto específico de regras definidas pelo grupo (não as regras genéricas mais comuns), retornando qual regra foi violada.",
+      "dificuldade": "media",
+      "fonte": "autoral (grupo)",
+      "testes_aceitacao": 7,
+      "loc_estimado_referencia": 30,
+      "justificativa_baixa_indexacao": "Regras de validação definidas propositalmente diferentes das regras padrão mais comuns na internet, para evitar que o assistente reconheça e replique uma solução pronta."
+    },
+    {
+      "id": 3,
+      "titulo": "Calculadora de troco com moedas customizadas",
+      "descricao": "Dado um valor e um conjunto arbitrário de moedas (não as moedas reais padrão), calcular o menor número de moedas para compor o troco, ou indicar impossibilidade.",
+      "dificuldade": "media",
+      "fonte": "autoral (grupo)",
+      "testes_aceitacao": 6,
+      "loc_estimado_referencia": 40,
+      "justificativa_baixa_indexacao": "Uso de conjunto de moedas fictício/arbitrário (não o clássico 'coin change' com moedas reais), dificultando o reconhecimento direto pelo modelo de IA."
+    },
+    {
+      "id": 4,
+      "titulo": "Parser de log simplificado",
+      "descricao": "Dado um conjunto de linhas de log em um formato customizado definido pelo grupo, extrair e agregar contagens de eventos por tipo.",
+      "dificuldade": "media",
+      "fonte": "autoral (grupo)",
+      "testes_aceitacao": 6,
+      "loc_estimado_referencia": 35,
+      "justificativa_baixa_indexacao": "Formato de log inventado pelo grupo, sem correspondência com formatos padrão (Apache, syslog etc.), exigindo leitura e interpretação da especificação em vez de reconhecimento de padrão."
+    },
+    {
+      "id": 5,
+      "titulo": "Deduplicador de contatos com regras difusas",
+      "descricao": "Dada uma lista de contatos com pequenas variações (maiúsculas/minúsculas, espaços, abreviações definidas pelo grupo), identificar e mesclar duplicatas.",
+      "dificuldade": "media",
+      "fonte": "autoral (grupo)",
+      "testes_aceitacao": 6,
+      "loc_estimado_referencia": 40,
+      "justificativa_baixa_indexacao": "Regras de equivalência definidas de forma específica pelo grupo (não um algoritmo de similaridade padrão conhecido), reduzindo chance de solução pronta."
+    },
+    {
+      "id": 6,
+      "titulo": "Escalonador de tarefas com prioridades customizadas",
+      "descricao": "Dado um conjunto de tarefas com dependências e prioridades num esquema definido pelo grupo, retornar uma ordem válida de execução.",
+      "dificuldade": "media",
+      "fonte": "autoral (grupo)",
+      "testes_aceitacao": 7,
+      "loc_estimado_referencia": 45,
+      "justificativa_baixa_indexacao": "Esquema de prioridades e dependências customizado (não uma ordenação topológica genérica de livro-texto), com regras de desempate específicas do grupo."
+    }
+  ]
+}
