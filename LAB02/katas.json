@@ -8,7 +8,21 @@
       "fonte": "autoral (grupo)",
       "testes_aceitacao": 6,
       "loc_estimado_referencia": 35,
-      "justificativa_baixa_indexacao": "Variante autoral do problema clássico de 'merge intervals', com nomenclatura de domínio (agenda/reuniões) e regras de borda específicas do grupo, reduzindo a chance de solução memorizada por um assistente de IA."
+      "justificativa_baixa_indexacao": "Variante autoral do problema clássico de 'merge intervals', com nomenclatura de domínio (agenda/reuniões) e regras de borda específicas do grupo, reduzindo a chance de solução memorizada por um assistente de IA.",
+      "especificacao": {
+        "assinatura": "def normalizar_agenda(intervalos: list[tuple[int, int]]) -> list[tuple[int, int]]",
+        "entrada": "Lista de tuplas (inicio, fim) em minutos desde meia-noite, com inicio < fim. Pode vir fora de ordem.",
+        "saida": "Lista de tuplas mescladas, ordenada por inicio.",
+        "regras": [
+          "Intervalos que apenas se tocam na borda (fim de um == inicio do outro) SAO mesclados: (0,30) e (30,60) viram (0,60).",
+          "Entrada vazia retorna lista vazia.",
+          "A entrada pode vir fora de ordem e deve ser ordenada no resultado."
+        ],
+        "exemplos": [
+          "normalizar_agenda([(60, 90), (0, 30), (20, 50)]) == [(0, 50), (60, 90)]",
+          "normalizar_agenda([(0, 30), (30, 60)]) == [(0, 60)]"
+        ]
+      }
     },
     {
       "id": 2,
@@ -18,7 +32,25 @@
       "fonte": "autoral (grupo)",
       "testes_aceitacao": 7,
       "loc_estimado_referencia": 30,
-      "justificativa_baixa_indexacao": "Regras de validação definidas propositalmente diferentes das regras padrão mais comuns na internet, para evitar que o assistente reconheça e replique uma solução pronta."
+      "justificativa_baixa_indexacao": "Regras de validação definidas propositalmente diferentes das regras padrão mais comuns na internet, para evitar que o assistente reconheça e replique uma solução pronta.",
+      "especificacao": {
+        "assinatura": "def validar_senha(senha: str) -> str",
+        "entrada": "Uma string de senha.",
+        "saida": "'ok' se passa em todas as regras, ou o codigo da PRIMEIRA regra violada (na ordem abaixo).",
+        "regras": [
+          "1. 'comprimento' - menos de 10 caracteres.",
+          "2. 'digitos' - menos de 3 digitos no total.",
+          "3. 'maiuscula' - nenhuma letra maiuscula.",
+          "4. 'simbolo_proibido' - contem espaco em branco (espaco nao e permitido).",
+          "5. 'sequencia' - contem a subsequencia literal '123' ou 'abc'.",
+          "A verificacao para na primeira regra violada, de cima para baixo."
+        ],
+        "exemplos": [
+          "validar_senha('Senha9x7y2z') == 'ok'",
+          "validar_senha('curta1A') == 'comprimento'",
+          "validar_senha('Abcdef1234z') == 'sequencia'"
+        ]
+      }
     },
     {
       "id": 3,
@@ -28,7 +60,22 @@
       "fonte": "autoral (grupo)",
       "testes_aceitacao": 6,
       "loc_estimado_referencia": 40,
-      "justificativa_baixa_indexacao": "Uso de conjunto de moedas fictício/arbitrário (não o clássico 'coin change' com moedas reais), dificultando o reconhecimento direto pelo modelo de IA."
+      "justificativa_baixa_indexacao": "Uso de conjunto de moedas fictício/arbitrário (não o clássico 'coin change' com moedas reais), dificultando o reconhecimento direto pelo modelo de IA.",
+      "especificacao": {
+        "assinatura": "def calcular_troco(valor: int, moedas: list[int]) -> int",
+        "entrada": "valor: inteiro >= 0. moedas: lista de valores de moeda (inteiros positivos), estoque ilimitado de cada, podendo conter valores arbitrarios/fora do padrao real.",
+        "saida": "Menor numero de moedas que soma exatamente 'valor'; ou -1 se impossivel.",
+        "regras": [
+          "Estoque ilimitado de cada moeda.",
+          "valor == 0 retorna 0 (nenhuma moeda necessaria).",
+          "Nao assuma o algoritmo guloso: com moedas arbitrarias ele pode falhar (ex.: valor=6, moedas=[1,3,4] -> 2, usando 3+3, nao 4+1+1)."
+        ],
+        "exemplos": [
+          "calcular_troco(6, [1, 3, 4]) == 2",
+          "calcular_troco(0, [2, 5]) == 0",
+          "calcular_troco(3, [2]) == -1"
+        ]
+      }
     },
     {
       "id": 4,
@@ -38,7 +85,22 @@
       "fonte": "autoral (grupo)",
       "testes_aceitacao": 6,
       "loc_estimado_referencia": 35,
-      "justificativa_baixa_indexacao": "Formato de log inventado pelo grupo, sem correspondência com formatos padrão (Apache, syslog etc.), exigindo leitura e interpretação da especificação em vez de reconhecimento de padrão."
+      "justificativa_baixa_indexacao": "Formato de log inventado pelo grupo, sem correspondência com formatos padrão (Apache, syslog etc.), exigindo leitura e interpretação da especificação em vez de reconhecimento de padrão.",
+      "especificacao": {
+        "assinatura": "def contar_eventos(linhas: list[str]) -> dict[str, int]",
+        "entrada": "Lista de strings de log no formato customizado do grupo.",
+        "saida": "Dicionario {tipo_evento: contagem}, apenas para tipos que apareceram (nao incluir tipos com contagem 0).",
+        "regras": [
+          "Linha valida tem o formato TIMESTAMP|NIVEL|TIPO (tres campos separados por '|'), ex.: '0912|INFO|login'.",
+          "So contam eventos cujo NIVEL seja INFO ou WARN. Linhas DEBUG sao ignoradas.",
+          "Linhas malformadas (que nao tem exatamente 3 campos) sao ignoradas.",
+          "O TIPO e comparado como veio (case-sensitive)."
+        ],
+        "exemplos": [
+          "contar_eventos(['0912|INFO|login', '0913|INFO|login', '0914|WARN|falha']) == {'login': 2, 'falha': 1}",
+          "contar_eventos(['0912|DEBUG|x', 'linha_ruim']) == {}"
+        ]
+      }
     },
     {
       "id": 5,
@@ -48,7 +110,20 @@
       "fonte": "autoral (grupo)",
       "testes_aceitacao": 6,
       "loc_estimado_referencia": 40,
-      "justificativa_baixa_indexacao": "Regras de equivalência definidas de forma específica pelo grupo (não um algoritmo de similaridade padrão conhecido), reduzindo chance de solução pronta."
+      "justificativa_baixa_indexacao": "Regras de equivalência definidas de forma específica pelo grupo (não um algoritmo de similaridade padrão conhecido), reduzindo chance de solução pronta.",
+      "especificacao": {
+        "assinatura": "def deduplicar(contatos: list[str]) -> list[str]",
+        "entrada": "Lista de nomes de contato (strings) com pequenas variacoes.",
+        "saida": "Lista de nomes unicos segundo a chave de normalizacao, preservando a PRIMEIRA ocorrencia de cada grupo (na forma original), na ordem em que apareceram.",
+        "regras": [
+          "Normalizar (apenas para comparar, nao para o retorno): 1) remover espacos das pontas e colapsar espacos internos multiplos em um so; 2) comparar sem diferenciar maiusculas/minusculas; 3) expandir a abreviacao de tratamento no inicio: 'dr ' vira 'doutor ' e 'sra ' vira 'senhora ' (so quando e a primeira palavra).",
+          "O retorno mantem o texto ORIGINAL da primeira ocorrencia (nao o normalizado)."
+        ],
+        "exemplos": [
+          "deduplicar(['Ana Lima', 'ana  lima', '  Ana Lima ']) == ['Ana Lima']",
+          "deduplicar(['Dr House', 'doutor house']) == ['Dr House']"
+        ]
+      }
     },
     {
       "id": 6,
@@ -58,7 +133,22 @@
       "fonte": "autoral (grupo)",
       "testes_aceitacao": 7,
       "loc_estimado_referencia": 45,
-      "justificativa_baixa_indexacao": "Esquema de prioridades e dependências customizado (não uma ordenação topológica genérica de livro-texto), com regras de desempate específicas do grupo."
+      "justificativa_baixa_indexacao": "Esquema de prioridades e dependências customizado (não uma ordenação topológica genérica de livro-texto), com regras de desempate específicas do grupo.",
+      "especificacao": {
+        "assinatura": "def escalonar(tarefas: dict[str, dict]) -> list[str]",
+        "entrada": "Dicionario {nome: {'deps': [nomes...], 'prioridade': int}}. Toda dependencia citada existe como tarefa.",
+        "saida": "Lista de nomes numa ordem topologica valida; ou lista vazia [] se houver ciclo.",
+        "regras": [
+          "Uma tarefa so pode aparecer depois de todas as suas dependencias.",
+          "Desempate entre tarefas disponiveis ao mesmo tempo: maior prioridade primeiro (numero maior = mais prioritaria); empatou a prioridade, ordem alfabetica do nome.",
+          "Se houver ciclo (impossivel ordenar), retornar lista vazia [].",
+          "Toda dependencia citada existe como tarefa."
+        ],
+        "exemplos": [
+          "escalonar({'a': {'deps': [], 'prioridade': 1}, 'b': {'deps': ['a'], 'prioridade': 5}}) == ['a', 'b']",
+          "escalonar({'a': {'deps': [], 'prioridade': 1}, 'b': {'deps': [], 'prioridade': 9}}) == ['b', 'a']"
+        ]
+      }
     }
   ]
 }
