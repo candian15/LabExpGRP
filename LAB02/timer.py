@@ -1,24 +1,3 @@
-#!/usr/bin/env python3
-"""
-timer.py - Cronometragem e coleta de tempo dos trials (Lab02 - Pessoa 1)
-
-Cobre as 3 Issues da S01:
-  - Issue 1: cronometro com time-box de 35 min e censura automatica.
-  - Issue 2: deteccao automatica de "time-to-green" rodando pytest em loop.
-  - Issue 3: gravacao de cada trial em trials.csv com o schema combinado.
-
-Uso:
-  # Modo automatico: roda pytest ate todos passarem (ou censura em 35 min)
-  python timer.py --integrante pedro --kata kata01 --tratamento ia \\
-      --auto --test-path katas/kata01
-
-  # Modo manual: aperte ENTER quando os testes passarem
-  python timer.py --integrante pedro --kata kata01 --tratamento manual
-
-Schema do trials.csv:
-  integrante, kata, tratamento, tempo_segundos, censurado, timestamp
-"""
-
 import argparse
 import csv
 import os
