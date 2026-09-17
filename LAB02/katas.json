@@ -101,54 +101,6 @@
           "contar_eventos(['0912|DEBUG|x', 'linha_ruim']) == {}"
         ]
       }
-    },
-    {
-      "id": 5,
-      "titulo": "Deduplicador de contatos com regras difusas",
-      "descricao": "Dada uma lista de contatos com pequenas variações (maiúsculas/minúsculas, espaços, abreviações definidas pelo grupo), identificar e mesclar duplicatas.",
-      "dificuldade": "media",
-      "fonte": "autoral (grupo)",
-      "testes_aceitacao": 6,
-      "loc_estimado_referencia": 40,
-      "justificativa_baixa_indexacao": "Regras de equivalência definidas de forma específica pelo grupo (não um algoritmo de similaridade padrão conhecido), reduzindo chance de solução pronta.",
-      "especificacao": {
-        "assinatura": "def deduplicar(contatos: list[str]) -> list[str]",
-        "entrada": "Lista de nomes de contato (strings) com pequenas variacoes.",
-        "saida": "Lista de nomes unicos segundo a chave de normalizacao, preservando a PRIMEIRA ocorrencia de cada grupo (na forma original), na ordem em que apareceram.",
-        "regras": [
-          "Normalizar (apenas para comparar, nao para o retorno): 1) remover espacos das pontas e colapsar espacos internos multiplos em um so; 2) comparar sem diferenciar maiusculas/minusculas; 3) expandir a abreviacao de tratamento no inicio: 'dr ' vira 'doutor ' e 'sra ' vira 'senhora ' (so quando e a primeira palavra).",
-          "O retorno mantem o texto ORIGINAL da primeira ocorrencia (nao o normalizado)."
-        ],
-        "exemplos": [
-          "deduplicar(['Ana Lima', 'ana  lima', '  Ana Lima ']) == ['Ana Lima']",
-          "deduplicar(['Dr House', 'doutor house']) == ['Dr House']"
-        ]
-      }
-    },
-    {
-      "id": 6,
-      "titulo": "Escalonador de tarefas com prioridades customizadas",
-      "descricao": "Dado um conjunto de tarefas com dependências e prioridades num esquema definido pelo grupo, retornar uma ordem válida de execução.",
-      "dificuldade": "media",
-      "fonte": "autoral (grupo)",
-      "testes_aceitacao": 7,
-      "loc_estimado_referencia": 45,
-      "justificativa_baixa_indexacao": "Esquema de prioridades e dependências customizado (não uma ordenação topológica genérica de livro-texto), com regras de desempate específicas do grupo.",
-      "especificacao": {
-        "assinatura": "def escalonar(tarefas: dict[str, dict]) -> list[str]",
-        "entrada": "Dicionario {nome: {'deps': [nomes...], 'prioridade': int}}. Toda dependencia citada existe como tarefa.",
-        "saida": "Lista de nomes numa ordem topologica valida; ou lista vazia [] se houver ciclo.",
-        "regras": [
-          "Uma tarefa so pode aparecer depois de todas as suas dependencias.",
-          "Desempate entre tarefas disponiveis ao mesmo tempo: maior prioridade primeiro (numero maior = mais prioritaria); empatou a prioridade, ordem alfabetica do nome.",
-          "Se houver ciclo (impossivel ordenar), retornar lista vazia [].",
-          "Toda dependencia citada existe como tarefa."
-        ],
-        "exemplos": [
-          "escalonar({'a': {'deps': [], 'prioridade': 1}, 'b': {'deps': ['a'], 'prioridade': 5}}) == ['a', 'b']",
-          "escalonar({'a': {'deps': [], 'prioridade': 1}, 'b': {'deps': [], 'prioridade': 9}}) == ['b', 'a']"
-        ]
-      }
     }
   ]
 }

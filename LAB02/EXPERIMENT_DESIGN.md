@@ -34,15 +34,15 @@ Uso ou não de assistente de IA generativa durante a resolução da tarefa (dois
 
 ## E) Objetos experimentais
 
-6 katas autorais de dificuldade comparável (ver `katas.json` e `validate_katas.py`), todos de nível "média", com tamanho estimado (LOC de referência) e número de testes de aceitação equivalentes entre si, escolhidos deliberadamente com baixa indexação para reduzir o risco de memorização pelo assistente de IA.
+4 katas autorais de dificuldade comparável (ver `katas.json` e `validate_katas.py`), todos de nível "média", com tamanho estimado (LOC de referência) e número de testes de aceitação equivalentes entre si, escolhidos deliberadamente com baixa indexação para reduzir o risco de memorização pelo assistente de IA.
 
 ## F) Tipo de projeto experimental
 
-**Crossover / within-subject, contrabalanceado**: cada integrante do trio resolve todos os 6 katas, metade com IA e metade sem IA, em ordem contrabalanceada entre os integrantes (para controlar efeito de ordem e de aprendizado). Esse desenho controla a variação individual de habilidade entre os participantes, já que cada pessoa serve como seu próprio controle.
+**Crossover / within-subject, contrabalanceado**: cada integrante do trio resolve todos os 4 katas, metade com IA e metade sem IA, em ordem contrabalanceada entre os integrantes (para controlar efeito de ordem e de aprendizado). Esse desenho controla a variação individual de habilidade entre os participantes, já que cada pessoa serve como seu próprio controle.
 
 ## G) Quantidade de medições
 
-3 integrantes × 6 katas = 18 trials no total (6 trials por integrante: 3 com IA + 3 sem IA), dentro da faixa de 4–6 trials/integrante recomendada pelo enunciado.
+3 integrantes × 4 katas = 12 trials no total (4 trials por integrante: 2 com IA + 2 sem IA), dentro da faixa de 4–6 trials/integrante recomendada pelo enunciado.
 
 ## H) Ameaças à validade
 
