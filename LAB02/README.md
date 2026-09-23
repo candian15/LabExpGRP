@@ -33,6 +33,7 @@ npm install -g jscpd                              # opcional: metrics.py também
 | [timer.py](timer.py) | Cronometra o trial (time-to-green ou censura em 35 min), para a RQ1 | `trials.csv` |
 | [run_tests.py](run_tests.py) | Roda o pytest no código final e calcula a taxa de sucesso, para a RQ2 | `tests.csv` |
 | [metrics.py](metrics.py) | Complexidade ciclomática, MI, LOC e % duplicação, para a RQ3 | `metrics.csv` |
+| [dashboard.py](dashboard.py) | Consolida os três CSVs e gera os gráficos IA vs. manual (S03) | `graficos/*.png` |
 
 ## Fluxo de um trial
 
