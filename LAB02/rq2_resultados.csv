@@ -1,0 +1,5 @@
+metrica,tratamento,n,mediana,iqr,ic95_baixo,ic95_alto
+taxa_sucesso,ia,6,100.0,0.0,100.0,100.0
+taxa_sucesso,manual,6,100.0,0.0,100.0,100.0
+testes_falhando,ia,6,0.0,0.0,0.0,0.0
+testes_falhando,manual,6,0.0,0.0,0.0,0.0

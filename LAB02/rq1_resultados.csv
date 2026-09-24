@@ -1,0 +1,3 @@
+metrica,tratamento,n,mediana,iqr,ic95_baixo,ic95_alto
+tempo_segundos,ia,6,222.875,84.85000000000002,192.91,364.485
+tempo_segundos,manual,6,757.6500000000001,102.1875,697.875,1024.04

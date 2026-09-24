@@ -1,0 +1,9 @@
+metrica,tratamento,n,mediana,iqr,ic95_baixo,ic95_alto
+complexidade_media,ia,6,5.5,4.0,4.0,9.0
+complexidade_media,manual,6,5.5,1.75,4.0,7.5
+duplicacao_pct,ia,6,0.0,0.0,0.0,0.0
+duplicacao_pct,manual,6,0.0,0.0,0.0,0.0
+mi_medio,ia,6,90.105,3.5050000000000097,83.72999999999999,92.305
+mi_medio,manual,6,88.035,2.9825000000000017,86.58,91.065
+loc,ia,6,24.5,8.5,17.5,34.5
+loc,manual,6,24.5,9.75,19.0,31.0
