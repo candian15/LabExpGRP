@@ -1,0 +1,26 @@
+# Configuração do pipeline (python -m pipeline --config config.yaml).
+# O token do GitHub NÃO vem daqui: é lido da variável de ambiente GITHUB_TOKEN.
+
+# Janela de observação de 12 meses, fixada pelo professor na abertura do Lab03S01.
+janela:
+  inicio: 2025-10-01
+  fim: 2026-09-30
+
+busca:
+  # A busca devolve no máximo 1.000 resultados por consulta, então ela é fatiada
+  # por faixa de estrelas. Para chegar a 300+ repositórios, acrescente faixas.
+  faixas_estrelas:
+    - 1000..2000
+    - 2000..5000
+    - 5000..15000
+    - ">15000"
+  linguagens: []   # vazio = todas; ex.: [Python, TypeScript] fatia ainda mais a busca
+
+selecao:
+  min_releases: 5       # critério mínimo de inclusão (seção 3 do enunciado)
+  min_runs: 50
+  max_repositorios: 100 # 100 no Lab03S01; 300+ no Lab03S02
+  contribuidores: true  # 1 chamada extra por repositório aprovado (quartis da RQ 06)
+
+cache: cache            # respostas da API; permite retomar a coleta
+saida: dados            # repositorios.csv e funil.csv
