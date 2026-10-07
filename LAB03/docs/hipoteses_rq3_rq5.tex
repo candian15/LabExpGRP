@@ -1,0 +1,30 @@
+% Hipóteses informais RQ 03--05 (colar na seção de Introdução, template SBC)
+
+\textbf{RQ 03 -- Taxa de falha das mudanças.} Esperamos que a variante de CI (a)
+fique, na mediana, entre 10\% e 25\%. Como os \textit{runs} considerados são
+disparados por \textit{push} no \textit{default branch}, boa parte das mudanças já
+passou pela validação de um \textit{pull request} antes do \textit{merge}. Ainda
+assim, problemas de integração, testes instáveis (\textit{flaky}) e dependências
+externas devem gerar uma fração não desprezível de falhas. Para a variante de
+entrega (b), esperamos valores parecidos ou menores e uma distribuição com muitos
+repositórios em 0\%. Também esperamos que as duas variantes concordem pouco entre
+si, porque a variante (a) mede falha de \textit{pipeline} e a (b) aproxima falha
+percebida pelo usuário.
+
+\textbf{RQ 04 -- Tempo de recuperação.} Esperamos uma mediana da ordem de algumas
+horas, o que colocaria a maioria dos repositórios na faixa \textit{High}. Em
+projetos ativos, a falha costuma ser resolvida pelo próximo \textit{push}.
+Esperamos, porém, uma cauda longa e um IQR largo, de minutos a vários dias,
+porque mantenedores de projetos \textit{open-source} trabalham de forma voluntária
+e assíncrona e alguns \textit{workflows} rodam raramente. Pelo mesmo motivo,
+esperamos uma proporção não trivial de episódios censurados.
+
+\textbf{RQ 05 -- Frequência de \textit{deploy} $\times$ taxa de falha.} Para a
+variante (a), esperamos uma correlação de Spearman fraca e negativa ou nula, em
+linha com a afirmação do DORA de que velocidade e estabilidade não são um
+\textit{trade-off}. Para a variante (b), esperamos uma correlação positiva, em
+parte como artefato da métrica: quem publica muitas \textit{releases} tem mais
+chances de publicar um \textit{patch} em até 7 dias após qualquer
+\textit{release}. Se isso se confirmar, a conclusão da RQ 05 depende da definição
+operacional escolhida, o que conecta esta questão à análise de sensibilidade da
+RQ 07.
