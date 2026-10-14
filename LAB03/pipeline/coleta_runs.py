@@ -28,6 +28,16 @@ log = logging.getLogger(__name__)
 
 TETO_BUSCA = 1000
 
+
+class AcimaDoTeto(Exception):
+    """Um único dia tem mais runs que o teto da busca.
+
+    Quando isso acontece não há como obter todos os runs daquele dia: a consulta
+    devolve no máximo 1.000 resultados e não existe filtro mais fino que a data.
+    O repositório não é mensurável com esta definição operacional, então ele é
+    descartado e contabilizado no funil, em vez de entrar com dados incompletos.
+    """
+
 CAMPOS_RUN = [
     "id",
     "workflow_id",
@@ -86,9 +96,8 @@ def coletar_runs_periodo(gh: GitHubClient, owner: str, repo: str, branch: str, a
             for x, y in _dividir_ao_meio(a, b):
                 runs.extend(coletar_runs_periodo(gh, owner, repo, branch, x, y))
             return runs
-        log.warning(
-            "%s/%s: %d runs só no dia %s; a API devolve no máximo %d (registrar como ameaça à validade)",
-            owner, repo, total, a, TETO_BUSCA,
+        raise AcimaDoTeto(
+            f"{total} runs só no dia {a}; a API devolve no máximo {TETO_BUSCA} por consulta"
         )
 
     # Resume cada run página por página, em vez de materializar todas as páginas
@@ -151,7 +160,11 @@ def _main() -> None:
         print(f"{args.repo} não usa GitHub Actions.")
         return
     branch = gh.get(f"/repos/{owner}/{nome}")["default_branch"]
-    runs = coletar_runs(gh, owner, nome, branch, args.inicio, args.fim)
+    try:
+        runs = coletar_runs(gh, owner, nome, branch, args.inicio, args.fim)
+    except AcimaDoTeto as e:
+        print(f"{args.repo} não é mensurável: {e}")
+        return
 
     saida = args.saida or f"dados/runs/{owner}__{nome}.csv"
     salvar_runs_csv(runs, saida, args.repo)

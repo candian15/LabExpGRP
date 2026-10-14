@@ -21,7 +21,7 @@ from datetime import date, datetime, timezone
 
 from metricas.cfr import runs_validos
 from pipeline.coleta_releases import listar_releases, releases_na_janela
-from pipeline.coleta_runs import coletar_runs, repo_usa_actions
+from pipeline.coleta_runs import AcimaDoTeto, coletar_runs, repo_usa_actions
 from pipeline.github_client import GitHubClient, NaoEncontrado
 
 log = logging.getLogger(__name__)
@@ -135,7 +135,15 @@ def avaliar(
         linha["motivo_descarte"] = "poucas_releases"
         return linha
 
-    runs = coletar_runs(gh, owner, nome, linha["default_branch"], inicio, fim)
+    try:
+        runs = coletar_runs(gh, owner, nome, linha["default_branch"], inicio, fim)
+    except AcimaDoTeto as e:
+        # Repositório hiperativo: a API não devolve todos os runs de um dia, então
+        # o CFR (a) e o tempo de recuperação sairiam calculados sobre uma amostra
+        # parcial e desconhecida. Melhor descartar e contar no funil.
+        log.warning("%s descartado: %s", linha["repo"], e)
+        linha["motivo_descarte"] = "runs_acima_do_teto"
+        return linha
     linha["n_runs_validos"] = len(runs_validos(runs))
     if linha["n_runs_validos"] < min_runs:
         linha["motivo_descarte"] = "poucos_runs"

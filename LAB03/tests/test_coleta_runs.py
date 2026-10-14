@@ -2,7 +2,13 @@ from datetime import date
 
 import pytest
 
-from pipeline.coleta_runs import coletar_runs, meses_da_janela, repo_usa_actions, salvar_runs_csv
+from pipeline.coleta_runs import (
+    AcimaDoTeto,
+    coletar_runs,
+    meses_da_janela,
+    repo_usa_actions,
+    salvar_runs_csv,
+)
 
 
 def test_meses_da_janela_cobre_tudo_sem_sobreposicao():
@@ -118,3 +124,18 @@ def test_coleta_pagina_em_vez_de_materializar_tudo():
     gh = SemListar({date(2026, 1, 5): 250})
     runs = coletar_runs(gh, "o", "r", "main", date(2026, 1, 1), date(2026, 1, 31))
     assert len(runs) == 250
+
+
+def test_dia_acima_do_teto_interrompe_a_coleta():
+    """Um único dia com mais de 1.000 runs não é coletável: a API não devolve
+    todos e não há filtro mais fino que a data. Em vez de devolver dados
+    parciais e silenciosos, a coleta avisa quem chamou."""
+    gh = ClienteFalso({date(2026, 1, 5): 1500})
+    with pytest.raises(AcimaDoTeto, match="2026-01-05"):
+        coletar_runs(gh, "o", "r", "main", date(2026, 1, 1), date(2026, 1, 31))
+
+
+def test_mes_acima_do_teto_mas_dias_dentro_do_teto_e_coletado():
+    """O teto é por consulta, não por repositório: se a subdivisão resolve, coleta."""
+    gh = ClienteFalso({date(2026, 1, 3): 900, date(2026, 1, 20): 900})
+    assert len(coletar_runs(gh, "o", "r", "main", date(2026, 1, 1), date(2026, 1, 31))) == 1800

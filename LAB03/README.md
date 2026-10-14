@@ -157,10 +157,16 @@ validade):
   mais de 1.000 estrelas".
 - **O `total_count` de `/actions/runs` satura em 2.500.** Um mês e a sua primeira metade podem
   devolver os mesmos 2.500, então esse número não serve para saber quantos runs existem de
-  verdade. A subdivisão da janela usa ele como gatilho e desce até o nível de dia, mas em um
-  repositório com mais de 1.000 runs em um único dia não há como garantir que tudo foi
-  capturado: o script avisa no log, e esses casos entram como ameaça à validade de construto
-  do CFR (a) e do tempo de recuperação. Os avisos ficam em `cache/coleta.log`.
+  verdade. Ele é usado só como gatilho da subdivisão da janela, nunca como medida.
+- **Repositório com mais de 1.000 runs em um único dia é descartado** (`runs_acima_do_teto` no
+  funil). A consulta devolve no máximo 1.000 resultados e não existe filtro mais fino que a
+  data, então não há como obter os runs daquele dia. Incluir o repositório assim faria o
+  CFR (a) e o tempo de recuperação serem calculados sobre um subconjunto truncado de tamanho
+  desconhecido — e, como o `total_count` satura, nem daria para dizer o quanto falta. Um
+  descarte contado no funil é uma limitação conhecida; um número calculado sobre dados
+  truncados em silêncio é um erro invisível. O funil mostra quantos repositórios saíram por
+  esse motivo, e isso vai para as ameaças à validade externa (a amostra exclui os projetos
+  mais hiperativos).
 - Repositórios muito ativos custam centenas de chamadas e muita memória. A coleta de runs
   resume cada página assim que ela chega, em vez de juntar todas antes, senão a recursão de
   subdivisão estoura a memória em máquinas com pouca RAM.

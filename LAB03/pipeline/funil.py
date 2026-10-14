@@ -20,6 +20,8 @@ ETAPAS = [
     ("sem_actions", "usam GitHub Actions", "total_count = 0 em /actions/workflows"),
     ("poucas_releases", "≥ {min_releases} releases publicadas na janela",
      "menos de {min_releases} releases publicadas na janela"),
+    ("runs_acima_do_teto", "runs mensuráveis na janela",
+     "mais de 1.000 runs em um único dia: a API não devolve todos"),
     ("poucos_runs", "≥ {min_runs} workflow runs válidos na janela",
      "menos de {min_runs} runs válidos de push no default branch"),
     ("erro", "coleta concluída sem erro", "erro definitivo da API (ver log)"),

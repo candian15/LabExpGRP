@@ -163,3 +163,19 @@ def test_busca_respeita_o_teto_de_resultados_por_consulta():
     muitos = [repo_json(f"o/r{i}", estrelas=i) for i in range(10)]
     gh = BuscaFalsa({"stars:>1000": muitos})
     assert len(buscar_candidatos(gh, [">1000"], limite_por_consulta=3)) == 3
+
+
+def test_repositorio_hiperativo_e_descartado_com_motivo_proprio():
+    # 1.500 runs num único dia: a API não devolve todos, então o repositório
+    # entra no funil como não mensurável, e não com métricas pela metade.
+    class Hiperativo(ClienteFalso):
+        def get(self, caminho, params=None, usar_cache=True):
+            if "/actions/runs" in caminho:
+                self.caminhos.append(caminho)
+                return {"total_count": 1500}
+            return super().get(caminho, params, usar_cache)
+
+    gh = Hiperativo(releases=releases(6), runs=runs_validos_falsos(60))
+    linha = avaliar(gh, repo_json(), INICIO, FIM)
+    assert linha["motivo_descarte"] == "runs_acima_do_teto"
+    assert linha["n_releases"] == 6  # passou pelos filtros anteriores

@@ -26,6 +26,7 @@ def test_cada_etapa_mostra_quantos_sobraram():
         ("candidatos da busca", 9, ""),
         ("usam GitHub Actions", 6, 3),
         ("≥ 5 releases publicadas na janela", 4, 2),
+        ("runs mensuráveis na janela", 4, 0),
         ("≥ 50 workflow runs válidos na janela", 3, 1),
         ("coleta concluída sem erro", 2, 1),
         ("amostra final", 2, ""),
@@ -74,3 +75,13 @@ def test_csv_ignora_colunas_extras_e_preenche_as_que_faltam(tmp_path):
     caminho = tmp_path / "repositorios.csv"
     funil.salvar_csv([{"repo": "a/1", "runs": [1, 2, 3]}], ["repo", "dora"], caminho)
     assert caminho.read_text(encoding="utf-8").splitlines() == ["repo,dora", "a/1,"]
+
+
+def test_funil_registra_os_repositorios_nao_mensuraveis():
+    avaliacoes = AVALIACOES + [avaliacao("f/1", "runs_acima_do_teto")]
+    tabela = funil.linhas(avaliacoes)
+    etapa = next(l for l in tabela if l["etapa"] == "runs mensuráveis na janela")
+    assert etapa["descartados"] == 1
+    assert "1.000 runs em um único dia" in etapa["motivo_do_descarte"]
+    # o descarte sai da amostra final, mas continua visível na tabela
+    assert tabela[-1]["restantes"] == 2

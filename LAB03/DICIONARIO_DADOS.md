@@ -140,7 +140,7 @@ análise de sensibilidade montar as outras combinações sem recoletar nada.
 
 | Coluna | Tipo | Unidade | Origem / fórmula |
 |---|---|---|---|
-| `motivo_descarte` | texto | — | Vazio = entrou na amostra final. Valores: `sem_actions`, `poucas_releases`, `poucos_runs`, `erro` |
+| `motivo_descarte` | texto | — | Vazio = entrou na amostra final. Valores: `sem_actions`, `poucas_releases`, `runs_acima_do_teto`, `poucos_runs`, `erro` |
 
 Os filtros são aplicados em ordem e param no primeiro que falha, então cada
 repositório tem **um** motivo:
@@ -149,6 +149,7 @@ repositório tem **um** motivo:
 |---|---|
 | `sem_actions` | `total_count = 0` em `/actions/workflows`: não usa GitHub Actions |
 | `poucas_releases` | Menos de `selecao.min_releases` (5) releases publicadas na janela |
+| `runs_acima_do_teto` | Mais de 1.000 workflow runs em um único dia: a consulta não devolve todos e não há filtro mais fino que a data, então o repositório não é mensurável com esta definição operacional |
 | `poucos_runs` | Menos de `selecao.min_runs` (50) runs válidos de `push` no default branch |
 | `erro` | Erro definitivo da API depois das tentativas com backoff (ver o log da coleta) |
 
