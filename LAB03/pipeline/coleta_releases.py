@@ -30,6 +30,8 @@ def listar_releases(gh: GitHubClient, owner: str, repo: str) -> list[dict]:
                 "published_at": r["published_at"],
                 "prerelease": bool(r.get("prerelease")),
                 "html_url": r.get("html_url"),
+                # release notes: usadas na rotulagem manual (seção 6) e na heurística
+                "body": r.get("body") or "",
             }
         )
     releases.sort(key=lambda r: _data(r["published_at"]))
@@ -50,7 +52,12 @@ def releases_na_janela(
 def listar_commits_entre(gh: GitHubClient, owner: str, repo: str, base: str, head: str) -> list[dict]:
     caminho = f"/repos/{owner}/{repo}/compare/{quote(base, safe='/')}...{quote(head, safe='/')}"
     return [
-        {"sha": c["sha"], "data": c["commit"]["author"]["date"]}
+        {
+            "sha": c["sha"],
+            "data": c["commit"]["author"]["date"],
+            # mensagem completa: a heurística de release corretiva (CFR b) lê o assunto
+            "message": c["commit"].get("message") or "",
+        }
         for c in gh.listar(caminho)
     ]
 
@@ -75,6 +82,8 @@ def coletar_releases(
             "tag_name": r["tag_name"],
             "published_at": r["published_at"],
             "prerelease": r["prerelease"],
+            "html_url": r.get("html_url"),
+            "body": r.get("body") or "",
             "anterior": anterior,
             "status": "ok",
             "commits": [],
