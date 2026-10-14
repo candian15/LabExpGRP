@@ -32,8 +32,22 @@ Cada resposta da API é gravada em `cache/`, então **rodar o comando de novo co
 parou**: se a coleta cair por rate limit, queda de rede ou `Ctrl+C`, nenhuma chamada já feita é
 repetida. Para recoletar do zero, apague `cache/`.
 
-A coleta completa demora horas e bate no rate limit várias vezes (o script espera sozinho e
-continua). Para testar, baixe `max_repositorios` para 2 ou 3 antes de rodar a amostra inteira.
+A coleta completa demora **horas** e bate no rate limit várias vezes (o script espera sozinho
+e continua). O gargalo não é a cota, e sim a latência: as chamadas são sequenciais, e um
+repositório muito ativo precisa de uma consulta por mês da janela, cada uma paginada. Para
+testar, baixe `max_repositorios` para 2 ou 3 antes de rodar a amostra inteira.
+
+Para deixar rodando e acompanhar o progresso, use `python -u` (sem o `-u`, a saída fica presa
+no buffer quando é redirecionada para arquivo):
+
+```bash
+mkdir -p cache
+nohup setsid python -u -m pipeline --config config.yaml > cache/coleta.log 2>&1 &
+tail -f cache/coleta.log
+```
+
+O log traz uma linha por repositório aprovado e uma linha de progresso a cada 25 candidatos
+avaliados. Se a coleta cair, o mesmo comando continua de onde parou.
 
 ### config.yaml
 

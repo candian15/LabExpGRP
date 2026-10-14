@@ -40,6 +40,8 @@ from pipeline.selecao import CAMPOS_META, avaliar, buscar_candidatos
 
 log = logging.getLogger(__name__)
 
+PASSO_PROGRESSO = 25  # a cada N candidatos avaliados, uma linha de progresso no log
+
 CAMPOS_SAIDA = CAMPOS_META + [
     "n_releases",
     "n_runs_validos",
@@ -176,15 +178,21 @@ def main(argv: list[str] | None = None) -> None:
     avaliacoes: list[dict] = []
     aprovados = 0
     try:
-        for repo in candidatos:
+        for i, repo in enumerate(candidatos, 1):
             if aprovados >= cfg["max_repositorios"]:
                 break
             linha = processar_repo(gh, repo, cfg)
             avaliacoes.append(linha)
             if not linha["motivo_descarte"]:
                 aprovados += 1
-                print(f"  [{aprovados:>3}] {linha['repo']}: {linha['dora']} "
-                      f"(freq {linha['deployment_frequency']}/sem, CFR {linha['cfr_ci']})")
+                print(f"  [{aprovados:>3}/{cfg['max_repositorios']}] {linha['repo']}: "
+                      f"{linha['dora']} (freq {linha['deployment_frequency']}/sem, "
+                      f"CFR {linha['cfr_ci']})", flush=True)
+            elif i % PASSO_PROGRESSO == 0:
+                # A coleta completa leva horas; sem isso o log fica mudo por
+                # minutos sempre que vários candidatos seguidos são descartados.
+                print(f"  ... {i} candidatos avaliados, {aprovados} aprovados, "
+                      f"{gh.chamadas_api} chamadas à API", flush=True)
     except KeyboardInterrupt:
         print("\nInterrompido. Salvando o que já foi coletado "
               "(rodar o comando de novo continua do cache).")
