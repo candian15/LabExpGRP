@@ -1,0 +1,44 @@
+% Rascunho da parte do Artur na Metodologia (template SBC).
+% Trechos [[ ]] dependem da validação manual.
+
+\subsection{Definições operacionais}
+
+Como o GitHub não registra \textit{deploys} nem falhas em produção, todas as métricas são
+medidas por \textit{proxies}. Consideramos \textit{deploy} uma release publicada
+(\texttt{draft = false}) no \textit{default branch}; pré-releases e tags entram apenas como
+variantes na análise de sensibilidade. A frequência de deploy é o número de releases na
+janela dividido pelo número de semanas da janela.
+
+O \textit{lead time} é calculado em duas variantes a partir de \texttt{compare/\{anterior\}...\{R\}}
+e de \texttt{commit.author.date}: (a) por release, pela diferença entre a data da release e a
+do commit mais antigo incluído; (b) por commit, sobre todos os commits de todas as releases.
+Releases sem release anterior ou com \texttt{compare} em 404 são ignoradas e contabilizadas.
+
+A \textit{change failure rate} (CFR) também tem duas variantes: (a) a proporção de execuções
+de CI com falha, que mede falha de \textit{pipeline} e não de produção; (b) a proporção de
+releases seguidas de uma release corretiva em até 7 dias.
+
+\subsection{CFR (b): proxy de entrega}
+
+Uma release R é considerada falha se for seguida, em até 7 dias, por uma release corretiva.
+O CFR (b) é o número de releases que falharam dividido pelo número de releases avaliadas.
+Releases publicadas nos últimos 7 dias da janela não podem ser avaliadas e ficam fora do
+denominador (censura), sendo reportadas.
+
+Como o GitHub não indica se uma release é corretiva, usamos uma heurística sobre a versão
+(SemVer) e o assunto dos commits entre as duas releases. R é comparada apenas com a release
+seguinte; lemos só o assunto do commit; quando o \texttt{compare} falha, vale apenas o critério
+de versão; a primeira release do repositório nunca é corretiva. Testamos três versões:
+v1 (só \textit{patch} ou algum commit \texttt{fix}/\texttt{revert}/\texttt{hotfix}), v2 (só
+\textit{patch} ou ao menos metade dos commits são correções) e v3 (\textit{patch} com algum
+commit de correção, ou ao menos metade dos commits são correções).
+
+\subsection{Validação da heurística}
+
+Sorteamos 60 repositórios da amostra final (\texttt{random\_state = 42}) e 5 releases de cada
+um. Os três integrantes rotularam as releases de forma independente, sem ver a saída da
+heurística, e o consenso seguiu o protocolo da seção de validação manual. Comparamos a
+heurística com o consenso por precisão, recall e F1 da classe ``corretiva'', aceitando
+F1 $\geq$ 0,70.
+
+[[ Tabela com v1, v2 e v3 e a versão escolhida ]]
