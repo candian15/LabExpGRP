@@ -8,18 +8,23 @@ janela:
 
 busca:
   # A busca devolve no máximo 1.000 resultados por consulta, então ela é fatiada
-  # por faixa de estrelas. Para chegar a 300+ repositórios, acrescente faixas.
+  # por faixa de estrelas. Cada faixa abaixo tem mais candidatos que o teto, então
+  # entram os 1.000 mais estrelados de cada uma: ~7.000 candidatos, o suficiente
+  # para fechar a amostra. O viés disso está registrado no README.
   faixas_estrelas:
-    - 1000..2000
-    - 2000..5000
-    - 5000..15000
-    - ">15000"
+    - 1000..1500
+    - 1500..2500
+    - 2500..4000
+    - 4000..7000
+    - 7000..12000
+    - 12000..25000
+    - ">25000"
   linguagens: []   # vazio = todas; ex.: [Python, TypeScript] fatia ainda mais a busca
 
 selecao:
   min_releases: 5       # critério mínimo de inclusão (seção 3 do enunciado)
   min_runs: 50
-  max_repositorios: 100 # 100 no Lab03S01; 300+ no Lab03S02
+  max_repositorios: 350 # 100 no Lab03S01; ≥ 300 com folga no Lab03S02
   contribuidores: true  # 1 chamada extra por repositório aprovado (quartis da RQ 06)
 
 cache: cache            # respostas da API; permite retomar a coleta

@@ -157,6 +157,13 @@ validade):
 
 - A busca do GitHub devolve no máximo 1.000 resultados por consulta. Se uma faixa de estrelas
   tiver mais que isso, o script avisa no log e a faixa precisa ser fatiada no `config.yaml`.
+- **A amostra não é aleatória**, e isso é uma ameaça à validade externa. As faixas de estrelas
+  do `config.yaml` têm, cada uma, muito mais repositórios que o teto de 1.000 da busca (a faixa
+  `1000..1500` sozinha tem mais de 20 mil), então entram os **1.000 mais estrelados de cada
+  faixa**, e não um sorteio dela. Fatiar em faixas estreitas reduz o efeito, mas não o elimina:
+  dentro de qualquer faixa com mais de 1.000 repositórios, os menos estrelados nunca são vistos.
+  A amostra é lida como "repositórios populares que usam Actions", não como "repositórios com
+  mais de 1.000 estrelas".
 - `compare` entre duas releases devolve no máximo 250 commits por página; o cliente segue a
   paginação, mas releases gigantes ficam caras em cota.
 - `commit.author.date` é distorcido por rebase e squash merge, o que afeta o lead time.
