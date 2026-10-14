@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import logging
 from datetime import date, datetime, timezone
+from itertools import zip_longest
 
 from metricas.cfr import runs_validos
 from pipeline.coleta_releases import listar_releases, releases_na_janela
@@ -71,13 +72,29 @@ def buscar_candidatos(
     linguagens: list[str] | tuple[str, ...] = (),
     limite_por_consulta: int = TETO_BUSCA,
 ) -> list[dict]:
-    """Candidatos de todas as faixas, sem repetição, do mais para o menos estrelado."""
-    encontrados: dict[str, dict] = {}
+    """Candidatos de todas as faixas, sem repetição, intercalados entre as faixas.
+
+    A ordem alterna as faixas (o mais estrelado da primeira, o mais estrelado da
+    segunda, ...) em vez de ser uma lista única por estrelas. Isso importa porque
+    a coleta para ao fechar ``max_repositorios`` aprovados: em ordem de estrelas,
+    a amostra inteira sairia da faixa mais estrelada, e a RQ 06 compara justamente
+    quartis de popularidade. Intercalando, a amostra cobre todos os níveis de
+    popularidade desde o começo.
+
+    A ordem é determinística: mesmas faixas, mesma amostra.
+    """
+    por_faixa: list[list[dict]] = []
+    vistos: set[str] = set()
     for faixa in faixas:
+        lista: list[dict] = []
         for linguagem in linguagens or [None]:
             for repo in _buscar_uma(gh, consulta(faixa, linguagem), limite_por_consulta):
-                encontrados.setdefault(repo["full_name"], repo)
-    return sorted(encontrados.values(), key=lambda r: -(r.get("stargazers_count") or 0))
+                if repo["full_name"] not in vistos:
+                    vistos.add(repo["full_name"])
+                    lista.append(repo)
+        lista.sort(key=lambda r: -(r.get("stargazers_count") or 0))
+        por_faixa.append(lista)
+    return [r for grupo in zip_longest(*por_faixa) for r in grupo if r is not None]
 
 
 def metadados(repo: dict, referencia: date) -> dict:

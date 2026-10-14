@@ -54,7 +54,7 @@ avaliados. Se a coleta cair, o mesmo comando continua de onde parou.
 | Chave | O que faz |
 |---|---|
 | `janela.inicio` / `janela.fim` | Janela de observação (12 meses, datas fixadas pelo professor). Inclusiva nas duas pontas |
-| `busca.faixas_estrelas` | Faixas de `stars:` consultadas. A busca devolve no máximo 1.000 resultados por consulta, então faixas largas precisam ser fatiadas |
+| `busca.faixas_estrelas` | Faixas de `stars:` consultadas. A busca devolve no máximo 1.000 resultados por consulta, então faixas largas precisam ser fatiadas. Os candidatos são avaliados **alternando as faixas**, para a amostra cobrir todos os níveis de popularidade |
 | `busca.linguagens` | Vazio = todas. Preencher fatia a busca ainda mais (`language:`) |
 | `selecao.min_releases` / `min_runs` | Critério mínimo de inclusão (5 releases e 50 runs válidos na janela) |
 | `selecao.max_repositorios` | Para a coleta ao fechar essa quantidade de repositórios aprovados |
@@ -148,6 +148,10 @@ validade):
 
 - A busca do GitHub devolve no máximo 1.000 resultados por consulta. Se uma faixa de estrelas
   tiver mais que isso, o script avisa no log e a faixa precisa ser fatiada no `config.yaml`.
+- A ordem de avaliação **alterna as faixas de estrelas** em vez de ir do mais para o menos
+  estrelado. A coleta para ao fechar `selecao.max_repositorios` aprovados: em ordem de
+  estrelas, a amostra inteira sairia da faixa mais popular, e a RQ 06 compara justamente
+  quartis de popularidade. A ordem é determinística, então a amostra é reproduzível.
 - **A amostra não é aleatória**, e isso é uma ameaça à validade externa. As faixas de estrelas
   do `config.yaml` têm, cada uma, muito mais repositórios que o teto de 1.000 da busca (a faixa
   `1000..1500` sozinha tem mais de 20 mil), então entram os **1.000 mais estrelados de cada

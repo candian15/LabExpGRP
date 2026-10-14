@@ -151,12 +151,31 @@ class BuscaFalsa:
         yield {"total_count": len(itens), "items": itens}
 
 
-def test_busca_junta_faixas_sem_repetir_e_ordena_por_estrelas():
+def test_busca_junta_faixas_sem_repetir():
     a, b = repo_json("a/a", estrelas=1200), repo_json("b/b", estrelas=9000)
     gh = BuscaFalsa({"stars:1000..2000": [a], "stars:>2000": [b, a]})
     achados = buscar_candidatos(gh, ["1000..2000", ">2000"])
-    assert [r["full_name"] for r in achados] == ["b/b", "a/a"]
+    # "a/a" aparece nas duas consultas e entra uma única vez, na primeira faixa.
+    assert [r["full_name"] for r in achados] == ["a/a", "b/b"]
     assert gh.consultas == ["stars:1000..2000", "stars:>2000"]
+
+
+def test_busca_intercala_as_faixas_em_vez_de_ordenar_por_estrelas():
+    """A coleta para ao fechar a amostra; se a ordem fosse por estrelas, todos os
+    aprovados sairiam da faixa mais estrelada e a RQ 06 ficaria sem quartis."""
+    baixa = [repo_json(f"baixa/{i}", estrelas=1000 + i) for i in range(3)]
+    alta = [repo_json(f"alta/{i}", estrelas=90000 - i) for i in range(3)]
+    gh = BuscaFalsa({"stars:1000..1500": baixa, "stars:>25000": alta})
+    nomes = [r["full_name"] for r in buscar_candidatos(gh, ["1000..1500", ">25000"])]
+    # Dentro de cada faixa, do mais estrelado para o menos; entre faixas, alternando.
+    assert nomes == ["baixa/2", "alta/0", "baixa/1", "alta/1", "baixa/0", "alta/2"]
+
+
+def test_busca_lida_com_faixas_de_tamanhos_diferentes():
+    gh = BuscaFalsa({"stars:1000..1500": [repo_json("a/1"), repo_json("a/2")],
+                     "stars:>25000": [repo_json("b/1")]})
+    nomes = [r["full_name"] for r in buscar_candidatos(gh, ["1000..1500", ">25000"])]
+    assert nomes == ["a/1", "b/1", "a/2"]
 
 
 def test_busca_respeita_o_teto_de_resultados_por_consulta():
