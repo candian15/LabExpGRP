@@ -33,12 +33,18 @@ class ClienteFalso:
         return list(valor)
 
 
-def rel(tag, data, draft=False, prerelease=False):
-    return {"tag_name": tag, "published_at": data, "draft": draft, "prerelease": prerelease}
+def rel(tag, data, draft=False, prerelease=False, body=None):
+    r = {"tag_name": tag, "published_at": data, "draft": draft, "prerelease": prerelease}
+    if body is not None:
+        r["body"] = body
+    return r
 
 
-def commit(sha, data):
-    return {"sha": sha, "commit": {"author": {"date": data}}}
+def commit(sha, data, message=None):
+    c = {"sha": sha, "commit": {"author": {"date": data}}}
+    if message is not None:
+        c["commit"]["message"] = message
+    return c
 
 
 @pytest.fixture
@@ -80,8 +86,28 @@ def test_releases_na_janela(cliente):
 
 def test_commits_entre_releases_guarda_author_date(cliente):
     commits = listar_commits_entre(cliente, "o", "r", "v1.0", "v1.1")
-    assert commits[0] == {"sha": "a", "data": "2025-03-02T00:00:00Z"}
+    assert commits[0] == {"sha": "a", "data": "2025-03-02T00:00:00Z", "message": ""}
     assert len(commits) == 3
+
+
+def test_commits_entre_releases_guarda_mensagem():
+    c = ClienteFalso([], {"v1...v2": [commit("a", "2025-03-02T00:00:00Z", "fix: crash ao abrir\n\ndetalhes")]})
+    commits = listar_commits_entre(c, "o", "r", "v1", "v2")
+    assert commits[0]["message"] == "fix: crash ao abrir\n\ndetalhes"
+
+
+def test_release_guarda_body_e_vai_para_a_comparacao():
+    c = ClienteFalso(
+        [rel("v1.0", "2025-02-01T00:00:00Z", body="primeira"), rel("v1.1", "2025-03-01T00:00:00Z", body="notas")],
+        {"v1.0...v1.1": []},
+    )
+    assert [r["body"] for r in listar_releases(c, "o", "r")] == ["primeira", "notas"]
+    r = coletar_releases(c, "o", "r", INICIO, FIM)
+    assert [x["body"] for x in r["comparacoes"]] == ["primeira", "notas"]
+
+
+def test_body_ausente_vira_string_vazia(cliente):
+    assert all(r["body"] == "" for r in listar_releases(cliente, "o", "r"))
 
 
 def test_tag_com_caracter_especial_e_escapada():
