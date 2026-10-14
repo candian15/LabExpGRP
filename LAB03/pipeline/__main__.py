@@ -28,6 +28,7 @@ from pathlib import Path
 import yaml
 
 from metricas.cfr import cfr_ci
+from metricas.cfr_entrega import VERSAO_PADRAO, cfr_entrega
 from metricas.classificacao import classificar
 from metricas.frequencia import deployment_frequency
 from metricas.lead_time import lead_time_repo
@@ -46,6 +47,12 @@ CAMPOS_SAIDA = CAMPOS_META + [
     "lead_time_a_horas",
     "lead_time_b_horas",
     "cfr_ci",
+    "cfr_entrega",
+    "cfrb_releases_avaliadas",
+    "cfrb_releases_falha",
+    "cfrb_releases_censuradas",
+    "cfrb_releases_corretivas",
+    "cfrb_heuristica",
     "recuperacao_horas",
     "n_episodios",
     "prop_censurados",
@@ -87,28 +94,40 @@ def carregar_config(caminho: str | Path) -> dict:
         "min_runs": int(selecao.get("min_runs", 50)),
         "max_repositorios": int(selecao.get("max_repositorios", 100)),
         "contribuidores": bool(selecao.get("contribuidores", True)),
+        "heuristica_cfrb": str(selecao.get("heuristica_cfrb") or VERSAO_PADRAO),
         "cache": cfg.get("cache", "cache"),
         "saida": cfg.get("saida", "dados"),
     }
 
 
 def metricas_do_repo(linha: dict, comparacoes: list[dict], runs: list[dict],
-                     inicio: date, fim: date) -> dict:
+                     inicio: date, fim: date, heuristica: str = VERSAO_PADRAO) -> dict:
     """Métricas DORA e classificação de um repositório selecionado (sem rede).
 
+    Calcula as duas variantes obrigatórias de cada métrica com variante: lead
+    time (a) e (b), e CFR (a), proxy de CI, e (b), proxy de entrega.
+
     A classificação usa a combinação de referência C1 da RQ 07: release como
-    unidade de deploy, lead time na variante (a) e CFR na variante (a).
+    unidade de deploy, lead time na variante (a) e CFR na variante (a). As
+    variantes (b) ficam no CSV para a análise de sensibilidade da RQ 07.
     """
     lead = lead_time_repo(comparacoes)
     recuperacao = tempo_recuperacao(runs)
     frequencia = deployment_frequency(linha["n_releases"], inicio, fim)
     cfr = cfr_ci(runs)
+    entrega = cfr_entrega(comparacoes, fim, heuristica)
     return {
         "deployment_frequency": round(frequencia, 4),
         "lead_time_a_horas": _arredondar(lead["lead_time_a_horas"]),
         "lead_time_b_horas": _arredondar(lead["lead_time_b_horas"]),
         "releases_404": lead["releases_404"],
         "cfr_ci": _arredondar(cfr),
+        "cfr_entrega": _arredondar(entrega["cfr_entrega"]),
+        "cfrb_releases_avaliadas": entrega["n_avaliadas"],
+        "cfrb_releases_falha": entrega["n_falhas"],
+        "cfrb_releases_censuradas": entrega["n_censuradas"],
+        "cfrb_releases_corretivas": entrega["n_corretivas"],
+        "cfrb_heuristica": heuristica,
         "recuperacao_horas": _arredondar(recuperacao["mediana_horas"]),
         "n_episodios": recuperacao["n_episodios"],
         "prop_censurados": _arredondar(recuperacao["prop_censurados"]),
@@ -130,7 +149,7 @@ def processar_repo(gh: GitHubClient, repo: dict, cfg: dict) -> dict:
             owner, nome = linha["repo"].split("/", 1)
             dados = coletar_releases(gh, owner, nome, cfg["inicio"], cfg["fim"])
             linha.update(metricas_do_repo(linha, dados["comparacoes"], runs,
-                                          cfg["inicio"], cfg["fim"]))
+                                          cfg["inicio"], cfg["fim"], cfg["heuristica_cfrb"]))
         return linha
     except ErroGitHub as e:
         log.warning("%s descartado por erro da API: %s", repo.get("full_name"), e)
@@ -148,7 +167,8 @@ def main(argv: list[str] | None = None) -> None:
 
     cfg = carregar_config(args.config)
     gh = GitHubClient(cache_dir=cfg["cache"])
-    print(f"Janela: {cfg['inicio']} a {cfg['fim']} | alvo: {cfg['max_repositorios']} repositórios")
+    print(f"Janela: {cfg['inicio']} a {cfg['fim']} | alvo: {cfg['max_repositorios']} repositórios"
+          f" | heurística do CFR (b): {cfg['heuristica_cfrb']}")
 
     candidatos = buscar_candidatos(gh, cfg["faixas_estrelas"], cfg["linguagens"])
     print(f"{len(candidatos)} candidatos na busca.\n")

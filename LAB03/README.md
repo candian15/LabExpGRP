@@ -45,6 +45,7 @@ continua). Para testar, baixe `max_repositorios` para 2 ou 3 antes de rodar a am
 | `selecao.min_releases` / `min_runs` | Critério mínimo de inclusão (5 releases e 50 runs válidos na janela) |
 | `selecao.max_repositorios` | Para a coleta ao fechar essa quantidade de repositórios aprovados |
 | `selecao.contribuidores` | Conta contribuidores dos aprovados (1 chamada extra cada), para os quartis da RQ 06 |
+| `selecao.heuristica_cfrb` | Versão da heurística de release corretiva usada no CFR (b): `v1`, `v2` ou `v3` |
 | `cache` / `saida` | Pastas do cache da API e dos CSVs |
 
 ## Saídas
@@ -103,7 +104,8 @@ lead time na variante (a) e CFR na variante (a).
 | [pipeline/coleta_runs.py](pipeline/coleta_runs.py) | Workflow runs, com a janela dividida por mês |
 | [metricas/frequencia.py](metricas/frequencia.py) | Deployment frequency (RQ 01) |
 | [metricas/lead_time.py](metricas/lead_time.py) | Lead time, variantes (a) e (b) (RQ 02) |
-| [metricas/cfr.py](metricas/cfr.py) | Change failure rate, variante (a) (RQ 03) |
+| [metricas/cfr.py](metricas/cfr.py) | Change failure rate, variante (a), proxy de CI (RQ 03) |
+| [metricas/cfr_entrega.py](metricas/cfr_entrega.py) | Change failure rate, variante (b), proxy de entrega (RQ 03) |
 | [metricas/recuperacao.py](metricas/recuperacao.py) | Tempo de recuperação e censura (RQ 04) |
 | [metricas/classificacao.py](metricas/classificacao.py) | Notas por métrica e categoria DORA (RQ 07) |
 

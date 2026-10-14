@@ -26,6 +26,7 @@ selecao:
   min_runs: 50
   max_repositorios: 350 # 100 no Lab03S01; ≥ 300 com folga no Lab03S02
   contribuidores: true  # 1 chamada extra por repositório aprovado (quartis da RQ 06)
+  heuristica_cfrb: v1   # versão da heurística de release corretiva (metricas/cfr_entrega.py)
 
 cache: cache            # respostas da API; permite retomar a coleta
 saida: dados            # repositorios.csv e funil.csv
