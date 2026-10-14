@@ -50,47 +50,22 @@ continua). Para testar, baixe `max_repositorios` para 2 ou 3 antes de rodar a am
 
 ## Saídas
 
-`dados/funil.csv` — quantos repositórios sobraram em cada etapa da seleção e o motivo de cada
-descarte (tabela da seção de Metodologia do artigo):
-
-| Coluna | Tipo | Significado |
-|---|---|---|
-| `etapa` | texto | Critério aplicado, na ordem em que a seleção aplica os filtros |
-| `restantes` | inteiro | Repositórios que ainda estavam na amostra depois da etapa |
-| `descartados` | inteiro | Quantos a etapa descartou |
-| `motivo_do_descarte` | texto | Por que os descartados saíram |
+`dados/funil.csv` — quantos repositórios sobraram em cada etapa da seleção e o motivo de
+cada descarte (tabela da seção de Metodologia do artigo).
 
 `dados/repositorios.csv` — uma linha por repositório **avaliado** (os descartados ficam na
 tabela, com as métricas em branco e o motivo preenchido).
 
-### Dicionário de dados de `repositorios.csv`
+### Dicionário de dados
 
-| Coluna | Tipo | Unidade | Origem / fórmula |
-|---|---|---|---|
-| `repo` | texto | — | `full_name` da API (`owner/nome`) |
-| `estrelas` | inteiro | — | `stargazers_count` |
-| `linguagem` | texto | — | `language` (vazio quando a API não define) |
-| `default_branch` | texto | — | `default_branch`; é o único branch considerado |
-| `criado_em` | data | ISO | `created_at` (UTC) |
-| `idade_anos` | decimal | anos | `(fim da janela − created_at) / 365,25` |
-| `contribuidores` | inteiro | — | última página de `/contributors?per_page=1&anon=true` |
-| `n_releases` | inteiro | — | Releases publicadas na janela (`draft = false`, sem pré-releases) |
-| `n_runs_validos` | inteiro | — | Workflow runs de `push` no default branch na janela com `conclusion` de sucesso ou falha |
-| `deployment_frequency` | decimal | releases/semana | **RQ 01**: `n_releases / semanas da janela` |
-| `lead_time_a_horas` | decimal | horas | **RQ 02a**: mediana, por release, de `published_at − data do commit mais antigo da release` |
-| `lead_time_b_horas` | decimal | horas | **RQ 02b**: mediana de `published_at − data do commit`, sobre todos os commits de todas as releases |
-| `cfr_ci` | decimal | fração 0–1 | **RQ 03a**: `falhas / (falhas + sucessos)` nos runs válidos |
-| `recuperacao_horas` | decimal | horas | **RQ 04**: mediana dos episódios de falha (`updated_at` do sucesso − `run_started_at` da primeira falha), por workflow |
-| `n_episodios` | inteiro | — | Episódios de falha encontrados (concluídos + censurados) |
-| `prop_censurados` | decimal | fração 0–1 | Episódios que não terminaram dentro da janela |
-| `releases_404` | inteiro | — | Releases ignoradas no lead time porque o `compare` deu 404 (tag apagada/reescrita) |
-| `nota_frequencia`, `nota_lead_time`, `nota_cfr`, `nota_recuperacao` | inteiro | 1–4 | Nota de cada métrica: 4 Elite, 3 High, 2 Medium, 1 Low |
-| `dora_nota` | inteiro | 1–4 | Mediana das quatro notas, arredondada para baixo |
-| `dora` | texto | — | Nome da categoria de `dora_nota` |
-| `motivo_descarte` | texto | — | Vazio = entrou na amostra; ver `funil.csv` |
+Todas as colunas dos dois CSVs — nome, tipo, unidade e fórmula ou origem na API —
+estão em [DICIONARIO_DADOS.md](DICIONARIO_DADOS.md), junto com os cortes da
+classificação DORA e o que precisa ser igual para reproduzir os números.
 
-A classificação é a combinação de referência **C1** da RQ 07: release como unidade de deploy,
-lead time na variante (a) e CFR na variante (a).
+As métricas com variante obrigatória aparecem nas duas: lead time (a) por release
+e (b) por commit, CFR (a) proxy de CI e (b) proxy de entrega. A classificação usa
+a combinação de referência **C1** da RQ 07 (release como deploy, lead time (a),
+CFR (a)); as variantes (b) ficam no CSV para a análise de sensibilidade.
 
 ## Módulos
 
