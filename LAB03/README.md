@@ -155,6 +155,15 @@ validade):
   dentro de qualquer faixa com mais de 1.000 repositórios, os menos estrelados nunca são vistos.
   A amostra é lida como "repositórios populares que usam Actions", não como "repositórios com
   mais de 1.000 estrelas".
+- **O `total_count` de `/actions/runs` satura em 2.500.** Um mês e a sua primeira metade podem
+  devolver os mesmos 2.500, então esse número não serve para saber quantos runs existem de
+  verdade. A subdivisão da janela usa ele como gatilho e desce até o nível de dia, mas em um
+  repositório com mais de 1.000 runs em um único dia não há como garantir que tudo foi
+  capturado: o script avisa no log, e esses casos entram como ameaça à validade de construto
+  do CFR (a) e do tempo de recuperação. Os avisos ficam em `cache/coleta.log`.
+- Repositórios muito ativos custam centenas de chamadas e muita memória. A coleta de runs
+  resume cada página assim que ela chega, em vez de juntar todas antes, senão a recursão de
+  subdivisão estoura a memória em máquinas com pouca RAM.
 - `compare` entre duas releases devolve no máximo 250 commits por página; o cliente segue a
   paginação, mas releases gigantes ficam caras em cota.
 - `commit.author.date` é distorcido por rebase e squash merge, o que afeta o lead time.

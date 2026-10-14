@@ -22,7 +22,7 @@ import logging
 from datetime import date, timedelta
 from pathlib import Path
 
-from pipeline.github_client import GitHubClient
+from pipeline.github_client import GitHubClient, extrair_itens
 
 log = logging.getLogger(__name__)
 
@@ -91,7 +91,14 @@ def coletar_runs_periodo(gh: GitHubClient, owner: str, repo: str, branch: str, a
             owner, repo, total, a, TETO_BUSCA,
         )
 
-    return [_resumir_run(r) for r in gh.listar(caminho, params)]
+    # Resume cada run página por página, em vez de materializar todas as páginas
+    # cruas antes (gh.listar). Num repositório muito ativo, o JSON cru de um
+    # período passa de centenas de MB, e a recursão acima mantém vários períodos
+    # abertos ao mesmo tempo. O resultado é idêntico, só não acumula o cru.
+    resumidos = []
+    for pagina in gh.paginar(caminho, params):
+        resumidos.extend(_resumir_run(r) for r in extrair_itens(pagina))
+    return resumidos
 
 
 def coletar_runs(gh: GitHubClient, owner: str, repo: str, branch: str, inicio: date, fim: date) -> list[dict]:

@@ -35,6 +35,14 @@ class ClienteFalso:
             return self.runs
         raise AssertionError(f"caminho inesperado: {caminho}")
 
+    def paginar(self, caminho, params=None):
+        self.caminhos.append(caminho)
+        if "/actions/runs" in caminho:
+            for i in range(0, len(self.runs), 100):
+                yield {"workflow_runs": self.runs[i:i + 100]}
+        else:
+            raise AssertionError(f"caminho inesperado: {caminho}")
+
     def contar_por_link(self, caminho, params=None):
         self.caminhos.append(caminho)
         return 42

@@ -55,6 +55,12 @@ class ClienteFalso:
     def listar(self, caminho, params=None):
         return self._runs(params)[:1000]
 
+    def paginar(self, caminho, params=None):
+        """Páginas de 100, com o teto de 1.000 resultados da API."""
+        runs = self._runs(params)[:1000]
+        for i in range(0, len(runs), 100):
+            yield {"workflow_runs": runs[i:i + 100]}
+
 
 def test_coleta_por_mes_e_ordena():
     gh = ClienteFalso({date(2026, 1, 5): 2, date(2026, 2, 5): 3})
@@ -73,8 +79,10 @@ def test_mes_acima_do_teto_e_subdividido():
 
 def test_filtra_runs_de_outro_branch_ou_evento():
     class Misturado(ClienteFalso):
-        def listar(self, caminho, params=None):
-            base = super().listar(caminho, params)
+        # Sobrescreve _runs (e não listar/paginar) para a mistura valer em qualquer
+        # caminho que a coleta use para ler as páginas.
+        def _runs(self, params):
+            base = super()._runs(params)
             base[0] = {**base[0], "head_branch": "dev"}
             base[1] = {**base[1], "event": "schedule"}
             return base
@@ -96,3 +104,17 @@ def test_salvar_csv(tmp_path):
     linhas = saida.read_text().strip().splitlines()
     assert linhas[0].startswith("repo,id,workflow_id")
     assert len(linhas) == 3
+
+
+def test_coleta_pagina_em_vez_de_materializar_tudo():
+    """Regressão: num repositório muito ativo, juntar todas as páginas cruas de
+    um período antes de resumir estourava a memória (a recursão de subdivisão
+    mantém vários períodos abertos ao mesmo tempo)."""
+
+    class SemListar(ClienteFalso):
+        def listar(self, caminho, params=None):
+            raise AssertionError("a coleta de runs deve paginar, não materializar as páginas")
+
+    gh = SemListar({date(2026, 1, 5): 250})
+    runs = coletar_runs(gh, "o", "r", "main", date(2026, 1, 1), date(2026, 1, 31))
+    assert len(runs) == 250
