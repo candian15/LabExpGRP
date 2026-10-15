@@ -1,0 +1,9 @@
+etapa,restantes,descartados,motivo_do_descarte
+"candidatos da busca (stars:1000..1500, stars:1500..2500, stars:2500..4000, stars:4000..7000, stars:7000..12000, stars:12000..25000, stars:>25000)",7000,,
+avaliados,1565,5435,não avaliado: a amostra já estava completa
+usam GitHub Actions,1057,508,total_count = 0 em /actions/workflows
+≥ 5 releases publicadas na janela,439,618,menos de 5 releases publicadas na janela
+runs mensuráveis na janela,433,6,mais de 1.000 runs em um único dia: a API não devolve todos
+≥ 50 workflow runs válidos na janela,352,81,menos de 50 runs válidos de push no default branch
+coleta concluída sem erro,350,2,erro definitivo da API (ver log)
+amostra final,350,,
