@@ -147,7 +147,9 @@ class GitHubClient:
         for tentativa in range(1, self.max_tentativas + 1):
             try:
                 resp = self.session.get(url, timeout=self.timeout)
-            except (requests.ConnectionError, requests.Timeout) as e:
+            # ChunkedEncodingError: a conexão caiu no meio do corpo da resposta.
+            # Não herda de ConnectionError, por isso precisa estar listado à parte.
+            except (requests.ConnectionError, requests.Timeout, requests.exceptions.ChunkedEncodingError) as e:
                 if tentativa == self.max_tentativas:
                     raise
                 log.warning("Erro de rede (%s); tentativa %d, aguardando %.0fs", e, tentativa, espera)

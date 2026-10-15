@@ -122,6 +122,14 @@ def test_erro_de_rede_tambem_tem_backoff(novo_cliente):
     assert esperas == [1]
 
 
+def test_conexao_cortada_no_meio_da_resposta_tem_backoff(novo_cliente):
+    """IncompleteRead derrubou a coleta completa: não é ConnectionError, mas é transitório."""
+    erro = requests.exceptions.ChunkedEncodingError("Connection broken: IncompleteRead")
+    gh, _, esperas = novo_cliente([erro, RespostaFalsa(dados="ok")])
+    assert gh.get("/x") == "ok"
+    assert esperas == [1]
+
+
 def test_espera_reset_quando_cota_acaba(novo_cliente):
     sem_cota = RespostaFalsa(403, headers={"X-RateLimit-Remaining": "0", "X-RateLimit-Reset": "1100"})
     gh, sessao, esperas = novo_cliente([sem_cota, RespostaFalsa(dados="ok")], agora=1000.0)
