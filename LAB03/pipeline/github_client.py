@@ -142,11 +142,14 @@ class GitHubClient:
             return resp.status_code in (403, 429)
         return False
 
-    def _requisitar(self, url: str) -> dict:
+    def _requisitar(self, url: str, corpo: str | None = None) -> dict:
         espera = 1.0
         for tentativa in range(1, self.max_tentativas + 1):
             try:
-                resp = self.session.get(url, timeout=self.timeout)
+                if corpo is None:
+                    resp = self.session.get(url, timeout=self.timeout)
+                else:  # GraphQL: POST com o corpo JSON
+                    resp = self.session.post(url, data=corpo, timeout=self.timeout)
             # ChunkedEncodingError: a conexão caiu no meio do corpo da resposta.
             # Não herda de ConnectionError, por isso precisa estar listado à parte.
             except (requests.ConnectionError, requests.Timeout, requests.exceptions.ChunkedEncodingError) as e:
@@ -239,6 +242,25 @@ class GitHubClient:
             if m:
                 return int(m.group(1))
         return len(extrair_itens(registro["data"]))
+
+    def graphql(self, query: str, variables: dict | None = None) -> dict:
+        """Consulta a API GraphQL (com cache, rate limit e backoff como no REST).
+
+        Usado para as tags (RQ 07): numa consulta só vêm 100 tags já com a data do
+        commit, o que pela REST custaria uma chamada por tag.
+        """
+        corpo = json.dumps({"query": query, "variables": variables or {}}, sort_keys=True)
+        chave = API_URL + "/graphql#" + corpo  # a URL é a mesma; o corpo diferencia o cache
+        registro = self._ler_cache(chave)
+        if registro is not None:
+            self.acertos_cache += 1
+        else:
+            registro = self._requisitar(API_URL + "/graphql", corpo)
+            erros = (registro.get("data") or {}).get("errors")
+            if erros:
+                raise ErroGitHub(registro["status"], "graphql", str(erros)[:200])
+            self._gravar_cache(chave, registro)
+        return (registro.get("data") or {}).get("data") or {}
 
     def rate_limit(self) -> dict:
         """Situação atual da cota (não consome cota e nunca usa cache)."""
