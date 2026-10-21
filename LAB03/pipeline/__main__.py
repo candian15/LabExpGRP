@@ -164,16 +164,25 @@ def main(argv: list[str] | None = None) -> None:
         description="Pipeline de coleta das métricas DORA (Lab03).",
     )
     ap.add_argument("--config", default="config.yaml", help="arquivo de configuração")
+    ap.add_argument("--repos", help="arquivo com um owner/nome por linha: pula a busca e "
+                                    "avalia só esses repositórios (replicação)")
+    ap.add_argument("--saida", help="pasta dos CSVs (padrão: a do config.yaml)")
     args = ap.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
 
     cfg = carregar_config(args.config)
+    cfg["saida"] = args.saida or cfg["saida"]
     gh = GitHubClient(cache_dir=cfg["cache"])
+
+    if args.repos:
+        nomes = Path(args.repos).read_text(encoding="utf-8-sig").split()
+        candidatos = [gh.get(f"/repos/{nome}") for nome in nomes]
+        cfg["max_repositorios"] = len(candidatos)
+    else:
+        candidatos = buscar_candidatos(gh, cfg["faixas_estrelas"], cfg["linguagens"])
     print(f"Janela: {cfg['inicio']} a {cfg['fim']} | alvo: {cfg['max_repositorios']} repositórios"
           f" | heurística do CFR (b): {cfg['heuristica_cfrb']}")
-
-    candidatos = buscar_candidatos(gh, cfg["faixas_estrelas"], cfg["linguagens"])
-    print(f"{len(candidatos)} candidatos na busca.\n")
+    print(f"{len(candidatos)} candidatos.\n")
 
     avaliacoes: list[dict] = []
     aprovados = 0
@@ -201,7 +210,7 @@ def main(argv: list[str] | None = None) -> None:
     funil.salvar_csv(avaliacoes, CAMPOS_SAIDA, pasta / "repositorios.csv")
     tabela = funil.linhas(avaliacoes, cfg["min_releases"], cfg["min_runs"],
                           n_candidatos=len(candidatos),
-                          busca=", ".join(f"stars:{f}" for f in cfg["faixas_estrelas"]))
+                          busca=args.repos or ", ".join(f"stars:{f}" for f in cfg["faixas_estrelas"]))
     funil.salvar_csv(tabela, funil.CAMPOS, pasta / "funil.csv")
 
     print("\nFunil de seleção:")

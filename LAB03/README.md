@@ -8,6 +8,8 @@ acesso ao GitHub, como PyGithub).
 
 ## Setup
 
+Requer Python 3.10 ou mais novo (o CI usa o 3.12).
+
 ```bash
 cd LAB03
 python -m venv venv && source venv/bin/activate   # Windows: venv\Scripts\activate
@@ -48,6 +50,23 @@ tail -f cache/coleta.log
 
 O log traz uma linha por repositório aprovado e uma linha de progresso a cada 25 candidatos
 avaliados. Se a coleta cair, o mesmo comando continua de onde parou.
+
+## Replicação com uma lista de repositórios
+
+Para rodar só alguns repositórios (por exemplo, 30 sorteados do nosso
+`dados/repositorios.csv`), crie um arquivo com um `owner/nome` por linha e passe-o em
+`--repos`. A busca é pulada e o resto do pipeline é o mesmo. Use `--saida` para não
+sobrescrever o nosso CSV:
+
+```bash
+python -m pipeline --repos amostra.txt --saida replicacao
+```
+
+O resultado fica em `replicacao/repositorios.csv`, com as mesmas colunas de
+`dados/repositorios.csv`, e pode ser comparado com ele pela coluna `repo`. A janela é
+fixa, então as métricas devem bater. Só `estrelas` e `contribuidores` mudam com a
+data da execução. Com cache vazio, 30 repositórios levam por volta de 1 a 2 horas,
+dependendo de quão ativos eles são.
 
 ### config.yaml
 
@@ -97,6 +116,9 @@ CFR (a)); as variantes (b) ficam no CSV para a análise de sensibilidade.
 | [metricas/cfr_entrega.py](metricas/cfr_entrega.py) | Change failure rate, variante (b), proxy de entrega (RQ 03) |
 | [metricas/recuperacao.py](metricas/recuperacao.py) | Tempo de recuperação e censura (RQ 04) |
 | [metricas/classificacao.py](metricas/classificacao.py) | Notas por métrica e categoria DORA (RQ 07) |
+| [pipeline/coleta_variantes.py](pipeline/coleta_variantes.py) | Pré-releases (C2) e tags (C3) da RQ 07 → `dados/variantes.csv` |
+| [validacao/](validacao/PROTOCOLO.md) | Amostra-ouro, kappa de Fleiss, consenso e avaliação da heurística |
+| [analises/](analises/) | Análises das RQs (`python -m analises.rq5_correlacao`, `rq6_fatores`, `rq7_sensibilidade`, `rq8_rework`) |
 
 Os módulos de coleta também rodam sozinhos, para inspecionar um repositório:
 
