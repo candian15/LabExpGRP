@@ -1,0 +1,360 @@
+﻿nivel;repo;tag;link;link_commits;tipo_projeto;entregas_reais;corretiva;observacao
+repositorio;AprilNEA/OpenLogi;;https://github.com/AprilNEA/OpenLogi;;aplicacao;sim;;
+release;AprilNEA/OpenLogi;v0.1.0;https://github.com/AprilNEA/OpenLogi/releases/tag/v0.1.0;https://github.com/AprilNEA/OpenLogi/compare/v0.0.1...v0.1.0;;;nao;
+release;AprilNEA/OpenLogi;v0.2.0;https://github.com/AprilNEA/OpenLogi/releases/tag/v0.2.0;https://github.com/AprilNEA/OpenLogi/compare/v0.1.4...v0.2.0;;;nao;
+release;AprilNEA/OpenLogi;v0.5.0;https://github.com/AprilNEA/OpenLogi/releases/tag/v0.5.0;https://github.com/AprilNEA/OpenLogi/compare/v0.4.1...v0.5.0;;;nao;
+release;AprilNEA/OpenLogi;v0.6.22;https://github.com/AprilNEA/OpenLogi/releases/tag/v0.6.22;https://github.com/AprilNEA/OpenLogi/compare/v0.6.21...v0.6.22;;;nao;duvida: fixes + refatoracoes de GUI
+release;AprilNEA/OpenLogi;v0.7.3;https://github.com/AprilNEA/OpenLogi/releases/tag/v0.7.3;https://github.com/AprilNEA/OpenLogi/compare/v0.7.2...v0.7.3;;;sim;sem notas - commits de fix/ci/docs
+repositorio;BOINC/boinc;;https://github.com/BOINC/boinc;;aplicacao;sim;;tags misturam client e wrappers
+release;BOINC/boinc;dockerwrapper/13;https://github.com/BOINC/boinc/releases/tag/dockerwrapper/13;https://github.com/BOINC/boinc/compare/dockerwrapper/11...dockerwrapper/13;;;sim;
+release;BOINC/boinc;dockerwrapper/16;https://github.com/BOINC/boinc/releases/tag/dockerwrapper/16;https://github.com/BOINC/boinc/compare/client_release/8.2/8.2.8...dockerwrapper/16;;;sim;
+release;BOINC/boinc;dockerwrapper/18;https://github.com/BOINC/boinc/releases/tag/dockerwrapper/18;https://github.com/BOINC/boinc/compare/vboxwrapper/26212...dockerwrapper/18;;;sim;
+release;BOINC/boinc;client_release/8.2/8.2.11;https://github.com/BOINC/boinc/releases/tag/client_release/8.2/8.2.11;https://github.com/BOINC/boinc/compare/dockerwrapper/21...client_release/8.2/8.2.11;;;sim;
+release;BOINC/boinc;client_release/8.2/8.2.13;https://github.com/BOINC/boinc/releases/tag/client_release/8.2/8.2.13;https://github.com/BOINC/boinc/compare/client_release/8.2/8.2.12...client_release/8.2/8.2.13;;;sim;hotfix
+repositorio;BtbN/FFmpeg-Builds;;https://github.com/BtbN/FFmpeg-Builds;;outro;sim;;builds automaticos mensais de binarios do FFmpeg
+release;BtbN/FFmpeg-Builds;autobuild-2025-10-31-13-40;https://github.com/BtbN/FFmpeg-Builds/releases/tag/autobuild-2025-10-31-13-40;https://github.com/BtbN/FFmpeg-Builds/compare/autobuild-2025-09-30-13-19...autobuild-2025-10-31-13-40;;;nao;build automatico - so atualizacao de dependencias
+release;BtbN/FFmpeg-Builds;autobuild-2026-03-31-13-11;https://github.com/BtbN/FFmpeg-Builds/releases/tag/autobuild-2026-03-31-13-11;https://github.com/BtbN/FFmpeg-Builds/compare/autobuild-2026-02-28-12-59...autobuild-2026-03-31-13-11;;;nao;build automatico - manutencao
+release;BtbN/FFmpeg-Builds;autobuild-2026-06-30-13-34;https://github.com/BtbN/FFmpeg-Builds/releases/tag/autobuild-2026-06-30-13-34;https://github.com/BtbN/FFmpeg-Builds/compare/autobuild-2026-05-31-13-22...autobuild-2026-06-30-13-34;;;nao;build automatico - manutencao
+release;BtbN/FFmpeg-Builds;autobuild-2026-07-31-14-10;https://github.com/BtbN/FFmpeg-Builds/releases/tag/autobuild-2026-07-31-14-10;https://github.com/BtbN/FFmpeg-Builds/compare/autobuild-2026-06-30-13-34...autobuild-2026-07-31-14-10;;;nao;build automatico - varios fixes de build
+release;BtbN/FFmpeg-Builds;autobuild-2026-08-31-13-27;https://github.com/BtbN/FFmpeg-Builds/releases/tag/autobuild-2026-08-31-13-27;https://github.com/BtbN/FFmpeg-Builds/compare/autobuild-2026-07-31-14-10...autobuild-2026-08-31-13-27;;;nao;build automatico - manutencao
+repositorio;Faugus/faugus-launcher;;https://github.com/Faugus/faugus-launcher;;aplicacao;sim;;
+release;Faugus/faugus-launcher;1.9.6;https://github.com/Faugus/faugus-launcher/releases/tag/1.9.6;https://github.com/Faugus/faugus-launcher/compare/1.9.5...1.9.6;;;nao;duvida: 1 fix + 2 novidades
+release;Faugus/faugus-launcher;1.13.6;https://github.com/Faugus/faugus-launcher/releases/tag/1.13.6;https://github.com/Faugus/faugus-launcher/compare/1.13.5...1.13.6;;;sim;
+release;Faugus/faugus-launcher;1.15.11;https://github.com/Faugus/faugus-launcher/releases/tag/1.15.11;https://github.com/Faugus/faugus-launcher/compare/1.15.10...1.15.11;;;nao;
+release;Faugus/faugus-launcher;1.18.5;https://github.com/Faugus/faugus-launcher/releases/tag/1.18.5;https://github.com/Faugus/faugus-launcher/compare/1.18.4...1.18.5;;;sim;hotfix + separacao de opcao
+release;Faugus/faugus-launcher;2.4.0;https://github.com/Faugus/faugus-launcher/releases/tag/2.4.0;https://github.com/Faugus/faugus-launcher/compare/2.3.0...2.4.0;;;nao;
+repositorio;JanDeDobbeleer/oh-my-posh;;https://github.com/JanDeDobbeleer/oh-my-posh;;cli;sim;;
+release;JanDeDobbeleer/oh-my-posh;v27.6.0;https://github.com/JanDeDobbeleer/oh-my-posh/releases/tag/v27.6.0;https://github.com/JanDeDobbeleer/oh-my-posh/compare/v27.5.2...v27.6.0;;;nao;duvida: 2 fixes e 1 feature
+release;JanDeDobbeleer/oh-my-posh;v29.0.0;https://github.com/JanDeDobbeleer/oh-my-posh/releases/tag/v29.0.0;https://github.com/JanDeDobbeleer/oh-my-posh/compare/v28.10.0...v29.0.0;;;nao;
+release;JanDeDobbeleer/oh-my-posh;v29.2.2;https://github.com/JanDeDobbeleer/oh-my-posh/releases/tag/v29.2.2;https://github.com/JanDeDobbeleer/oh-my-posh/compare/v29.2.1...v29.2.2;;;sim;
+release;JanDeDobbeleer/oh-my-posh;v29.9.1;https://github.com/JanDeDobbeleer/oh-my-posh/releases/tag/v29.9.1;https://github.com/JanDeDobbeleer/oh-my-posh/compare/v29.9.0...v29.9.1;;;sim;
+release;JanDeDobbeleer/oh-my-posh;v29.24.0;https://github.com/JanDeDobbeleer/oh-my-posh/releases/tag/v29.24.0;https://github.com/JanDeDobbeleer/oh-my-posh/compare/v29.23.0...v29.24.0;;;nao;
+repositorio;LinuxCNC/linuxcnc;;https://github.com/LinuxCNC/linuxcnc;;aplicacao;sim;;
+release;LinuxCNC/linuxcnc;v2.9.8;https://github.com/LinuxCNC/linuxcnc/releases/tag/v2.9.8;https://github.com/LinuxCNC/linuxcnc/compare/v2.9.7...v2.9.8;;;sim;sem notas - commits de fix
+release;LinuxCNC/linuxcnc;v2.9.9;https://github.com/LinuxCNC/linuxcnc/releases/tag/v2.9.9;https://github.com/LinuxCNC/linuxcnc/compare/v2.9.8...v2.9.9;;;sim;sem notas - maioria fixes/backports
+release;LinuxCNC/linuxcnc;v2.9.10;https://github.com/LinuxCNC/linuxcnc/releases/tag/v2.9.10;https://github.com/LinuxCNC/linuxcnc/compare/v2.9.9...v2.9.10;;;sim;sem notas
+release;LinuxCNC/linuxcnc;v2.10.0-pre2;https://github.com/LinuxCNC/linuxcnc/releases/tag/v2.10.0-pre2;https://github.com/LinuxCNC/linuxcnc/compare/v2.9.10...v2.10.0-pre2;;;nao;pre-release de versao nova
+repositorio;Panniantong/Agent-Reach;;https://github.com/Panniantong/Agent-Reach;;cli;sim;;
+release;Panniantong/Agent-Reach;v1.2.0;https://github.com/Panniantong/Agent-Reach/releases/tag/v1.2.0;https://github.com/Panniantong/Agent-Reach/compare/v1.1.0...v1.2.0;;;nao;
+release;Panniantong/Agent-Reach;v1.3.0;https://github.com/Panniantong/Agent-Reach/releases/tag/v1.3.0;https://github.com/Panniantong/Agent-Reach/compare/v1.2.0...v1.3.0;;;nao;
+release;Panniantong/Agent-Reach;v1.4.0;https://github.com/Panniantong/Agent-Reach/releases/tag/v1.4.0;https://github.com/Panniantong/Agent-Reach/compare/v1.3.0...v1.4.0;;;nao;
+release;Panniantong/Agent-Reach;v1.4.2;https://github.com/Panniantong/Agent-Reach/releases/tag/v1.4.2;https://github.com/Panniantong/Agent-Reach/compare/v1.4.1...v1.4.2;;;nao;duvida: release mista
+release;Panniantong/Agent-Reach;v1.5.0;https://github.com/Panniantong/Agent-Reach/releases/tag/v1.5.0;https://github.com/Panniantong/Agent-Reach/compare/v1.4.2...v1.5.0;;;nao;
+repositorio;RooCodeInc/Roo-Code;;https://github.com/RooCodeInc/Roo-Code;;aplicacao;sim;;extensao do VS Code
+release;RooCodeInc/Roo-Code;v3.36.5;https://github.com/RooCodeInc/Roo-Code/releases/tag/v3.36.5;https://github.com/RooCodeInc/Roo-Code/compare/v3.36.4...v3.36.5;;;nao;duvida: release mista
+release;RooCodeInc/Roo-Code;v3.36.6;https://github.com/RooCodeInc/Roo-Code/releases/tag/v3.36.6;https://github.com/RooCodeInc/Roo-Code/compare/v3.36.5...v3.36.6;;;nao;
+release;RooCodeInc/Roo-Code;v3.36.14;https://github.com/RooCodeInc/Roo-Code/releases/tag/v3.36.14;https://github.com/RooCodeInc/Roo-Code/compare/v3.36.13...v3.36.14;;;nao;duvida: release mista
+release;RooCodeInc/Roo-Code;v3.41.2;https://github.com/RooCodeInc/Roo-Code/releases/tag/v3.41.2;https://github.com/RooCodeInc/Roo-Code/compare/v3.41.1...v3.41.2;;;sim;3 fixes e 1 add
+release;RooCodeInc/Roo-Code;v3.47.2;https://github.com/RooCodeInc/Roo-Code/releases/tag/v3.47.2;https://github.com/RooCodeInc/Roo-Code/compare/v3.47.1...v3.47.2;;;sim;2 fixes e 1 add
+repositorio;Significant-Gravitas/AutoGPT;;https://github.com/Significant-Gravitas/AutoGPT;;aplicacao;sim;;
+release;Significant-Gravitas/AutoGPT;autogpt-platform-beta-v0.6.55;https://github.com/Significant-Gravitas/AutoGPT/releases/tag/autogpt-platform-beta-v0.6.55;https://github.com/Significant-Gravitas/AutoGPT/compare/autogpt-platform-beta-v0.6.54...autogpt-platform-beta-v0.6.55;;;nao;
+release;Significant-Gravitas/AutoGPT;autogpt-platform-beta-v0.6.57;https://github.com/Significant-Gravitas/AutoGPT/releases/tag/autogpt-platform-beta-v0.6.57;https://github.com/Significant-Gravitas/AutoGPT/compare/autogpt-platform-beta-v0.6.56...autogpt-platform-beta-v0.6.57;;;nao;
+release;Significant-Gravitas/AutoGPT;autogpt-platform-beta-v0.6.58;https://github.com/Significant-Gravitas/AutoGPT/releases/tag/autogpt-platform-beta-v0.6.58;https://github.com/Significant-Gravitas/AutoGPT/compare/autogpt-platform-beta-v0.6.57...autogpt-platform-beta-v0.6.58;;;nao;
+release;Significant-Gravitas/AutoGPT;autogpt-platform-beta-v0.7.0;https://github.com/Significant-Gravitas/AutoGPT/releases/tag/autogpt-platform-beta-v0.7.0;https://github.com/Significant-Gravitas/AutoGPT/compare/autogpt-platform-beta-v0.6.70...autogpt-platform-beta-v0.7.0;;;nao;
+release;Significant-Gravitas/AutoGPT;autogpt-platform-beta-v0.7.3;https://github.com/Significant-Gravitas/AutoGPT/releases/tag/autogpt-platform-beta-v0.7.3;https://github.com/Significant-Gravitas/AutoGPT/compare/autogpt-platform-beta-v0.7.2...autogpt-platform-beta-v0.7.3;;;nao;
+repositorio;Skyvern-AI/skyvern;;https://github.com/Skyvern-AI/skyvern;;aplicacao;sim;;tambem tem SDK
+release;Skyvern-AI/skyvern;v0.2.16;https://github.com/Skyvern-AI/skyvern/releases/tag/v0.2.16;https://github.com/Skyvern-AI/skyvern/compare/v0.2.15...v0.2.16;;;nao;
+release;Skyvern-AI/skyvern;v0.2.21;https://github.com/Skyvern-AI/skyvern/releases/tag/v0.2.21;https://github.com/Skyvern-AI/skyvern/compare/v0.2.20...v0.2.21;;;nao;
+release;Skyvern-AI/skyvern;v1.0.35;https://github.com/Skyvern-AI/skyvern/releases/tag/v1.0.35;https://github.com/Skyvern-AI/skyvern/compare/v1.0.34...v1.0.35;;;sim;duvida: maioria fixes mas ha feats
+release;Skyvern-AI/skyvern;v1.0.49;https://github.com/Skyvern-AI/skyvern/releases/tag/v1.0.49;https://github.com/Skyvern-AI/skyvern/compare/v1.0.48...v1.0.49;;;sim;duvida: maioria fixes mas ha feats
+release;Skyvern-AI/skyvern;v1.0.53;https://github.com/Skyvern-AI/skyvern/releases/tag/v1.0.53;https://github.com/Skyvern-AI/skyvern/compare/v1.0.52...v1.0.53;;;nao;duvida: release mista
+repositorio;VueTorrent/VueTorrent;;https://github.com/VueTorrent/VueTorrent;;aplicacao;sim;;
+release;VueTorrent/VueTorrent;v2.30.2;https://github.com/VueTorrent/VueTorrent/releases/tag/v2.30.2;https://github.com/VueTorrent/VueTorrent/compare/v2.30.1...v2.30.2;;;sim;
+release;VueTorrent/VueTorrent;v2.32.0;https://github.com/VueTorrent/VueTorrent/releases/tag/v2.32.0;https://github.com/VueTorrent/VueTorrent/compare/v2.31.3...v2.32.0;;;nao;
+release;VueTorrent/VueTorrent;v2.34.0;https://github.com/VueTorrent/VueTorrent/releases/tag/v2.34.0;https://github.com/VueTorrent/VueTorrent/compare/v2.33.0...v2.34.0;;;nao;
+release;VueTorrent/VueTorrent;v2.34.1;https://github.com/VueTorrent/VueTorrent/releases/tag/v2.34.1;https://github.com/VueTorrent/VueTorrent/compare/v2.34.0...v2.34.1;;;sim;
+release;VueTorrent/VueTorrent;v2.36.0;https://github.com/VueTorrent/VueTorrent/releases/tag/v2.36.0;https://github.com/VueTorrent/VueTorrent/compare/v2.35.0...v2.36.0;;;nao;
+repositorio;WordPress/gutenberg;;https://github.com/WordPress/gutenberg;;aplicacao;sim;;plugin do WordPress
+release;WordPress/gutenberg;v22.4.1;https://github.com/WordPress/gutenberg/releases/tag/v22.4.1;https://github.com/WordPress/gutenberg/compare/v22.4.0...v22.4.1;;;sim;
+release;WordPress/gutenberg;v22.8.2;https://github.com/WordPress/gutenberg/releases/tag/v22.8.2;https://github.com/WordPress/gutenberg/compare/v22.8.1...v22.8.2;;;sim;
+release;WordPress/gutenberg;v23.5.3;https://github.com/WordPress/gutenberg/releases/tag/v23.5.3;https://github.com/WordPress/gutenberg/compare/v23.5.2...v23.5.3;;;sim;
+release;WordPress/gutenberg;v23.7.0;https://github.com/WordPress/gutenberg/releases/tag/v23.7.0;https://github.com/WordPress/gutenberg/compare/v23.6.2...v23.7.0;;;nao;
+release;WordPress/gutenberg;v23.8.0;https://github.com/WordPress/gutenberg/releases/tag/v23.8.0;https://github.com/WordPress/gutenberg/compare/v23.7.2...v23.8.0;;;nao;
+repositorio;actiontech/sqle;;https://github.com/actiontech/sqle;;aplicacao;sim;;algumas releases sem tag (untagged)
+release;actiontech/sqle;v4.2509.0;https://github.com/actiontech/sqle/releases/tag/v4.2509.0;https://github.com/actiontech/sqle/compare/v4.2508.0...v4.2509.0;;;nao;
+release;actiontech/sqle;v4.2511.0;https://github.com/actiontech/sqle/releases/tag/v4.2511.0;https://github.com/actiontech/sqle/compare/v4.2510.0...v4.2511.0;;;nao;
+release;actiontech/sqle;v4.2603.0;https://github.com/actiontech/sqle/releases/tag/v4.2603.0;https://github.com/actiontech/sqle/compare/v4.2601.0...v4.2603.0;;;nao;
+release;actiontech/sqle;untagged-8c92bf7deddc25b5b200;https://github.com/actiontech/sqle/releases/tag/untagged-8c92bf7deddc25b5b200;https://github.com/actiontech/sqle/compare/v4.2606.0...untagged-8c92bf7deddc25b5b200;;;nao;release sem tag (draft)
+release;actiontech/sqle;untagged-6b1b918ff20445087a64;https://github.com/actiontech/sqle/releases/tag/untagged-6b1b918ff20445087a64;https://github.com/actiontech/sqle/compare/untagged-8c92bf7deddc25b5b200...untagged-6b1b918ff20445087a64;;;nao;release sem tag - 2 features e 4 fixes
+repositorio;argoproj/argo-cd;;https://github.com/argoproj/argo-cd;;aplicacao;sim;;
+release;argoproj/argo-cd;v3.2.5;https://github.com/argoproj/argo-cd/releases/tag/v3.2.5;https://github.com/argoproj/argo-cd/compare/v3.0.22...v3.2.5;;;sim;
+release;argoproj/argo-cd;v3.3.2;https://github.com/argoproj/argo-cd/releases/tag/v3.3.2;https://github.com/argoproj/argo-cd/compare/v3.2.7...v3.3.2;;;sim;
+release;argoproj/argo-cd;v3.4.6;https://github.com/argoproj/argo-cd/releases/tag/v3.4.6;https://github.com/argoproj/argo-cd/compare/v3.4.5...v3.4.6;;;sim;
+release;argoproj/argo-cd;v3.4.7;https://github.com/argoproj/argo-cd/releases/tag/v3.4.7;https://github.com/argoproj/argo-cd/compare/v3.3.14...v3.4.7;;;sim;
+release;argoproj/argo-cd;v3.5.1;https://github.com/argoproj/argo-cd/releases/tag/v3.5.1;https://github.com/argoproj/argo-cd/compare/v3.4.7...v3.5.1;;;sim;
+repositorio;astral-sh/uv;;https://github.com/astral-sh/uv;;cli;sim;;
+release;astral-sh/uv;0.11.0;https://github.com/astral-sh/uv/releases/tag/0.11.0;https://github.com/astral-sh/uv/compare/0.10.12...0.11.0;;;nao;
+release;astral-sh/uv;0.11.10;https://github.com/astral-sh/uv/releases/tag/0.11.10;https://github.com/astral-sh/uv/compare/0.11.9...0.11.10;;;sim;
+release;astral-sh/uv;0.11.21;https://github.com/astral-sh/uv/releases/tag/0.11.21;https://github.com/astral-sh/uv/compare/0.11.20...0.11.21;;;nao;duvida: release mista
+release;astral-sh/uv;0.11.22;https://github.com/astral-sh/uv/releases/tag/0.11.22;https://github.com/astral-sh/uv/compare/0.11.21...0.11.22;;;nao;duvida: release mista
+release;astral-sh/uv;0.12.5;https://github.com/astral-sh/uv/releases/tag/0.12.5;https://github.com/astral-sh/uv/compare/0.12.4...0.12.5;;;nao;
+repositorio;ayangweb/BongoCat;;https://github.com/ayangweb/BongoCat;;aplicacao;sim;;
+release;ayangweb/BongoCat;v0.8.2;https://github.com/ayangweb/BongoCat/releases/tag/v0.8.2;https://github.com/ayangweb/BongoCat/compare/v0.8.1...v0.8.2;;;nao;
+release;ayangweb/BongoCat;v0.9.0;https://github.com/ayangweb/BongoCat/releases/tag/v0.9.0;https://github.com/ayangweb/BongoCat/compare/v0.8.2...v0.9.0;;;nao;
+release;ayangweb/BongoCat;v1.0.0;https://github.com/ayangweb/BongoCat/releases/tag/v1.0.0;https://github.com/ayangweb/BongoCat/compare/v0.9.0...v1.0.0;;;nao;
+release;ayangweb/BongoCat;v2.0.0;https://github.com/ayangweb/BongoCat/releases/tag/v2.0.0;https://github.com/ayangweb/BongoCat/compare/v1.1.0...v2.0.0;;;nao;
+release;ayangweb/BongoCat;v2.0.1;https://github.com/ayangweb/BongoCat/releases/tag/v2.0.1;https://github.com/ayangweb/BongoCat/compare/v2.0.0...v2.0.1;;;sim;1 fix + traducoes
+repositorio;benbusby/whoogle-search;;https://github.com/benbusby/whoogle-search;;aplicacao;sim;;
+release;benbusby/whoogle-search;v1.1.0;https://github.com/benbusby/whoogle-search/releases/tag/v1.1.0;https://github.com/benbusby/whoogle-search/compare/v0.9.4...v1.1.0;;;nao;
+release;benbusby/whoogle-search;v1.1.2;https://github.com/benbusby/whoogle-search/releases/tag/v1.1.2;https://github.com/benbusby/whoogle-search/compare/v1.1.0...v1.1.2;;;nao;re-release com revert e novo gerador de UA
+release;benbusby/whoogle-search;v1.2.2;https://github.com/benbusby/whoogle-search/releases/tag/v1.2.2;https://github.com/benbusby/whoogle-search/compare/v1.1.2...v1.2.2;;;nao;
+release;benbusby/whoogle-search;v1.2.3;https://github.com/benbusby/whoogle-search/releases/tag/v1.2.3;https://github.com/benbusby/whoogle-search/compare/v1.2.2...v1.2.3;;;nao;manutencao: bumps de dependencias
+release;benbusby/whoogle-search;v1.2.4;https://github.com/benbusby/whoogle-search/releases/tag/v1.2.4;https://github.com/benbusby/whoogle-search/compare/v1.2.3...v1.2.4;;;nao;release final - manutencao
+repositorio;bufbuild/buf;;https://github.com/bufbuild/buf;;cli;sim;;
+release;bufbuild/buf;v1.58.0;https://github.com/bufbuild/buf/releases/tag/v1.58.0;https://github.com/bufbuild/buf/compare/v1.57.2...v1.58.0;;;nao;duvida: release mista
+release;bufbuild/buf;v1.59.0;https://github.com/bufbuild/buf/releases/tag/v1.59.0;https://github.com/bufbuild/buf/compare/v1.58.0...v1.59.0;;;nao;
+release;bufbuild/buf;v1.65.0;https://github.com/bufbuild/buf/releases/tag/v1.65.0;https://github.com/bufbuild/buf/compare/v1.64.0...v1.65.0;;;nao;
+release;bufbuild/buf;v1.68.1;https://github.com/bufbuild/buf/releases/tag/v1.68.1;https://github.com/bufbuild/buf/compare/v1.68.0...v1.68.1;;;sim;
+release;bufbuild/buf;v1.68.3;https://github.com/bufbuild/buf/releases/tag/v1.68.3;https://github.com/bufbuild/buf/compare/v1.68.2...v1.68.3;;;sim;
+repositorio;chartdb/chartdb;;https://github.com/chartdb/chartdb;;aplicacao;sim;;
+release;chartdb/chartdb;v1.17.0;https://github.com/chartdb/chartdb/releases/tag/v1.17.0;https://github.com/chartdb/chartdb/compare/v1.16.0...v1.17.0;;;nao;duvida: 1 feature e muitos fixes
+release;chartdb/chartdb;v1.18.0;https://github.com/chartdb/chartdb/releases/tag/v1.18.0;https://github.com/chartdb/chartdb/compare/v1.17.0...v1.18.0;;;nao;
+release;chartdb/chartdb;v1.18.1;https://github.com/chartdb/chartdb/releases/tag/v1.18.1;https://github.com/chartdb/chartdb/compare/v1.18.0...v1.18.1;;;sim;
+release;chartdb/chartdb;v1.20.0;https://github.com/chartdb/chartdb/releases/tag/v1.20.0;https://github.com/chartdb/chartdb/compare/v1.19.0...v1.20.0;;;nao;
+release;chartdb/chartdb;v1.20.1;https://github.com/chartdb/chartdb/releases/tag/v1.20.1;https://github.com/chartdb/chartdb/compare/v1.20.0...v1.20.1;;;sim;
+repositorio;czlonkowski/n8n-mcp;;https://github.com/czlonkowski/n8n-mcp;;aplicacao;sim;;servidor MCP
+release;czlonkowski/n8n-mcp;v2.16.0;https://github.com/czlonkowski/n8n-mcp/releases/tag/v2.16.0;https://github.com/czlonkowski/n8n-mcp/compare/v2.15.6...v2.16.0;;;nao;
+release;czlonkowski/n8n-mcp;v2.18.6;https://github.com/czlonkowski/n8n-mcp/releases/tag/v2.18.6;https://github.com/czlonkowski/n8n-mcp/compare/v2.18.5...v2.18.6;;;nao;
+release;czlonkowski/n8n-mcp;v2.31.4;https://github.com/czlonkowski/n8n-mcp/releases/tag/v2.31.4;https://github.com/czlonkowski/n8n-mcp/compare/v2.31.3...v2.31.4;;;sim;
+release;czlonkowski/n8n-mcp;v2.34.4;https://github.com/czlonkowski/n8n-mcp/releases/tag/v2.34.4;https://github.com/czlonkowski/n8n-mcp/compare/v2.34.3...v2.34.4;;;sim;
+release;czlonkowski/n8n-mcp;v2.50.5;https://github.com/czlonkowski/n8n-mcp/releases/tag/v2.50.5;https://github.com/czlonkowski/n8n-mcp/compare/v2.50.4...v2.50.5;;;sim;sem notas - commit unico de fix
+repositorio;earendil-works/pi;;https://github.com/earendil-works/pi;;cli;sim;;toolkit com bibliotecas e CLI - duvida entre cli e biblioteca
+release;earendil-works/pi;v0.12.11;https://github.com/earendil-works/pi/releases/tag/v0.12.11;https://github.com/earendil-works/pi/compare/v0.12.10...v0.12.11;;;nao;duvida: release mista
+release;earendil-works/pi;v0.18.6;https://github.com/earendil-works/pi/releases/tag/v0.18.6;https://github.com/earendil-works/pi/compare/v0.18.5...v0.18.6;;;nao;sem conteudo relevante - incerto
+release;earendil-works/pi;v0.39.1;https://github.com/earendil-works/pi/releases/tag/v0.39.1;https://github.com/earendil-works/pi/compare/v0.39.0...v0.39.1;;;sim;
+release;earendil-works/pi;v0.45.7;https://github.com/earendil-works/pi/releases/tag/v0.45.7;https://github.com/earendil-works/pi/compare/v0.45.6...v0.45.7;;;nao;notas so trazem add mas commits tem fixes
+release;earendil-works/pi;v0.63.1;https://github.com/earendil-works/pi/releases/tag/v0.63.1;https://github.com/earendil-works/pi/compare/v0.63.0...v0.63.1;;;sim;1 add e varios fixes
+repositorio;elastic/elasticsearch;;https://github.com/elastic/elasticsearch;;aplicacao;sim;;
+release;elastic/elasticsearch;v9.1.5;https://github.com/elastic/elasticsearch/releases/tag/v9.1.5;https://github.com/elastic/elasticsearch/compare/v8.19.4...v9.1.5;;;sim;sem notas detalhadas - patch
+release;elastic/elasticsearch;v8.19.6;https://github.com/elastic/elasticsearch/releases/tag/v8.19.6;https://github.com/elastic/elasticsearch/compare/v9.2.0...v8.19.6;;;sim;sem notas detalhadas - patch
+release;elastic/elasticsearch;v8.19.9;https://github.com/elastic/elasticsearch/releases/tag/v8.19.9;https://github.com/elastic/elasticsearch/compare/v9.1.8...v8.19.9;;;sim;sem notas detalhadas - patch
+release;elastic/elasticsearch;v8.19.14;https://github.com/elastic/elasticsearch/releases/tag/v8.19.14;https://github.com/elastic/elasticsearch/compare/v9.2.8...v8.19.14;;;sim;sem notas detalhadas - patch
+release;elastic/elasticsearch;v9.4.1;https://github.com/elastic/elasticsearch/releases/tag/v9.4.1;https://github.com/elastic/elasticsearch/compare/v9.4.0...v9.4.1;;;sim;patch
+repositorio;external-secrets/external-secrets;;https://github.com/external-secrets/external-secrets;;aplicacao;sim;;operator Kubernetes
+release;external-secrets/external-secrets;v1.1.1;https://github.com/external-secrets/external-secrets/releases/tag/v1.1.1;https://github.com/external-secrets/external-secrets/compare/helm-chart-1.1.0...v1.1.1;;;sim;duvida: patch com algumas features
+release;external-secrets/external-secrets;helm-chart-2.0.0;https://github.com/external-secrets/external-secrets/releases/tag/helm-chart-2.0.0;https://github.com/external-secrets/external-secrets/compare/v2.0.0...helm-chart-2.0.0;;;nao;release do helm chart
+release;external-secrets/external-secrets;helm-chart-2.6.0;https://github.com/external-secrets/external-secrets/releases/tag/helm-chart-2.6.0;https://github.com/external-secrets/external-secrets/compare/v2.6.0...helm-chart-2.6.0;;;nao;release do helm chart
+release;external-secrets/external-secrets;v2.8.0;https://github.com/external-secrets/external-secrets/releases/tag/v2.8.0;https://github.com/external-secrets/external-secrets/compare/helm-chart-2.7.0...v2.8.0;;;nao;
+release;external-secrets/external-secrets;helm-chart-2.9.0;https://github.com/external-secrets/external-secrets/releases/tag/helm-chart-2.9.0;https://github.com/external-secrets/external-secrets/compare/v2.9.0...helm-chart-2.9.0;;;nao;release do helm chart
+repositorio;facebook/lexical;;https://github.com/facebook/lexical;;biblioteca;sim;;
+release;facebook/lexical;v0.36.2;https://github.com/facebook/lexical/releases/tag/v0.36.2;https://github.com/facebook/lexical/compare/v0.36.1...v0.36.2;;;sim;
+release;facebook/lexical;v0.37.0;https://github.com/facebook/lexical/releases/tag/v0.37.0;https://github.com/facebook/lexical/compare/v0.36.2...v0.37.0;;;nao;duvida: CVE + features experimentais
+release;facebook/lexical;v0.38.2;https://github.com/facebook/lexical/releases/tag/v0.38.2;https://github.com/facebook/lexical/compare/v0.38.1...v0.38.2;;;sim;
+release;facebook/lexical;v0.40.0;https://github.com/facebook/lexical/releases/tag/v0.40.0;https://github.com/facebook/lexical/compare/v0.39.0...v0.40.0;;;nao;
+release;facebook/lexical;v0.43.0;https://github.com/facebook/lexical/releases/tag/v0.43.0;https://github.com/facebook/lexical/compare/v0.42.0...v0.43.0;;;nao;
+repositorio;fatedier/frp;;https://github.com/fatedier/frp;;aplicacao;sim;;servidor/cliente de proxy
+release;fatedier/frp;v0.66.0;https://github.com/fatedier/frp/releases/tag/v0.66.0;https://github.com/fatedier/frp/compare/v0.65.0...v0.66.0;;;nao;
+release;fatedier/frp;v0.67.0;https://github.com/fatedier/frp/releases/tag/v0.67.0;https://github.com/fatedier/frp/compare/v0.66.0...v0.67.0;;;nao;
+release;fatedier/frp;v0.69.1;https://github.com/fatedier/frp/releases/tag/v0.69.1;https://github.com/fatedier/frp/compare/v0.69.0...v0.69.1;;;nao;
+release;fatedier/frp;v0.70.1;https://github.com/fatedier/frp/releases/tag/v0.70.1;https://github.com/fatedier/frp/compare/v0.70.0...v0.70.1;;;sim;
+release;fatedier/frp;v0.71.0;https://github.com/fatedier/frp/releases/tag/v0.71.0;https://github.com/fatedier/frp/compare/v0.70.1...v0.71.0;;;nao;duvida: 1 feature e 3 fixes de seguranca
+repositorio;feeluown/FeelUOwn;;https://github.com/feeluown/FeelUOwn;;aplicacao;sim;;
+release;feeluown/FeelUOwn;v5.0;https://github.com/feeluown/FeelUOwn/releases/tag/v5.0;https://github.com/feeluown/FeelUOwn/compare/v4.1.16...v5.0;;;nao;sem notas
+release;feeluown/FeelUOwn;v5.0.1;https://github.com/feeluown/FeelUOwn/releases/tag/v5.0.1;https://github.com/feeluown/FeelUOwn/compare/v5.0...v5.0.1;;;nao;sem notas - compatibilidade Python
+release;feeluown/FeelUOwn;v5.0.2;https://github.com/feeluown/FeelUOwn/releases/tag/v5.0.2;https://github.com/feeluown/FeelUOwn/compare/v5.0.1...v5.0.2;;;sim;sem notas - fix de teste
+release;feeluown/FeelUOwn;v5.1;https://github.com/feeluown/FeelUOwn/releases/tag/v5.1;https://github.com/feeluown/FeelUOwn/compare/v5.1a0...v5.1;;;nao;sem notas
+release;feeluown/FeelUOwn;v5.1.1;https://github.com/feeluown/FeelUOwn/releases/tag/v5.1.1;https://github.com/feeluown/FeelUOwn/compare/v5.1...v5.1.1;;;nao;sem notas - mista
+repositorio;fleetdm/fleet;;https://github.com/fleetdm/fleet;;aplicacao;sim;;
+release;fleetdm/fleet;fleet-v4.73.4;https://github.com/fleetdm/fleet/releases/tag/fleet-v4.73.4;https://github.com/fleetdm/fleet/compare/fleet-v4.73.3...fleet-v4.73.4;;;sim;
+release;fleetdm/fleet;fleet-v4.76.0;https://github.com/fleetdm/fleet/releases/tag/fleet-v4.76.0;https://github.com/fleetdm/fleet/compare/fleet-v4.75.1...fleet-v4.76.0;;;nao;
+release;fleetdm/fleet;fleet-v4.76.2;https://github.com/fleetdm/fleet/releases/tag/fleet-v4.76.2;https://github.com/fleetdm/fleet/compare/fleet-v4.77.1...fleet-v4.76.2;;;sim;
+release;fleetdm/fleet;fleet-v4.80.2;https://github.com/fleetdm/fleet/releases/tag/fleet-v4.80.2;https://github.com/fleetdm/fleet/compare/fleet-v4.80.1...fleet-v4.80.2;;;sim;
+release;fleetdm/fleet;fleet-v4.84.2;https://github.com/fleetdm/fleet/releases/tag/fleet-v4.84.2;https://github.com/fleetdm/fleet/compare/fleet-v4.84.1...fleet-v4.84.2;;;sim;
+repositorio;gepa-ai/gepa;;https://github.com/gepa-ai/gepa;;biblioteca;sim;;
+release;gepa-ai/gepa;v0.0.18;https://github.com/gepa-ai/gepa/releases/tag/v0.0.18;https://github.com/gepa-ai/gepa/compare/v0.0.17...v0.0.18;;;nao;duvida: release mista
+release;gepa-ai/gepa;v0.0.23;https://github.com/gepa-ai/gepa/releases/tag/v0.0.23;https://github.com/gepa-ai/gepa/compare/v0.0.22...v0.0.23;;;nao;
+release;gepa-ai/gepa;v0.0.27;https://github.com/gepa-ai/gepa/releases/tag/v0.0.27;https://github.com/gepa-ai/gepa/compare/v0.0.26...v0.0.27;;;nao;
+release;gepa-ai/gepa;v0.1.1;https://github.com/gepa-ai/gepa/releases/tag/v0.1.1;https://github.com/gepa-ai/gepa/compare/v0.1.0...v0.1.1;;;nao;
+release;gepa-ai/gepa;v0.1.3;https://github.com/gepa-ai/gepa/releases/tag/v0.1.3;https://github.com/gepa-ai/gepa/compare/v0.1.2...v0.1.3;;;nao;
+repositorio;inertiajs/inertia-laravel;;https://github.com/inertiajs/inertia-laravel;;biblioteca;sim;;
+release;inertiajs/inertia-laravel;v3.0.0;https://github.com/inertiajs/inertia-laravel/releases/tag/v3.0.0;https://github.com/inertiajs/inertia-laravel/compare/v2.0.22...v3.0.0;;;nao;
+release;inertiajs/inertia-laravel;v3.0.2;https://github.com/inertiajs/inertia-laravel/releases/tag/v3.0.2;https://github.com/inertiajs/inertia-laravel/compare/v2.0.23...v3.0.2;;;nao;so atualizacao de docblocks
+release;inertiajs/inertia-laravel;v3.3.0;https://github.com/inertiajs/inertia-laravel/releases/tag/v3.3.0;https://github.com/inertiajs/inertia-laravel/compare/v3.2.1...v3.3.0;;;sim;duvida: 1 feature e 2 fixes
+release;inertiajs/inertia-laravel;v3.3.3;https://github.com/inertiajs/inertia-laravel/releases/tag/v3.3.3;https://github.com/inertiajs/inertia-laravel/compare/v3.3.2...v3.3.3;;;sim;
+release;inertiajs/inertia-laravel;v3.4.0;https://github.com/inertiajs/inertia-laravel/releases/tag/v3.4.0;https://github.com/inertiajs/inertia-laravel/compare/v2.0.28...v3.4.0;;;nao;
+repositorio;jaegertracing/jaeger;;https://github.com/jaegertracing/jaeger;;aplicacao;sim;;
+release;jaegertracing/jaeger;v1.74.0;https://github.com/jaegertracing/jaeger/releases/tag/v1.74.0;https://github.com/jaegertracing/jaeger/compare/v1.73.0...v1.74.0;;;nao;
+release;jaegertracing/jaeger;v2.15.0;https://github.com/jaegertracing/jaeger/releases/tag/v2.15.0;https://github.com/jaegertracing/jaeger/compare/v2.14.1...v2.15.0;;;nao;
+release;jaegertracing/jaeger;v2.17.0;https://github.com/jaegertracing/jaeger/releases/tag/v2.17.0;https://github.com/jaegertracing/jaeger/compare/v2.16.0...v2.17.0;;;nao;duvida: release mista
+release;jaegertracing/jaeger;v2.18.0;https://github.com/jaegertracing/jaeger/releases/tag/v2.18.0;https://github.com/jaegertracing/jaeger/compare/v2.17.0...v2.18.0;;;nao;
+release;jaegertracing/jaeger;v2.20.0;https://github.com/jaegertracing/jaeger/releases/tag/v2.20.0;https://github.com/jaegertracing/jaeger/compare/v2.19.0...v2.20.0;;;nao;
+repositorio;jo-inc/camofox-browser;;https://github.com/jo-inc/camofox-browser;;aplicacao;sim;;servidor de navegador
+release;jo-inc/camofox-browser;v1.2.0;https://github.com/jo-inc/camofox-browser/releases/tag/v1.2.0;https://github.com/jo-inc/camofox-browser/compare/v1.1.0...v1.2.0;;;nao;
+release;jo-inc/camofox-browser;v1.9.1;https://github.com/jo-inc/camofox-browser/releases/tag/v1.9.1;https://github.com/jo-inc/camofox-browser/compare/v1.8.0...v1.9.1;;;nao;melhoria do reporter
+release;jo-inc/camofox-browser;v1.11.1;https://github.com/jo-inc/camofox-browser/releases/tag/v1.11.1;https://github.com/jo-inc/camofox-browser/compare/v1.11.0...v1.11.1;;;sim;
+release;jo-inc/camofox-browser;camoufox-backup-356281398;https://github.com/jo-inc/camofox-browser/releases/tag/camoufox-backup-356281398;https://github.com/jo-inc/camofox-browser/compare/v1.13.0...camoufox-backup-356281398;;;nao;release de backup/espelho - nao e release do projeto
+release;jo-inc/camofox-browser;v1.17.0;https://github.com/jo-inc/camofox-browser/releases/tag/v1.17.0;https://github.com/jo-inc/camofox-browser/compare/v1.16.0...v1.17.0;;;sim;duvida: minor mas foco em correcao de PDF inline
+repositorio;langflow-ai/langflow;;https://github.com/langflow-ai/langflow;;aplicacao;sim;;
+release;langflow-ai/langflow;1.6.5;https://github.com/langflow-ai/langflow/releases/tag/1.6.5;https://github.com/langflow-ai/langflow/compare/1.6.4...1.6.5;;;sim;
+release;langflow-ai/langflow;1.6.9;https://github.com/langflow-ai/langflow/releases/tag/1.6.9;https://github.com/langflow-ai/langflow/compare/1.6.8...1.6.9;;;nao;so atualizacao de pip/setuptools
+release;langflow-ai/langflow;v1.8.0;https://github.com/langflow-ai/langflow/releases/tag/v1.8.0;https://github.com/langflow-ai/langflow/compare/1.7.3...v1.8.0;;;nao;
+release;langflow-ai/langflow;v1.9.6;https://github.com/langflow-ai/langflow/releases/tag/v1.9.6;https://github.com/langflow-ai/langflow/compare/v1.9.5...v1.9.6;;;sim;
+release;langflow-ai/langflow;v1.10.0;https://github.com/langflow-ai/langflow/releases/tag/v1.10.0;https://github.com/langflow-ai/langflow/compare/v1.9.6...v1.10.0;;;nao;
+repositorio;libp2p/go-libp2p;;https://github.com/libp2p/go-libp2p;;biblioteca;sim;;
+release;libp2p/go-libp2p;v0.44.0;https://github.com/libp2p/go-libp2p/releases/tag/v0.44.0;https://github.com/libp2p/go-libp2p/compare/v0.43.0...v0.44.0;;;nao;
+release;libp2p/go-libp2p;v0.45.0;https://github.com/libp2p/go-libp2p/releases/tag/v0.45.0;https://github.com/libp2p/go-libp2p/compare/v0.44.0...v0.45.0;;;nao;duvida: release mista
+release;libp2p/go-libp2p;v0.46.0;https://github.com/libp2p/go-libp2p/releases/tag/v0.46.0;https://github.com/libp2p/go-libp2p/compare/v0.45.0...v0.46.0;;;sim;duvida: fixes + bump quic-go
+release;libp2p/go-libp2p;v0.48.0;https://github.com/libp2p/go-libp2p/releases/tag/v0.48.0;https://github.com/libp2p/go-libp2p/compare/v0.47.0...v0.48.0;;;nao;duvida: limpeza interna e alguns fixes
+release;libp2p/go-libp2p;v0.49.0;https://github.com/libp2p/go-libp2p/releases/tag/v0.49.0;https://github.com/libp2p/go-libp2p/compare/v0.48.0...v0.49.0;;;nao;duvida: release mista
+repositorio;livewire/livewire;;https://github.com/livewire/livewire;;biblioteca;sim;;
+release;livewire/livewire;v4.0.0;https://github.com/livewire/livewire/releases/tag/v4.0.0;https://github.com/livewire/livewire/compare/v3.7.4...v4.0.0;;;nao;
+release;livewire/livewire;v4.1.1;https://github.com/livewire/livewire/releases/tag/v4.1.1;https://github.com/livewire/livewire/compare/v3.7.7...v4.1.1;;;nao;
+release;livewire/livewire;v4.1.4;https://github.com/livewire/livewire/releases/tag/v4.1.4;https://github.com/livewire/livewire/compare/v3.7.10...v4.1.4;;;sim;duvida: maioria fixes
+release;livewire/livewire;v4.3.0;https://github.com/livewire/livewire/releases/tag/v4.3.0;https://github.com/livewire/livewire/compare/v3.8.0...v4.3.0;;;nao;
+release;livewire/livewire;v3.8.1;https://github.com/livewire/livewire/releases/tag/v3.8.1;https://github.com/livewire/livewire/compare/v4.3.0...v3.8.1;;;sim;
+repositorio;maplibre/maplibre-gl-js;;https://github.com/maplibre/maplibre-gl-js;;biblioteca;sim;;
+release;maplibre/maplibre-gl-js;v5.20.2;https://github.com/maplibre/maplibre-gl-js/releases/tag/v5.20.2;https://github.com/maplibre/maplibre-gl-js/compare/v5.20.1...v5.20.2;;;sim;
+release;maplibre/maplibre-gl-js;v5.21.1;https://github.com/maplibre/maplibre-gl-js/releases/tag/v5.21.1;https://github.com/maplibre/maplibre-gl-js/compare/v5.21.0...v5.21.1;;;sim;
+release;maplibre/maplibre-gl-js;v6.2.0;https://github.com/maplibre/maplibre-gl-js/releases/tag/v6.2.0;https://github.com/maplibre/maplibre-gl-js/compare/v6.1.0...v6.2.0;;;nao;
+release;maplibre/maplibre-gl-js;v6.4.1;https://github.com/maplibre/maplibre-gl-js/releases/tag/v6.4.1;https://github.com/maplibre/maplibre-gl-js/compare/v6.4.0...v6.4.1;;;sim;
+release;maplibre/maplibre-gl-js;v6.6.0;https://github.com/maplibre/maplibre-gl-js/releases/tag/v6.6.0;https://github.com/maplibre/maplibre-gl-js/compare/v6.5.0...v6.6.0;;;nao;
+repositorio;marimo-team/marimo;;https://github.com/marimo-team/marimo;;aplicacao;sim;;
+release;marimo-team/marimo;0.18.1;https://github.com/marimo-team/marimo/releases/tag/0.18.1;https://github.com/marimo-team/marimo/compare/0.18.0...0.18.1;;;nao;
+release;marimo-team/marimo;0.19.3;https://github.com/marimo-team/marimo/releases/tag/0.19.3;https://github.com/marimo-team/marimo/compare/0.19.2...0.19.3;;;nao;
+release;marimo-team/marimo;0.23.11;https://github.com/marimo-team/marimo/releases/tag/0.23.11;https://github.com/marimo-team/marimo/compare/0.23.10...0.23.11;;;nao;
+release;marimo-team/marimo;0.23.15;https://github.com/marimo-team/marimo/releases/tag/0.23.15;https://github.com/marimo-team/marimo/compare/0.23.14...0.23.15;;;nao;duvida: release mista
+release;marimo-team/marimo;0.23.16;https://github.com/marimo-team/marimo/releases/tag/0.23.16;https://github.com/marimo-team/marimo/compare/0.23.15...0.23.16;;;nao;
+repositorio;microsoft/TypeScript;;https://github.com/microsoft/TypeScript;;biblioteca;sim;;linguagem/compilador usado como dependencia - duvida com outro
+release;microsoft/TypeScript;v5.9.3;https://github.com/microsoft/TypeScript/releases/tag/v5.9.3;https://github.com/microsoft/TypeScript/compare/v5.8.2...v5.9.3;;;sim;patch - notas so linkam issues
+release;microsoft/TypeScript;v5.8.3;https://github.com/microsoft/TypeScript/releases/tag/v5.8.3;https://github.com/microsoft/TypeScript/compare/v5.9.3...v5.8.3;;;sim;patch - notas so linkam issues
+release;microsoft/TypeScript;v5.9.2;https://github.com/microsoft/TypeScript/releases/tag/v5.9.2;https://github.com/microsoft/TypeScript/compare/v5.8.3...v5.9.2;;;nao;primeira versao estavel do 5.9
+release;microsoft/TypeScript;v6.0.3;https://github.com/microsoft/TypeScript/releases/tag/v6.0.3;https://github.com/microsoft/TypeScript/compare/v6.0.2...v6.0.3;;;sim;
+release;microsoft/TypeScript;v7.0.2;https://github.com/microsoft/TypeScript/releases/tag/v7.0.2;https://github.com/microsoft/TypeScript/compare/v6.0.3...v7.0.2;;;nao;
+repositorio;modelcontextprotocol/servers;;https://github.com/modelcontextprotocol/servers;;aplicacao;sim;;colecao de servidores MCP
+release;modelcontextprotocol/servers;2025.11.25;https://github.com/modelcontextprotocol/servers/releases/tag/2025.11.25;https://github.com/modelcontextprotocol/servers/compare/2025.9.25...2025.11.25;;;nao;
+release;modelcontextprotocol/servers;2025.12.18;https://github.com/modelcontextprotocol/servers/releases/tag/2025.12.18;https://github.com/modelcontextprotocol/servers/compare/2025.11.25...2025.12.18;;;nao;maioria docs
+release;modelcontextprotocol/servers;2026.1.14;https://github.com/modelcontextprotocol/servers/releases/tag/2026.1.14;https://github.com/modelcontextprotocol/servers/compare/2025.12.18...2026.1.14;;;nao;refatoracao
+release;modelcontextprotocol/servers;2026.7.10;https://github.com/modelcontextprotocol/servers/releases/tag/2026.7.10;https://github.com/modelcontextprotocol/servers/compare/2026.7.4...2026.7.10;;;sim;
+release;modelcontextprotocol/servers;2026.8.31;https://github.com/modelcontextprotocol/servers/releases/tag/2026.8.31;https://github.com/modelcontextprotocol/servers/compare/2026.8.18...2026.8.31;;;sim;
+repositorio;mrdoob/three.js;;https://github.com/mrdoob/three.js;;biblioteca;sim;;
+release;mrdoob/three.js;r181;https://github.com/mrdoob/three.js/releases/tag/r181;https://github.com/mrdoob/three.js/compare/r180...r181;;;nao;
+release;mrdoob/three.js;r182;https://github.com/mrdoob/three.js/releases/tag/r182;https://github.com/mrdoob/three.js/compare/r181...r182;;;nao;
+release;mrdoob/three.js;r183;https://github.com/mrdoob/three.js/releases/tag/r183;https://github.com/mrdoob/three.js/compare/r182...r183;;;nao;
+release;mrdoob/three.js;r185;https://github.com/mrdoob/three.js/releases/tag/r185;https://github.com/mrdoob/three.js/compare/r184...r185;;;nao;
+release;mrdoob/three.js;r186;https://github.com/mrdoob/three.js/releases/tag/r186;https://github.com/mrdoob/three.js/compare/r185...r186;;;nao;
+repositorio;nunchux-ai/nunchaku;;https://github.com/nunchux-ai/nunchaku;;biblioteca;sim;;
+release;nunchux-ai/nunchaku;v1.0.1;https://github.com/nunchux-ai/nunchaku/releases/tag/v1.0.1;https://github.com/nunchux-ai/nunchaku/compare/v1.0.0...v1.0.1;;;nao;
+release;nunchux-ai/nunchaku;v1.0.2;https://github.com/nunchux-ai/nunchaku/releases/tag/v1.0.2;https://github.com/nunchux-ai/nunchaku/compare/v1.0.1...v1.0.2;;;nao;suporte a torch 2.9 - manutencao
+release;nunchux-ai/nunchaku;v1.1.0;https://github.com/nunchux-ai/nunchaku/releases/tag/v1.1.0;https://github.com/nunchux-ai/nunchaku/compare/v1.0.2...v1.1.0;;;nao;
+release;nunchux-ai/nunchaku;v1.2.0;https://github.com/nunchux-ai/nunchaku/releases/tag/v1.2.0;https://github.com/nunchux-ai/nunchaku/compare/v1.1.0...v1.2.0;;;nao;
+release;nunchux-ai/nunchaku;v1.2.1;https://github.com/nunchux-ai/nunchaku/releases/tag/v1.2.1;https://github.com/nunchux-ai/nunchaku/compare/v1.2.0...v1.2.1;;;nao;suporte a torch 2.10 e fixes de CI - manutencao
+repositorio;open-multi-agent/open-multi-agent;;https://github.com/open-multi-agent/open-multi-agent;;biblioteca;sim;;
+release;open-multi-agent/open-multi-agent;v1.1.0;https://github.com/open-multi-agent/open-multi-agent/releases/tag/v1.1.0;https://github.com/open-multi-agent/open-multi-agent/compare/v1.0.0...v1.1.0;;;nao;
+release;open-multi-agent/open-multi-agent;v1.6.0;https://github.com/open-multi-agent/open-multi-agent/releases/tag/v1.6.0;https://github.com/open-multi-agent/open-multi-agent/compare/v1.5.0...v1.6.0;;;nao;
+release;open-multi-agent/open-multi-agent;v1.8.1;https://github.com/open-multi-agent/open-multi-agent/releases/tag/v1.8.1;https://github.com/open-multi-agent/open-multi-agent/compare/v1.8.0...v1.8.1;;;sim;
+release;open-multi-agent/open-multi-agent;v1.13.0;https://github.com/open-multi-agent/open-multi-agent/releases/tag/v1.13.0;https://github.com/open-multi-agent/open-multi-agent/compare/v1.12.1...v1.13.0;;;nao;
+release;open-multi-agent/open-multi-agent;v1.20.0;https://github.com/open-multi-agent/open-multi-agent/releases/tag/v1.20.0;https://github.com/open-multi-agent/open-multi-agent/compare/v1.19.0...v1.20.0;;;nao;
+repositorio;open-wanderer/wanderer;;https://github.com/open-wanderer/wanderer;;aplicacao;sim;;
+release;open-wanderer/wanderer;v0.18.4;https://github.com/open-wanderer/wanderer/releases/tag/v0.18.4;https://github.com/open-wanderer/wanderer/compare/v0.18.3...v0.18.4;;;sim;duvida: muitos fixes e 2 features
+release;open-wanderer/wanderer;v0.18.5;https://github.com/open-wanderer/wanderer/releases/tag/v0.18.5;https://github.com/open-wanderer/wanderer/compare/v0.18.4...v0.18.5;;;sim;duvida: seguranca e fixes com 1 feature
+release;open-wanderer/wanderer;v0.19.0;https://github.com/open-wanderer/wanderer/releases/tag/v0.19.0;https://github.com/open-wanderer/wanderer/compare/v0.18.5...v0.19.0;;;nao;
+release;open-wanderer/wanderer;v0.19.3;https://github.com/open-wanderer/wanderer/releases/tag/v0.19.3;https://github.com/open-wanderer/wanderer/compare/v0.19.2...v0.19.3;;;sim;seguranca
+release;open-wanderer/wanderer;v0.21.0;https://github.com/open-wanderer/wanderer/releases/tag/v0.21.0;https://github.com/open-wanderer/wanderer/compare/v0.20.0...v0.21.0;;;nao;
+repositorio;opendatalab/MinerU;;https://github.com/opendatalab/MinerU;;cli;sim;;tem CLI, pacote Python e WebUI - duvida
+release;opendatalab/MinerU;mineru-2.6.2-released;https://github.com/opendatalab/MinerU/releases/tag/mineru-2.6.2-released;https://github.com/opendatalab/MinerU/compare/mineru-2.5.4-released...mineru-2.6.2-released;;;nao;
+release;opendatalab/MinerU;mineru-2.6.7-released;https://github.com/opendatalab/MinerU/releases/tag/mineru-2.6.7-released;https://github.com/opendatalab/MinerU/compare/mineru-2.6.6-released...mineru-2.6.7-released;;;sim;
+release;opendatalab/MinerU;mineru-3.4.5-released;https://github.com/opendatalab/MinerU/releases/tag/mineru-3.4.5-released;https://github.com/opendatalab/MinerU/compare/mineru-3.4.4-released...mineru-3.4.5-released;;;sim;
+release;opendatalab/MinerU;mineru-4.0.5-released;https://github.com/opendatalab/MinerU/releases/tag/mineru-4.0.5-released;https://github.com/opendatalab/MinerU/compare/mineru-4.0.4-released...mineru-4.0.5-released;;;nao;
+release;opendatalab/MinerU;mineru-4.0.6-released;https://github.com/opendatalab/MinerU/releases/tag/mineru-4.0.6-released;https://github.com/opendatalab/MinerU/compare/mineru-4.0.5-released...mineru-4.0.6-released;;;nao;duvida: 1 feature (EPUB) e 2 fixes
+repositorio;openstyles/stylus;;https://github.com/openstyles/stylus;;aplicacao;sim;;extensao de navegador
+release;openstyles/stylus;v2.3.17;https://github.com/openstyles/stylus/releases/tag/v2.3.17;https://github.com/openstyles/stylus/compare/v2.3.16...v2.3.17;;;sim;
+release;openstyles/stylus;v2.3.30;https://github.com/openstyles/stylus/releases/tag/v2.3.30;https://github.com/openstyles/stylus/compare/v2.3.29...v2.3.30;;;sim;
+release;openstyles/stylus;v2.3.31;https://github.com/openstyles/stylus/releases/tag/v2.3.31;https://github.com/openstyles/stylus/compare/v2.3.30...v2.3.31;;;nao;
+release;openstyles/stylus;v2.4.1;https://github.com/openstyles/stylus/releases/tag/v2.4.1;https://github.com/openstyles/stylus/compare/v2.4.0...v2.4.1;;;sim;
+release;openstyles/stylus;v2.4.9;https://github.com/openstyles/stylus/releases/tag/v2.4.9;https://github.com/openstyles/stylus/compare/v2.4.8...v2.4.9;;;nao;duvida: release mista
+repositorio;pascalorg/editor;;https://github.com/pascalorg/editor;;aplicacao;sim;;
+release;pascalorg/editor;v0.3.0;https://github.com/pascalorg/editor/releases/tag/v0.3.0;https://github.com/pascalorg/editor/compare/v0.2.0...v0.3.0;;;nao;
+release;pascalorg/editor;v0.3.1;https://github.com/pascalorg/editor/releases/tag/v0.3.1;https://github.com/pascalorg/editor/compare/v0.3.0...v0.3.1;;;nao;duvida: rewrite, fixes e export STL/OBJ
+release;pascalorg/editor;v0.5.0;https://github.com/pascalorg/editor/releases/tag/v0.5.0;https://github.com/pascalorg/editor/compare/v0.4.0...v0.5.0;;;nao;
+release;pascalorg/editor;v0.7.0;https://github.com/pascalorg/editor/releases/tag/v0.7.0;https://github.com/pascalorg/editor/compare/v0.6.0...v0.7.0;;;nao;
+release;pascalorg/editor;v0.9.1;https://github.com/pascalorg/editor/releases/tag/v0.9.1;https://github.com/pascalorg/editor/compare/v0.9.0...v0.9.1;;;nao;
+repositorio;rbatis/rbatis;;https://github.com/rbatis/rbatis;;biblioteca;sim;;
+release;rbatis/rbatis;v4.6.9;https://github.com/rbatis/rbatis/releases/tag/v4.6.9;https://github.com/rbatis/rbatis/compare/v4.6.8...v4.6.9;;;sim;doc fix + fix de concatenacao de SQL
+release;rbatis/rbatis;v4.6.12;https://github.com/rbatis/rbatis/releases/tag/v4.6.12;https://github.com/rbatis/rbatis/compare/v4.6.9...v4.6.12;;;nao;
+release;rbatis/rbatis;v4.6.14;https://github.com/rbatis/rbatis/releases/tag/v4.6.14;https://github.com/rbatis/rbatis/compare/v4.6.13...v4.6.14;;;nao;simplificacao/refatoracao
+release;rbatis/rbatis;v4.7.0;https://github.com/rbatis/rbatis/releases/tag/v4.7.0;https://github.com/rbatis/rbatis/compare/v4.6.15...v4.7.0;;;nao;
+release;rbatis/rbatis;v4.8.0;https://github.com/rbatis/rbatis/releases/tag/v4.8.0;https://github.com/rbatis/rbatis/compare/v4.7.2...v4.8.0;;;nao;
+repositorio;rcourtman/Pulse;;https://github.com/rcourtman/Pulse;;aplicacao;sim;;
+release;rcourtman/Pulse;v4.19.2;https://github.com/rcourtman/Pulse/releases/tag/v4.19.2;https://github.com/rcourtman/Pulse/compare/v4.19.1...v4.19.2;;;nao;duvida: features e muitos fixes de concorrencia
+release;rcourtman/Pulse;v5.0.2;https://github.com/rcourtman/Pulse/releases/tag/v5.0.2;https://github.com/rcourtman/Pulse/compare/v5.0.1...v5.0.2;;;sim;seguranca e fixes
+release;rcourtman/Pulse;v5.0.4;https://github.com/rcourtman/Pulse/releases/tag/v5.0.4;https://github.com/rcourtman/Pulse/compare/v5.0.3...v5.0.4;;;nao;
+release;rcourtman/Pulse;v5.0.9;https://github.com/rcourtman/Pulse/releases/tag/v5.0.9;https://github.com/rcourtman/Pulse/compare/v5.0.8...v5.0.9;;;sim;
+release;rcourtman/Pulse;v5.1.10;https://github.com/rcourtman/Pulse/releases/tag/v5.1.10;https://github.com/rcourtman/Pulse/compare/v5.1.9...v5.1.10;;;sim;
+repositorio;redisson/redisson;;https://github.com/redisson/redisson;;biblioteca;sim;;
+release;redisson/redisson;redisson-4.0.0;https://github.com/redisson/redisson/releases/tag/redisson-4.0.0;https://github.com/redisson/redisson/compare/redisson-3.52.0...redisson-4.0.0;;;nao;
+release;redisson/redisson;redisson-4.1.0;https://github.com/redisson/redisson/releases/tag/redisson-4.1.0;https://github.com/redisson/redisson/compare/redisson-4.0.0...redisson-4.1.0;;;nao;
+release;redisson/redisson;redisson-4.4.0;https://github.com/redisson/redisson/releases/tag/redisson-4.4.0;https://github.com/redisson/redisson/compare/redisson-4.3.1...redisson-4.4.0;;;nao;
+release;redisson/redisson;redisson-4.6.0;https://github.com/redisson/redisson/releases/tag/redisson-4.6.0;https://github.com/redisson/redisson/compare/redisson-4.5.0...redisson-4.6.0;;;nao;
+release;redisson/redisson;redisson-4.6.1;https://github.com/redisson/redisson/releases/tag/redisson-4.6.1;https://github.com/redisson/redisson/compare/redisson-4.6.0...redisson-4.6.1;;;sim;
+repositorio;rerun-io/rerun;;https://github.com/rerun-io/rerun;;biblioteca;sim;;SDK + viewer - duvida com aplicacao
+release;rerun-io/rerun;0.27.1;https://github.com/rerun-io/rerun/releases/tag/0.27.1;https://github.com/rerun-io/rerun/compare/0.27.0...0.27.1;;;sim;
+release;rerun-io/rerun;0.30.0;https://github.com/rerun-io/rerun/releases/tag/0.30.0;https://github.com/rerun-io/rerun/compare/0.29.2...0.30.0;;;nao;
+release;rerun-io/rerun;0.31.0;https://github.com/rerun-io/rerun/releases/tag/0.31.0;https://github.com/rerun-io/rerun/compare/0.31.1...0.31.0;;;nao;
+release;rerun-io/rerun;0.36.0;https://github.com/rerun-io/rerun/releases/tag/0.36.0;https://github.com/rerun-io/rerun/compare/0.35.0...0.36.0;;;nao;
+release;rerun-io/rerun;0.37.2;https://github.com/rerun-io/rerun/releases/tag/0.37.2;https://github.com/rerun-io/rerun/compare/0.37.1...0.37.2;;;sim;
+repositorio;ruby/rubygems;;https://github.com/ruby/rubygems;;cli;sim;;gerenciador de pacotes
+release;ruby/rubygems;v4.0.15;https://github.com/ruby/rubygems/releases/tag/v4.0.15;https://github.com/ruby/rubygems/compare/bundler-v4.0.14...v4.0.15;;;nao;duvida: release mista
+release;ruby/rubygems;v0.8.6;https://github.com/ruby/rubygems/releases/tag/v0.8.6;https://github.com/ruby/rubygems/compare/v0.8.5...v0.8.6;;;sim;
+release;ruby/rubygems;v0.9.4.5;https://github.com/ruby/rubygems/releases/tag/v0.9.4.5;https://github.com/ruby/rubygems/compare/v0.9.4.4...v0.9.4.5;;;nao;sem notas - commits mistos
+release;ruby/rubygems;v2.0.11;https://github.com/ruby/rubygems/releases/tag/v2.0.11;https://github.com/ruby/rubygems/compare/v2.0.10...v2.0.11;;;sim;
+release;ruby/rubygems;v2.5.0;https://github.com/ruby/rubygems/releases/tag/v2.5.0;https://github.com/ruby/rubygems/compare/v2.4.8...v2.5.0;;;nao;
+repositorio;ruvnet/RuView;;https://github.com/ruvnet/RuView;;aplicacao;incerto;;muitas releases automaticas de CI por commit (v1057 etc)
+release;ruvnet/RuView;v0.4.3.1-esp32;https://github.com/ruvnet/RuView/releases/tag/v0.4.3.1-esp32;https://github.com/ruvnet/RuView/compare/v0.4.3-esp32...v0.4.3.1-esp32;;;sim;
+release;ruvnet/RuView;v1057;https://github.com/ruvnet/RuView/releases/tag/v1057;https://github.com/ruvnet/RuView/compare/v1056...v1057;;;nao;release automatica de CI - documentos de pesquisa
+release;ruvnet/RuView;v1201;https://github.com/ruvnet/RuView/releases/tag/v1201;https://github.com/ruvnet/RuView/compare/v0.7.0-esp32...v1201;;;nao;release automatica de CI - mista
+release;ruvnet/RuView;v1388;https://github.com/ruvnet/RuView/releases/tag/v1388;https://github.com/ruvnet/RuView/compare/v0.10.0...v1388;;;nao;release automatica de CI
+release;ruvnet/RuView;v1548;https://github.com/ruvnet/RuView/releases/tag/v1548;https://github.com/ruvnet/RuView/compare/v1544...v1548;;;sim;release automatica de CI
+repositorio;sgl-project/sglang-omni;;https://github.com/sgl-project/sglang-omni;;aplicacao;sim;;runtime de serving
+release;sgl-project/sglang-omni;0.1.1;https://github.com/sgl-project/sglang-omni/releases/tag/0.1.1;https://github.com/sgl-project/sglang-omni/compare/0.1.0...0.1.1;;;nao;
+release;sgl-project/sglang-omni;v0.1.2;https://github.com/sgl-project/sglang-omni/releases/tag/v0.1.2;https://github.com/sgl-project/sglang-omni/compare/0.1.1...v0.1.2;;;nao;
+release;sgl-project/sglang-omni;v0.1.3;https://github.com/sgl-project/sglang-omni/releases/tag/v0.1.3;https://github.com/sgl-project/sglang-omni/compare/v0.1.2...v0.1.3;;;nao;
+release;sgl-project/sglang-omni;v0.1.5;https://github.com/sgl-project/sglang-omni/releases/tag/v0.1.5;https://github.com/sgl-project/sglang-omni/compare/v0.1.4...v0.1.5;;;nao;
+release;sgl-project/sglang-omni;v0.1.6;https://github.com/sgl-project/sglang-omni/releases/tag/v0.1.6;https://github.com/sgl-project/sglang-omni/compare/v0.1.5...v0.1.6;;;nao;
+repositorio;simdjson/simdjson;;https://github.com/simdjson/simdjson;;biblioteca;sim;;
+release;simdjson/simdjson;v4.1.0;https://github.com/simdjson/simdjson/releases/tag/v4.1.0;https://github.com/simdjson/simdjson/compare/v4.0.7...v4.1.0;;;nao;
+release;simdjson/simdjson;v4.4.0;https://github.com/simdjson/simdjson/releases/tag/v4.4.0;https://github.com/simdjson/simdjson/compare/v4.3.1...v4.4.0;;;nao;
+release;simdjson/simdjson;v4.5.0;https://github.com/simdjson/simdjson/releases/tag/v4.5.0;https://github.com/simdjson/simdjson/compare/v4.4.2...v4.5.0;;;nao;
+release;simdjson/simdjson;v4.6.4;https://github.com/simdjson/simdjson/releases/tag/v4.6.4;https://github.com/simdjson/simdjson/compare/v4.6.3...v4.6.4;;;sim;
+release;simdjson/simdjson;v5.0.0;https://github.com/simdjson/simdjson/releases/tag/v5.0.0;https://github.com/simdjson/simdjson/compare/v4.6.11...v5.0.0;;;nao;
+repositorio;spacering-net/codeg;;https://github.com/spacering-net/codeg;;aplicacao;sim;;
+release;spacering-net/codeg;v0.8.7;https://github.com/spacering-net/codeg/releases/tag/v0.8.7;https://github.com/spacering-net/codeg/compare/v0.8.6...v0.8.7;;;nao;
+release;spacering-net/codeg;v0.9.3;https://github.com/spacering-net/codeg/releases/tag/v0.9.3;https://github.com/spacering-net/codeg/compare/v0.9.2...v0.9.3;;;sim;
+release;spacering-net/codeg;v0.11.1;https://github.com/spacering-net/codeg/releases/tag/v0.11.1;https://github.com/spacering-net/codeg/compare/v0.11.0...v0.11.1;;;nao;
+release;spacering-net/codeg;v0.21.7;https://github.com/spacering-net/codeg/releases/tag/v0.21.7;https://github.com/spacering-net/codeg/compare/v0.21.6...v0.21.7;;;nao;
+release;spacering-net/codeg;v0.23.0;https://github.com/spacering-net/codeg/releases/tag/v0.23.0;https://github.com/spacering-net/codeg/compare/v0.22.2...v0.23.0;;;nao;
+repositorio;streamlink/streamlink;;https://github.com/streamlink/streamlink;;cli;sim;;
+release;streamlink/streamlink;8.0.0;https://github.com/streamlink/streamlink/releases/tag/8.0.0;https://github.com/streamlink/streamlink/compare/7.6.0...8.0.0;;;nao;
+release;streamlink/streamlink;8.1.1;https://github.com/streamlink/streamlink/releases/tag/8.1.1;https://github.com/streamlink/streamlink/compare/8.1.0...8.1.1;;;sim;
+release;streamlink/streamlink;8.2.1;https://github.com/streamlink/streamlink/releases/tag/8.2.1;https://github.com/streamlink/streamlink/compare/8.2.0...8.2.1;;;sim;duvida: fixes de plugins com pequenas mudancas
+release;streamlink/streamlink;8.6.0;https://github.com/streamlink/streamlink/releases/tag/8.6.0;https://github.com/streamlink/streamlink/compare/8.5.0...8.6.0;;;nao;duvida: fixes de seguranca + features
+release;streamlink/streamlink;8.6.1;https://github.com/streamlink/streamlink/releases/tag/8.6.1;https://github.com/streamlink/streamlink/compare/8.6.0...8.6.1;;;sim;
+repositorio;synthetic-sciences/openscience;;https://github.com/synthetic-sciences/openscience;;aplicacao;sim;;
+release;synthetic-sciences/openscience;v2.0.24;https://github.com/synthetic-sciences/openscience/releases/tag/v2.0.24;https://github.com/synthetic-sciences/openscience/compare/v2.0.23...v2.0.24;;;sim;notas genericas de bug fixes - commits tem feats
+release;synthetic-sciences/openscience;v2.0.61;https://github.com/synthetic-sciences/openscience/releases/tag/v2.0.61;https://github.com/synthetic-sciences/openscience/compare/v2.0.60...v2.0.61;;;sim;duvida: recover previews + unificacao de UI
+release;synthetic-sciences/openscience;v2.0.87;https://github.com/synthetic-sciences/openscience/releases/tag/v2.0.87;https://github.com/synthetic-sciences/openscience/compare/v2.0.86...v2.0.87;;;nao;duvida: release mista
+release;synthetic-sciences/openscience;v2.0.102;https://github.com/synthetic-sciences/openscience/releases/tag/v2.0.102;https://github.com/synthetic-sciences/openscience/compare/v2.0.101...v2.0.102;;;sim;
+release;synthetic-sciences/openscience;v2.0.122;https://github.com/synthetic-sciences/openscience/releases/tag/v2.0.122;https://github.com/synthetic-sciences/openscience/compare/v2.0.121...v2.0.122;;;nao;sem mudancas notaveis - incerto
+repositorio;timescale/timescaledb;;https://github.com/timescale/timescaledb;;outro;sim;;extensao do PostgreSQL
+release;timescale/timescaledb;2.23.0;https://github.com/timescale/timescaledb/releases/tag/2.23.0;https://github.com/timescale/timescaledb/compare/2.22.1...2.23.0;;;nao;
+release;timescale/timescaledb;2.26.2;https://github.com/timescale/timescaledb/releases/tag/2.26.2;https://github.com/timescale/timescaledb/compare/2.26.1...2.26.2;;;sim;
+release;timescale/timescaledb;2.27.0;https://github.com/timescale/timescaledb/releases/tag/2.27.0;https://github.com/timescale/timescaledb/compare/2.26.4...2.27.0;;;nao;
+release;timescale/timescaledb;2.28.2;https://github.com/timescale/timescaledb/releases/tag/2.28.2;https://github.com/timescale/timescaledb/compare/2.28.1...2.28.2;;;sim;
+release;timescale/timescaledb;2.29.0;https://github.com/timescale/timescaledb/releases/tag/2.29.0;https://github.com/timescale/timescaledb/compare/2.28.3...2.29.0;;;nao;
+repositorio;vercel/ai-elements;;https://github.com/vercel/ai-elements;;biblioteca;sim;;
+release;vercel/ai-elements;ai-elements@1.1.0;https://github.com/vercel/ai-elements/releases/tag/ai-elements%401.1.0;https://github.com/vercel/ai-elements/compare/ai-elements@1.0.0...ai-elements@1.1.0;;;sim;sem notas - commits de fix
+release;vercel/ai-elements;ai-elements@1.1.1;https://github.com/vercel/ai-elements/releases/tag/ai-elements%401.1.1;https://github.com/vercel/ai-elements/compare/ai-elements@1.1.0...ai-elements@1.1.1;;;sim;sem notas - maioria Resolves # (fixes)
+release;vercel/ai-elements;ai-elements@1.3.1;https://github.com/vercel/ai-elements/releases/tag/ai-elements%401.3.1;https://github.com/vercel/ai-elements/compare/ai-elements@1.3.0...ai-elements@1.3.1;;;nao;sem notas - provider, STT e testes
+release;vercel/ai-elements;ai-elements@1.6.0;https://github.com/vercel/ai-elements/releases/tag/ai-elements%401.6.0;https://github.com/vercel/ai-elements/compare/ai-elements@1.5.0...ai-elements@1.6.0;;;nao;
+release;vercel/ai-elements;ai-elements@1.6.3;https://github.com/vercel/ai-elements/releases/tag/ai-elements%401.6.3;https://github.com/vercel/ai-elements/compare/ai-elements@1.6.2...ai-elements@1.6.3;;;sim;
+repositorio;vercel/next.js;;https://github.com/vercel/next.js;;biblioteca;sim;;framework
+release;vercel/next.js;v15.5.5;https://github.com/vercel/next.js/releases/tag/v15.5.5;https://github.com/vercel/next.js/compare/v14.2.33...v15.5.5;;;sim;backport de fixes (inclui 1 feature)
+release;vercel/next.js;v15.1.9;https://github.com/vercel/next.js/releases/tag/v15.1.9;https://github.com/vercel/next.js/compare/v15.0.5...v15.1.9;;;sim;patch de seguranca
+release;vercel/next.js;v15.3.6;https://github.com/vercel/next.js/releases/tag/v15.3.6;https://github.com/vercel/next.js/compare/v15.2.6...v15.3.6;;;sim;patch de seguranca
+release;vercel/next.js;v15.3.9;https://github.com/vercel/next.js/releases/tag/v15.3.9;https://github.com/vercel/next.js/compare/v15.2.9...v15.3.9;;;sim;patch de seguranca
+release;vercel/next.js;v15.4.11;https://github.com/vercel/next.js/releases/tag/v15.4.11;https://github.com/vercel/next.js/compare/v15.3.9...v15.4.11;;;sim;patch de seguranca
+repositorio;vllm-project/vllm;;https://github.com/vllm-project/vllm;;aplicacao;sim;;engine de serving, tambem usada como pacote Python
+release;vllm-project/vllm;v0.15.1;https://github.com/vllm-project/vllm/releases/tag/v0.15.1;https://github.com/vllm-project/vllm/compare/v0.15.0...v0.15.1;;;sim;
+release;vllm-project/vllm;v0.19.1;https://github.com/vllm-project/vllm/releases/tag/v0.19.1;https://github.com/vllm-project/vllm/compare/v0.19.0...v0.19.1;;;sim;patch com upgrade do transformers
+release;vllm-project/vllm;v0.20.1;https://github.com/vllm-project/vllm/releases/tag/v0.20.1;https://github.com/vllm-project/vllm/compare/v0.20.0...v0.20.1;;;sim;duvida: patch de estabilizacao com melhorias de performance
+release;vllm-project/vllm;v0.25.0;https://github.com/vllm-project/vllm/releases/tag/v0.25.0;https://github.com/vllm-project/vllm/compare/v0.24.0...v0.25.0;;;nao;
+release;vllm-project/vllm;v0.28.0;https://github.com/vllm-project/vllm/releases/tag/v0.28.0;https://github.com/vllm-project/vllm/compare/v0.27.1...v0.28.0;;;nao;
