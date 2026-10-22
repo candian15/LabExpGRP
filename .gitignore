@@ -6,3 +6,8 @@ venv/
 .env
 *.env
 .coverage
+*.aux
+*.bbl
+*.blg
+*.log
+*.out

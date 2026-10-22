@@ -1,7 +1,7 @@
 % Artigo do Lab03 -- Mineração de Métricas DORA.
 %
-% Para compilar, baixe o template da SBC e ponha sbc-template.sty e sbc.bst nesta pasta:
-%   https://www.sbc.org.br/documentos-da-sbc/summary/169-templates-para-artigos-e-capitulos-de-livros/878-modelosparapublicaodeartigos
+% O sbc-template.sty e o sbc.bst são os do modelo oficial da SBC
+% (https://www.sbc.org.br/documentosinstitucionais/#publicacoes). Para compilar, nesta pasta:
 %
 %   pdflatex artigo && bibtex artigo && pdflatex artigo && pdflatex artigo
 %
@@ -13,9 +13,10 @@
 \documentclass[12pt]{article}
 
 \usepackage{sbc-template}
-\usepackage{graphicx,url}
+\usepackage{graphicx,url,amsmath}
 \usepackage[utf8]{inputenc}
-\usepackage[brazil]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[brazilian]{babel}
 
 \graphicspath{{../resultados/}}
 \sloppy
@@ -27,7 +28,7 @@ GitHub}
 
 \address{Pontifícia Universidade Católica de Minas Gerais (PUC Minas)\\
   Laboratório de Experimentação de Software
-  \email{joaovslopes20@gmail.com, pedromaiasilva17@gmail.com, acandian15@gmail.com}
+  \email{joaovslopes20@gmail.com, pedromaiasilva17@gmail.com,}\\ \footnotesize\texttt{acandian15@gmail.com}
 }
 
 \begin{document}
