@@ -1,4 +1,4 @@
-% Rascunho da parte do Artur na Metodologia (template SBC).
+% Rascunho da parte do Arthur na Metodologia (template SBC).
 
 \subsection{Definições operacionais}
 
@@ -22,15 +22,17 @@ releases seguidas de uma release corretiva em até 7 dias.
 Uma release R é considerada falha se for seguida, em até 7 dias, por uma release corretiva.
 O CFR (b) é o número de releases que falharam dividido pelo número de releases avaliadas.
 Releases publicadas nos últimos 7 dias da janela não podem ser avaliadas e ficam fora do
-denominador (censura), sendo reportadas.
+denominador (censura); a quantidade delas é reportada.
 
 Como o GitHub não indica se uma release é corretiva, usamos uma heurística sobre a versão
 (SemVer) e o assunto dos commits entre as duas releases. R é comparada apenas com a release
 seguinte; lemos só o assunto do commit; quando o \texttt{compare} falha, vale apenas o critério
-de versão; a primeira release do repositório nunca é corretiva. Testamos três versões:
-v1 (só \textit{patch} ou algum commit \texttt{fix}/\texttt{revert}/\texttt{hotfix}), v2 (só
-\textit{patch} ou ao menos metade dos commits são correções) e v3 (\textit{patch} com algum
-commit de correção, ou ao menos metade dos commits são correções).
+de versão; a primeira release do repositório nunca é corretiva. Testamos quatro versões. As
+três primeiras foram v1 (só \textit{patch} ou algum commit
+\texttt{fix}/\texttt{revert}/\texttt{hotfix}), v2 (só \textit{patch} ou ao menos metade dos
+commits são correções) e v3 (\textit{patch} com algum commit de correção, ou ao menos metade
+dos commits são correções). A v4, descrita adiante, foi montada olhando os erros
+dessas três.
 
 \subsection{Validação da heurística}
 
@@ -58,14 +60,14 @@ v4 &  81 &  57 & 30 & 131 & 0,59 & 0,73 & \textbf{0,65} \\
 \end{tabular}
 \end{table}
 
-A \textbf{v4} foi a escolhida, com F1 de 0,65. \textbf{Nenhuma versão atingiu o limiar de
-0,70}, e isso é reportado como limitação nas ameaças à validade.
+A v4 foi a escolhida, com F1 de 0,65. Nenhuma versão atingiu o limiar de 0,70, e isso é
+reportado como limitação nas ameaças à validade.
 
-O problema das três primeiras versões é a mesma suposição: tratar toda mudança de
-\textit{patch} no SemVer como correção de defeito. Publicar \textit{patch} é a prática
-recomendada pelo próprio SemVer e não implica corrigir nada, de modo que a v1 marcou 170
-\textit{releases} que o consenso considerou não corretivas --- ela acerta quase todas as
-corretivas (recall 0,99) ao custo de dizer ``sim'' para quase tudo (precisão 0,39). A v3
+As três primeiras versões partem da mesma suposição: toda mudança de \textit{patch} no
+SemVer seria correção de defeito. Publicar \textit{patch} é a prática recomendada pelo
+próprio SemVer e não implica corrigir nada, de modo que a v1 marcou 170 \textit{releases}
+que o consenso considerou não corretivas. Ela acerta quase todas as corretivas (recall 0,99)
+ao custo de dizer ``sim'' para quase tudo (precisão 0,39). A v3
 tentou apertar o critério exigindo também um \textit{commit} de correção, mas perdeu
 corretivas verdadeiras sem ganhar precisão.
 
@@ -73,16 +75,16 @@ A v4 troca o critério isolado de \textit{patch} por dois sinais. O primeiro sã
 \textit{release notes}: quando elas trazem uma seção de correção e nenhuma de novidade, 88\%
 das \textit{releases} da amostra-ouro são corretivas pelo consenso, contra 56\% quando o
 único sinal é a mudança de \textit{patch}. O segundo é a exigência de pelo menos um
-\textit{commit} de correção entre os \textbf{substantivos}, isto é, descontando manutenção,
+\textit{commit} de correção entre os \textit{substantivos}, isto é, descontando manutenção,
 dependências e infraestrutura (\texttt{chore}, \texttt{ci}, \texttt{docs}, \texttt{test},
 \texttt{bump}). Sem esse desconto, uma \textit{release} de \textit{patch} composta apenas
 de atualizações automáticas de dependência seria classificada como corretiva, que é o caso
 mais frequente entre os falsos positivos da v1.
 
-O ganho se concentra na precisão, que sobe de 0,39 na v1 para 0,59: os falsos positivos caem
-de 170 para 57, mantendo um \textit{recall} de 0,73. Permanecem 30 falsos negativos, em sua
+Quase todo o ganho vem da precisão, que sobe de 0,39 na v1 para 0,59: os falsos positivos caem
+de 170 para 57, com \textit{recall} de 0,73. Permanecem 30 falsos negativos, em sua
 maioria \textit{releases} grandes de projetos que não seguem SemVer e cujas notas misturam
-correções e novidades --- os mesmos casos em que os avaliadores humanos também divergiram.
+correções e novidades, os mesmos casos em que os avaliadores também divergiram.
 
-Nenhum dos critérios usa limiar numérico ajustado: a regra é composta de condições binárias,
-o que a torna reproduzível por outro grupo sem calibração.
+Nenhum dos critérios usa limiar numérico ajustado. A regra é composta de condições binárias
+e pode ser aplicada a outra amostra sem calibração.

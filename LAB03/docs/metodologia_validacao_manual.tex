@@ -4,7 +4,7 @@
 
 Como as métricas dependem de \textit{proxies} e de uma heurística automática para
 identificar \textit{releases} corretivas, comparamos parte dos dados com o julgamento
-humano. Sorteamos uma \textbf{amostra-ouro} de 60 repositórios da amostra final
+humano. Sorteamos uma \textit{amostra-ouro} de 60 repositórios da amostra final
 (\texttt{df.sample(n=60, random\_state=42)}, após ordenar os repositórios pelo nome) e, para
 cada um, 5 \textit{releases} da janela, com a mesma semente. Só entraram no sorteio as
 \textit{releases} com \textit{release} anterior e comparação de \textit{commits}
@@ -12,15 +12,15 @@ disponível, porque sem a lista de \textit{commits} não é possível julgar se 
 \textit{release} é corretiva. Um repositório tinha menos de 5 \textit{releases} nessa
 condição, e a amostra ficou com 299 \textit{releases}.
 
-Os três autores rotularam a amostra \textbf{de forma independente}, sem consultar uns aos
-outros e sem acesso à saída da heurística. Cada um classificou: (i) o \textbf{tipo do
-projeto} (biblioteca/\textit{framework}, aplicação/serviço, ferramenta CLI ou outro);
-(ii) se as \textit{releases} do repositório \textbf{representam entregas reais ao usuário}
+Os três autores rotularam a amostra de forma independente, sem consultar uns aos
+outros e sem acesso à saída da heurística. Cada um classificou: (i) o tipo do
+projeto (biblioteca/\textit{framework}, aplicação/serviço, ferramenta CLI ou outro);
+(ii) se as \textit{releases} do repositório representam entregas reais ao usuário
 (sim, não ou incerto); e (iii) para cada \textit{release} sorteada, se ela é
-\textbf{corretiva} (sim ou não), a partir das \textit{release notes} e da lista de
+corretiva (sim ou não), a partir das \textit{release notes} e da lista de
 \textit{commits}. O critério de cada rótulo foi definido por escrito antes da rotulagem.
 
-A concordância entre os avaliadores foi medida pelo \textbf{kappa de Fleiss} em cada
+A concordância entre os avaliadores foi medida pelo kappa de Fleiss em cada
 dimensão, que desconta a concordância esperada por acaso, e interpretada pela escala de
 Landis e Koch~\cite{landis1977}. A Tabela~\ref{tab:kappa} resume os resultados.
 
@@ -39,25 +39,24 @@ Release corretiva           & 299   & 0,876 & Quase perfeita \\
 \end{tabular}
 \end{table}
 
-O menor kappa é o de \textbf{releases são entregas reais} (0,745), mas ele não indica a
-dimensão mais ambígua, e sim a mais desbalanceada: o consenso classificou 59 dos 60
+O menor kappa é o de ``releases são entregas reais'' (0,745), e o motivo é o desbalanceamento
+dos rótulos, não a ambiguidade do critério: o consenso classificou 59 dos 60
 repositórios como ``sim'' e apenas um como ``incerto'', de modo que a concordância esperada
-por acaso é altíssima e uma única divergência já derruba o coeficiente. A concordância bruta
-nessa dimensão é de 98,3\%. É o comportamento conhecido do kappa sob distribuições
-concentradas, e por isso reportamos também a distribuição dos rótulos ao lado do coeficiente.
+por acaso é muito alta e uma única divergência já derruba o coeficiente, embora a concordância
+bruta seja de 98,3\%. O kappa se comporta assim sempre que os rótulos se concentram numa
+categoria, e por isso reportamos também a distribuição dos rótulos.
 
-A dimensão de fato mais ambígua é o \textbf{tipo do projeto} (0,835), com 9 divergências em
+A dimensão mais ambígua é o tipo do projeto (0,835), com 9 divergências em
 60, concentradas em dois limites: o que separa biblioteca de aplicação em projetos que
 entregam ao mesmo tempo um servidor e um SDK, e o alcance da categoria ``outro''. Na dimensão
-que interessa à heurística, \textbf{release corretiva}, o kappa é de 0,876, com 26
+que interessa à heurística, release corretiva, o kappa é de 0,876, com 26
 divergências em 299: o critério não é inteiramente objetivo nem para humanos, porque releases
-que misturam correções e novidades admitem leitura dupla. Esse valor funciona como teto
-prático para o que se pode esperar da heurística automática, já que ela é comparada justamente
-com o consenso destes avaliadores.
+que misturam correções e novidades admitem leitura dupla. Como a heurística automática é
+avaliada contra o consenso desses mesmos avaliadores, esse valor serve de teto prático para
+ela.
 
-O \textbf{rótulo de consenso} foi definido por maioria simples (pelo menos 2 dos 3
+O \textit{rótulo de consenso} foi definido por maioria simples (pelo menos 2 dos 3
 avaliadores). Os casos sem maioria (empates 1-1-1, possíveis nas dimensões com mais de
-duas categorias) seriam decididos em reunião dos três autores; não houve nenhum caso
-nessa situação, de modo que a regra não precisou ser aplicada. O
+duas categorias) seriam decididos em reunião dos três autores, mas não houve nenhum. O
 consenso sobre o tipo do projeto é usado como fator na RQ~06, e o consenso sobre
 \textit{releases} corretivas é a referência para avaliar a heurística do CFR (b).

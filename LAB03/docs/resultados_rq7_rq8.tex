@@ -4,9 +4,9 @@
 \subsection{RQ 07: sensibilidade à definição de deploy}
 
 Recalculamos a classificação DORA dos 350 repositórios sob três operacionalizações de
-\textit{deploy}: \textbf{C1} (referência), que usa apenas \textit{releases}, com
-\textit{lead time} (a) e CFR (a); \textbf{C2}, que inclui pré-\textit{releases} e adota as
-variantes (b); e \textbf{C3}, que usa \textit{tags} com o CFR na variante (a).
+\textit{deploy}: C1 (referência), que usa apenas \textit{releases}, com
+\textit{lead time} (a) e CFR (a); C2, que inclui pré-\textit{releases} e adota as
+variantes (b); e C3, que usa \textit{tags} com o CFR na variante (a).
 
 \begin{table}[ht]
 \centering
@@ -67,11 +67,10 @@ CFR (b)              & 350 & 0,052 & 0,200 & 0,416 \\
 \end{table}
 
 A mediana do \textit{rework rate} é 2,5 vezes a do CFR (b). As duas medidas se correlacionam
-($\rho = 0{,}522$, $p < 0{,}001$), mas \textbf{309 dos 350 repositórios têm \textit{rework
-rate} maior que o CFR (b)}, e 21 não publicaram nenhuma \textit{release} corretiva na janela.
+($\rho = 0{,}522$, $p < 0{,}001$), mas 309 dos 350 repositórios têm \textit{rework
+rate} maior que o CFR (b), e 21 não publicaram nenhuma \textit{release} corretiva na janela.
 
-A leitura é direta: metade das \textit{releases} desses projetos corrige alguma coisa, mas
-apenas uma em cada cinco corrige algo publicado na semana anterior. A maior parte do
-retrabalho é manutenção de rotina, e não resposta a uma entrega recém-quebrada --- o que
-reforça que o CFR (b), ao exigir a janela de 7 dias, mede um fenômeno mais estreito que
-``\textit{release} corretiva''.
+Metade das \textit{releases} desses projetos corrige alguma coisa, mas apenas uma em cada
+cinco corrige algo publicado na semana anterior. A maior parte do retrabalho é manutenção de
+rotina, e não resposta a uma entrega recém-quebrada. Ao exigir a janela de 7 dias, o
+CFR (b) mede um fenômeno mais estreito que ``\textit{release} corretiva''.

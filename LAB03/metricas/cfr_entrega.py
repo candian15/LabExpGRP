@@ -1,13 +1,13 @@
 """Change failure rate, variante (b): proxy de entrega (RQ 03b).
 
-Uma release R é considerada **falha** se for seguida, em até 7 dias, por uma
-**release corretiva**. O CFR do repositório é
+Uma release R é considerada falha se for seguida, em até 7 dias, por uma
+release corretiva. O CFR do repositório é
 
     CFR(b) = nº de releases que falharam / nº de releases avaliadas
 
 Releases publicadas nos últimos 7 dias da janela não podem ser avaliadas (ainda
 não se sabe se haverá correção): ficam fora do denominador e são contadas como
-**censuradas**.
+censuradas.
 
 Release corretiva é aquela cujo objetivo principal é corrigir um defeito
 recente. Como o GitHub não diz isso, o grupo usa uma heurística automática,
@@ -17,9 +17,9 @@ versão testada fica registrada em ``HEURISTICAS`` e em
 
 Decisões do grupo (vão para a Metodologia):
 
-- a release R só é comparada com a **release seguinte** (a correção de R é a
+- a release R só é comparada com a release seguinte (a correção de R é a
   próxima release), e não com todas as que vierem nos 7 dias;
-- a mensagem do commit é lida só no **assunto** (primeira linha), porque o
+- a mensagem do commit é lida só no assunto (primeira linha), porque o
   corpo costuma citar "fixes #123" também em funcionalidades novas;
 - a janela de 7 dias conta a partir de ``published_at`` de R, e a censura vale
   para releases publicadas depois de ``fim - 7 dias`` (``fim`` inclusivo);
@@ -104,7 +104,7 @@ def tem_correcao_substantiva(commits: list[dict]) -> bool:
 
 
 def so_secao_de_correcao(body: str | None) -> bool:
-    """As release notes têm seção de correção e **nenhuma** seção de novidade."""
+    """As release notes têm seção de correção e nenhuma seção de novidade."""
     texto = body or ""
     return bool(_SECAO_CORRECAO.search(texto)) and not _SECAO_NOVIDADE.search(texto)
 
@@ -137,16 +137,16 @@ def _v3(c: dict) -> bool:
 def _v4(c: dict) -> bool:
     """v4: as release notes só falam de correção, OU é patch com alguma correção real.
 
-    A v1 marcava qualquer mudança de *patch* como corretiva, o que gerava muitos falsos
-    positivos: publicar *patch* é a prática recomendada no SemVer e não implica corrigir
-    defeito. A v4 troca esse critério isolado por dois:
+    Mudança de *patch* sozinha não basta: publicar *patch* é a prática recomendada no
+    SemVer e não implica corrigir defeito (foi o que gerou os falsos positivos da v1).
+    A release é corretiva se:
 
-    1. as **release notes** trazem seção de correção e nenhuma de novidade -- o sinal
-       mais forte da amostra-ouro, porque a maioria dos projetos gera as notas a partir
-       dos commits e separa as seções;
-    2. a versão é *patch* **e** há pelo menos um commit de correção entre os
-       **substantivos** -- atualização de dependência e manutenção não contam, senão um
-       *bump* automático sozinho bastaria para a release virar corretiva.
+    1. as release notes trazem seção de correção e nenhuma de novidade. Na amostra-ouro
+       é o sinal mais forte, porque a maioria dos projetos gera as notas a partir dos
+       commits e separa as seções; ou
+    2. a versão é *patch* e há pelo menos um commit de correção entre os substantivos.
+       Atualização de dependência e manutenção não contam, senão um *bump* automático
+       sozinho bastaria para a release virar corretiva.
     """
     if so_secao_de_correcao(c.get("body")):
         return True

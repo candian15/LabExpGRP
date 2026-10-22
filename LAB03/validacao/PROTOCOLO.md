@@ -25,7 +25,7 @@ As linhas `release` pedem só uma:
 
 - **corretiva**: `sim` se o objetivo principal da release foi corrigir um bug recente, `nao` caso contrário. Para decidir, lemos as release notes (coluna `link`) e os commits (coluna `link_commits`). Se a release mistura correções e novidades, vale o que for o foco principal.
 
-A coluna `observacao` é livre e serve para anotar dúvidas que queremos discutir depois. No Excel, a planilha precisa ser salva como **CSV UTF-8**.
+A coluna `observacao` é livre e serve para anotar dúvidas que queremos discutir depois. No Excel, a planilha precisa ser salva como CSV UTF-8.
 
 ## Concordância
 
@@ -38,7 +38,7 @@ Depois que os três terminam, calculamos o kappa de Fleiss em cada uma das três
 - Fazemos uma reunião com os três, olhamos o repositório ou a release juntos e escrevemos a decisão na coluna `decisao`.
 - Depois rodamos o script de consenso de novo.
 
-O resultado final fica em `consenso.csv`, que o Artur usa para avaliar a heurística, e em `consenso_repos.csv`, que usamos na RQ 06.
+O resultado final fica em `consenso.csv`, que o Arthur usa para avaliar a heurística, e em `consenso_repos.csv`, que usamos na RQ 06.
 
 ## Registro
 

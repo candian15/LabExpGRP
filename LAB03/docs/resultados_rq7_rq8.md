@@ -4,7 +4,7 @@
 > `resultados/rq8_*.csv`, gerados por `analises.rq7_sensibilidade` e `analises.rq8_rework`.
 > A versão LaTeX está em `resultados_rq7_rq8.tex`.
 
-## RQ 07 — A classificação muda se a unidade de deploy for outra?
+## RQ 07: A classificação muda se a unidade de deploy for outra?
 
 Recalculamos a classificação DORA dos 350 repositórios sob três operacionalizações de
 deploy:
@@ -36,7 +36,7 @@ Entre um quarto e um terço dos repositórios trocam de categoria conforme a def
 *Elite* é a mais sensível: vai de 8 repositórios em C2 a 33 em C3, uma variação de quatro
 vezes sobre o mesmo conjunto de projetos e a mesma janela de observação.
 
-## RQ 08 — Rework rate
+## RQ 08: Rework rate
 
 O *rework rate* é a proporção de releases corretivas publicadas na janela, calculada como
 `cfrb_releases_corretivas ÷ n_releases`. Diferente do CFR (b), ele conta toda release
@@ -48,10 +48,10 @@ corretiva, e não apenas as que vieram em até 7 dias depois de outra.
 | CFR (b) | 350 | 0,052 | 0,200 | 0,416 |
 
 A mediana do rework rate é 2,5 vezes a do CFR (b). As duas medidas se correlacionam
-(ρ = 0,522, p < 0,001), mas **309 dos 350 repositórios têm rework rate maior que o CFR (b)**,
+(ρ = 0,522, p < 0,001), mas 309 dos 350 repositórios têm rework rate maior que o CFR (b),
 e 21 não publicaram nenhuma release corretiva na janela.
 
-A leitura é direta: metade das releases desses projetos corrige alguma coisa, mas apenas uma
-em cada cinco corrige algo publicado na semana anterior. A maior parte do retrabalho é
-manutenção de rotina, e não resposta a uma entrega recém-quebrada — o que reforça que o CFR
-(b), ao exigir a janela de 7 dias, mede um fenômeno mais estreito que "release corretiva".
+Metade das releases desses projetos corrige alguma coisa, mas apenas uma em cada cinco
+corrige algo publicado na semana anterior. A maior parte do retrabalho é manutenção de
+rotina, e não resposta a uma entrega recém-quebrada. Ao exigir a janela de 7 dias, o CFR (b)
+mede um fenômeno mais estreito que "release corretiva".

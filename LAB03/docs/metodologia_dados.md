@@ -1,6 +1,6 @@
 # Metodologia: fonte de dados, janela e seleção da amostra
 
-> Parte do João na seção de Metodologia. Vem antes das definições operacionais (Artur) e da
+> Parte do João na seção de Metodologia. Vem antes das definições operacionais (Arthur) e da
 > validação manual (Pedro). A versão LaTeX está em `metodologia_dados.tex`. Os números saem
 > de `dados/funil.csv`, `dados/repositorios.csv` e do log da coleta.
 
@@ -33,7 +33,7 @@ Três limitações da API definiram o desenho da coleta:
 
 ## Janela de observação
 
-A janela tem 12 meses, de **01/10/2025 a 30/09/2026**, inclusiva nas duas pontas. Ela foi
+A janela tem 12 meses, de 01/10/2025 a 30/09/2026, inclusiva nas duas pontas. Ela foi
 definida pelo professor e é a mesma para todos os repositórios. Só entram releases
 publicadas e *workflow runs* criados dentro dela, e só no *default branch*. A idade do
 repositório é medida até o fim da janela, e não até a data da execução, para que uma
@@ -79,7 +79,7 @@ e 27 estão na faixa de 1.000 a 1.500. As linguagens mais frequentes são TypeSc
 Python (72), Go (45), Rust (39) e JavaScript (28). Por repositório, a mediana é de 22
 releases e 688 *runs* válidos na janela, e a idade mediana é de 6,0 anos.
 
-A amostra **não é aleatória**. Dentro de cada faixa, só os 1.000 repositórios mais
+A amostra não é aleatória. Dentro de cada faixa, só os 1.000 repositórios mais
 estrelados chegaram a ser candidatos. Além disso, as faixas foram avaliadas na mesma
 proporção, mas os repositórios mais populares passaram mais nos filtros, e por isso a
 amostra final pende para eles. Os resultados valem para repositórios
@@ -109,6 +109,6 @@ As colunas de `repositorios.csv` formam cinco grupos:
   e CFR (a)). As variantes (b) ficam no arquivo para a análise de sensibilidade.
 - **Seleção:** o motivo do descarte, vazio para os aprovados.
 
-Três convenções valem para todos os campos. Vazio significa **não medido** e é diferente
+Três convenções valem para todos os campos. Vazio significa não medido e é diferente
 de zero. Datas estão em UTC. Decimais têm quatro casas. Métrica vazia não recebe nota e fica
 fora da mediana da categoria geral.

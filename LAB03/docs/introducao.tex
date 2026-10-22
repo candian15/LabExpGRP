@@ -4,35 +4,32 @@
 As métricas DORA, propostas pelo programa \textit{DevOps Research and
 Assessment}~\cite{dora2024}, descrevem o desempenho de entrega de uma equipe de software por
 quatro indicadores: a frequência de \textit{deploy}, o \textit{lead time} para mudanças, a
-taxa de falha das mudanças e o tempo de recuperação após uma falha. A combinação dos quatro
-posiciona a equipe em uma de quatro categorias --- \textit{Elite}, \textit{High},
-\textit{Medium} ou \textit{Low} --- e a literatura associa as categorias superiores a
+taxa de falha das mudanças e o tempo de recuperação após uma falha. Com os quatro, a equipe é
+classificada como \textit{Elite}, \textit{High}, \textit{Medium} ou \textit{Low}, e a
+literatura associa as categorias superiores a
 práticas como integração contínua, automação de testes e implantação em pequenos
 lotes~\cite{forsgren2018}.
 
-Essas métricas foram estabelecidas a partir de questionários respondidos por profissionais, o
-que traz duas limitações para quem quer aplicá-las fora desse contexto. A primeira é que os
-dados originais são autorrelatados e privados: não há como auditá-los nem reproduzi-los. A
-segunda é que as faixas de desempenho foram calibradas em equipes corporativas que praticam
+Essas métricas foram estabelecidas a partir de questionários respondidos por profissionais, e
+isso limita seu uso fora desse contexto. Os dados originais são autorrelatados e privados, então
+ninguém consegue auditá-los nem reproduzi-los. Além disso, as faixas de desempenho foram calibradas em equipes corporativas que praticam
 entrega contínua, e não se sabe o que elas significam quando aplicadas a projetos
 \textit{open-source}, cujo ritmo de publicação é decidido por mantenedores voluntários.
 
-Este trabalho investiga o que acontece quando as quatro métricas são calculadas \textbf{apenas
-com dados públicos do GitHub}, sobre uma amostra de 350 repositórios populares que usam GitHub
+Neste trabalho calculamos as quatro métricas apenas com dados públicos do GitHub, sobre uma
+amostra de 350 repositórios populares que usam GitHub
 Actions, em uma janela fixa de 12 meses. Como a API não informa quando uma mudança chegou à
-produção nem quando um defeito afetou usuários, dois \textit{proxies} são necessários: a
-publicação de uma \textit{release} aproxima o \textit{deploy}, e a falha de um
+produção nem quando um defeito afetou usuários, usamos dois \textit{proxies}: a publicação de uma \textit{release} aproxima o \textit{deploy}, e a falha de um
 \textit{workflow} de integração contínua aproxima a falha de uma mudança. Toda a coleta é
 reproduzida por um único comando, e o conjunto de dados resultante é publicado junto com o
 código.
 
-Medir por \textit{proxy} exige verificar o \textit{proxy}. Por isso o estudo não se limita a
-reportar os valores: ele sorteia uma amostra-ouro de 60 repositórios e 299 \textit{releases},
-submete-a ao julgamento independente dos três autores, mede a concordância entre eles e avalia
-contra esse consenso a heurística automática que identifica \textit{releases} corretivas. A
-sensibilidade das conclusões à definição de \textit{deploy} também é testada, comparando três
-operacionalizações alternativas. O resultado dessas verificações é tão relevante quanto os
-valores das métricas, e sustenta boa parte da discussão.
+Como os valores dependem desses \textit{proxies}, também os verificamos. Sorteamos uma
+amostra-ouro de 60 repositórios e 299 \textit{releases}, que os três autores julgaram de
+forma independente; medimos a concordância entre eles e avaliamos contra esse consenso a
+heurística automática que identifica \textit{releases} corretivas. Por fim,
+comparamos três definições alternativas de \textit{deploy} para ver o quanto as conclusões
+mudam com elas, e a discussão usa bastante esses resultados.
 
 \subsection{Questões de pesquisa}
 
@@ -58,5 +55,4 @@ A Seção~2 descreve a metodologia: a fonte de dados e a seleção da amostra, a
 operacionais de cada métrica e a heurística do CFR (b), e o protocolo da validação manual. A
 Seção~3 apresenta os resultados por questão de pesquisa. A Seção~4 discute o que as hipóteses
 previam e o que foi observado. A Seção~5 reúne as ameaças à validade nas quatro categorias
-clássicas~\cite{wohlin2012}, e a Seção~6 relata a replicação cruzada do pipeline de outro
-grupo.
+clássicas~\cite{wohlin2012}, e a Seção~6 apresenta as conclusões.

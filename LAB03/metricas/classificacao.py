@@ -1,7 +1,7 @@
 """Classificação DORA de um repositório (tabela de referência da seção 5).
 
 Cada métrica recebe uma nota: 4 = Elite, 3 = High, 2 = Medium, 1 = Low. A
-categoria geral do repositório é a **mediana** das quatro notas, arredondada
+categoria geral do repositório é a mediana das quatro notas, arredondada
 para baixo. Exemplo do enunciado: notas (4, 3, 3, 1) -> mediana 3 -> High.
 
 Cortes fixos da disciplina:

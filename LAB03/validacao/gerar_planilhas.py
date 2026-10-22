@@ -2,7 +2,7 @@
 
 Para cada repositório sorteado: uma linha ``repositorio`` (tipo do projeto e
 entregas reais) seguida das linhas ``release`` (corretiva), com links da release
-e dos commits. **A saída da heurística não entra na planilha.**
+e dos commits. A saída da heurística fica de fora da planilha de propósito.
 
 Uso::
 

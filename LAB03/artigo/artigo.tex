@@ -23,7 +23,7 @@
 \title{Métricas DORA em projetos open-source: o que se pode medir com dados públicos do
 GitHub}
 
-\author{João Santana Lopes\inst{1}, Pedro Maia\inst{1}, Artur Candian\inst{1}}
+\author{João Santana Lopes\inst{1}, Pedro Maia\inst{1}, Arthur Candian\inst{1}}
 
 \address{Pontifícia Universidade Católica de Minas Gerais (PUC Minas)\\
   Laboratório de Experimentação de Software
@@ -94,15 +94,6 @@ dados públicos são contingentes a escolhas operacionais raramente explicitadas
 % ------------------------------------------------- Discussão e ameaças à validade
 \input{../docs/discussao_ameacas}
 
-% ---------------------------------------------------------------- Replicação
-\section{Replicação cruzada}
-
-[[Relato da seção 9 do enunciado, na entrega final: qual pipeline foi executado, o que
-travou, a comparação dos resultados com o CSV original (diferença relativa por métrica e \%
-de repositórios com a mesma classificação DORA), as Issues abertas no repositório do grupo
-autor e as Issues recebidas e respondidas. Base: replicacao\_outro\_grupo/notas.md e a saída
-de analises/comparar\_replicacao.py.]]
-
 % ---------------------------------------------------------------- Conclusão
 \section{Conclusão}
 
@@ -114,22 +105,22 @@ integração contínua (mediana de 0,049) e se recupera rápido (mediana de 2,56
 na faixa \textit{High}). A classificação geral concentra-se no meio da escala: 86,3\% dos
 repositórios são \textit{High} ou \textit{Medium}.
 
-O achado central, porém, não é nenhum desses valores, e sim o quanto eles dependem de
-decisões de medição. As duas operacionalizações da taxa de falha correlacionam-se a
-$\rho = 0{,}107$ e discordam sobre a categoria de 20,6\% da amostra; trocar a definição de
-\textit{deploy} move entre 25\% e 33\% dos repositórios, e a faixa \textit{Elite} varia de
-8 a 33 projetos conforme a combinação adotada. A correlação entre frequência e taxa de falha
-chega a inverter de sinal prático entre as variantes, por artefato da construção da métrica.
-Reportar uma classificação DORA de projetos \textit{open-source} sem explicitar essas
-escolhas é, portanto, reportar um número subdeterminado.
+Esses valores dependem bastante de decisões de medição. As duas operacionalizações da taxa
+de falha correlacionam-se a $\rho = 0{,}107$ e discordam sobre a categoria de 20,6\% da
+amostra; trocar a definição de \textit{deploy} move entre 25\% e 33\% dos repositórios, e a
+faixa \textit{Elite} varia de 8 a 33 projetos conforme a combinação adotada. A correlação
+entre frequência e taxa de falha é praticamente nula na variante de CI ($\rho = 0{,}127$) e
+forte na variante de entrega ($\rho = 0{,}613$), em boa parte por artefato da construção da
+métrica. Uma classificação DORA de projetos \textit{open-source} só pode ser interpretada
+junto com as escolhas operacionais que a produziram.
 
-A validação manual confirma que o problema é de constructo e não apenas de implementação: o
-consenso dos três avaliadores considerou que as \textit{releases} representam entregas reais
-em 59 dos 60 repositórios da amostra-ouro, mas a melhor heurística automática para identificar
+Na validação manual, o \textit{proxy} de \textit{release} se sustentou: o consenso dos três
+avaliadores considerou que as \textit{releases} representam entregas reais em 59 dos 60
+repositórios da amostra-ouro. Já a melhor heurística automática para identificar
 \textit{releases} corretivas alcançou F1 de 0,65, abaixo do limiar de 0,70, em uma dimensão
-na qual os próprios avaliadores humanos divergiram em 26 de 299 casos.
+na qual os próprios avaliadores divergiram em 26 de 299 casos.
 
-Para trabalhos futuros, três caminhos nos parecem promissores: usar projetos que publicam
+Como trabalhos futuros, sugerimos três caminhos: usar projetos que publicam
 ambiente de produção observável (por exemplo, imagens de contêiner com data de implantação)
 para substituir o \textit{proxy} de \textit{release}; estender a janela para além de 12 meses,
 separando característica estável de efeito de período; e ampliar a amostra-ouro, de modo a
@@ -147,11 +138,3 @@ por um único comando, e o dicionário de dados descreve cada coluna dos CSVs.
 \bibliography{referencias}
 
 \end{document}
-
-% =====================================================================
-% ÚNICA LACUNA RESTANTE
-%
-% A seção "Replicação cruzada", que só pode ser escrita na entrega final, depois de
-% executar o pipeline do outro grupo. Base: replicacao_outro_grupo/notas.md e a saída
-% de analises/comparar_replicacao.py.
-% =====================================================================

@@ -1,6 +1,6 @@
-# Metodologia — definições operacionais e heurística de release corretiva
+# Metodologia: definições operacionais e heurística de release corretiva
 
-> Parte do Artur na seção de Metodologia. Os números da heurística saem de
+> Parte do Arthur na seção de Metodologia. Os números da heurística saem de
 > `validacao/historico_heuristica.md`, gerado por `avaliar_heuristica.py`. A versão LaTeX
 > está em `metodologia_definicoes_heuristica.tex`.
 
@@ -31,26 +31,27 @@ falhas em produção, todas as métricas são medidas por *proxies*:
 
 ## CFR (b): proxy de entrega
 
-Uma release R é considerada **falha** se for seguida, em até **7 dias**, por uma **release
-corretiva**, isto é, uma release cujo objetivo principal é corrigir um defeito recente. O
+Uma release R é considerada falha se for seguida, em até 7 dias, por uma release
+corretiva, isto é, uma release cujo objetivo principal é corrigir um defeito recente. O
 CFR (b) do repositório é `releases que falharam ÷ releases avaliadas`. Releases publicadas
 nos últimos 7 dias da janela não podem ser avaliadas e ficam fora do denominador
 (censura); o número de releases censuradas é reportado.
 
 Como o GitHub não indica se uma release é corretiva, usamos uma heurística automática
-sobre a versão (SemVer) e o **assunto** dos commits entre a release e a anterior. Decisões
-de projeto: (i) R é comparada apenas com a **release seguinte**; (ii) lemos só o assunto do
+sobre a versão (SemVer) e o assunto dos commits entre a release e a anterior. Decisões
+de projeto: (i) R é comparada apenas com a release seguinte; (ii) lemos só o assunto do
 commit, porque o corpo costuma citar "fixes #123" também em funcionalidades novas; (iii) se
 o `compare` falha, vale apenas o critério de versão; (iv) a primeira release da história
 nunca é corretiva.
 
-Testamos as seguintes versões:
+Testamos quatro versões:
 
 | Versão | Regra |
 |---|---|
 | v1 | só mudança de *patch* (`2.3.0 → 2.3.1`) **ou** algum commit com `fix`, `revert` ou `hotfix` no assunto |
 | v2 | só *patch* **ou** pelo menos metade dos commits são correções |
 | v3 | (só *patch* **e** algum commit de correção) **ou** pelo menos metade dos commits são correções |
+| v4 | as *release notes* têm seção de correção e nenhuma de novidade **ou** (só *patch* **e** algum commit de correção entre os substantivos), descrita adiante |
 
 ### Validação da heurística
 
@@ -68,13 +69,13 @@ F1 ≥ 0,70 para aceitar a heurística.
 | v3 | 71 | 67 | 40 | 121 | 0,51 | 0,64 | 0,57 |
 | v4 | 81 | 57 | 30 | 131 | 0,59 | 0,73 | **0,65** |
 
-A **v4** foi a escolhida, com F1 de 0,65. **Nenhuma versão atingiu o limiar de 0,70**, e isso
+A v4 foi a escolhida, com F1 de 0,65. Nenhuma versão atingiu o limiar de 0,70, e isso
 é reportado como limitação nas ameaças à validade.
 
-O problema das três primeiras versões é a mesma suposição: tratar toda mudança de *patch* no
-SemVer como correção de defeito. Publicar *patch* é a prática recomendada pelo próprio SemVer
+As três primeiras versões partem da mesma suposição: toda mudança de *patch* no SemVer seria
+correção de defeito. Publicar *patch* é a prática recomendada pelo próprio SemVer
 e não implica corrigir nada, de modo que a v1 marcou 170 releases que o consenso considerou
-não corretivas — ela acerta quase todas as corretivas (recall 0,99) ao custo de dizer "sim"
+não corretivas. Ela acerta quase todas as corretivas (recall 0,99) ao custo de dizer "sim"
 para quase tudo (precisão 0,39). A v3 tentou apertar o critério exigindo também um commit de
 correção, mas perdeu corretivas verdadeiras sem ganhar precisão.
 
@@ -82,15 +83,15 @@ A v4 troca o critério isolado de *patch* por dois sinais. O primeiro são as *r
 quando elas trazem uma seção de correção e nenhuma de novidade, 88% das releases da
 amostra-ouro são corretivas pelo consenso, contra 56% quando o único sinal é a mudança de
 *patch*. O segundo é a exigência de pelo menos um commit de correção entre os
-**substantivos**, isto é, descontando manutenção, dependências e infraestrutura (`chore`,
+*substantivos*, isto é, descontando manutenção, dependências e infraestrutura (`chore`,
 `ci`, `docs`, `test`, `bump`). Sem esse desconto, uma release de *patch* composta apenas de
 atualizações automáticas de dependência seria classificada como corretiva, que é o caso mais
 frequente entre os falsos positivos da v1.
 
-O ganho se concentra na precisão, que sobe de 0,39 na v1 para 0,59: os falsos positivos caem
-de 170 para 57, mantendo um recall de 0,73. Permanecem 30 falsos negativos, em sua maioria
+Quase todo o ganho vem da precisão, que sobe de 0,39 na v1 para 0,59: os falsos positivos caem
+de 170 para 57, com recall de 0,73. Permanecem 30 falsos negativos, em sua maioria
 releases grandes de projetos que não seguem SemVer e cujas notas misturam correções e
-novidades — os mesmos casos em que os avaliadores humanos também divergiram.
+novidades, os mesmos casos em que os avaliadores também divergiram.
 
-Nenhum dos critérios usa limiar numérico ajustado: a regra é composta de condições binárias,
-o que a torna reproduzível por outro grupo sem calibração.
+Nenhum dos critérios usa limiar numérico ajustado. A regra é composta de condições binárias
+e pode ser aplicada a outra amostra sem calibração.

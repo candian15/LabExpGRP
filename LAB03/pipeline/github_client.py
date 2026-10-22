@@ -53,7 +53,7 @@ class ErroGitHub(Exception):
 
 
 class NaoEncontrado(ErroGitHub):
-    """404 — ex.: compare entre tags apagadas/reescritas (ver FAQ do enunciado)."""
+    """404, por exemplo num compare entre tags apagadas ou reescritas (ver FAQ do enunciado)."""
 
 
 class GitHubClient:

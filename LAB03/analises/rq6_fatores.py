@@ -7,7 +7,7 @@ Para cada combinação fator x métrica:
   (interpretação de Romano et al., 2006: |δ| < 0,147 desprezível; < 0,33 pequeno;
   < 0,474 médio; senão grande).
 
-Os p-valores de **todos** os testes são corrigidos juntos pelo método de Holm
+Os p-valores de todos os testes são corrigidos juntos pelo método de Holm
 (``statsmodels.stats.multitest.multipletests``).
 
 Fatores: linguagem principal (as mais frequentes; o resto vira "Outras"), e os

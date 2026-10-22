@@ -77,7 +77,7 @@ def buscar_candidatos(
     A ordem alterna as faixas (o mais estrelado da primeira, o mais estrelado da
     segunda, ...) em vez de ser uma lista única por estrelas. Isso importa porque
     a coleta para ao fechar ``max_repositorios`` aprovados: em ordem de estrelas,
-    a amostra inteira sairia da faixa mais estrelada, e a RQ 06 compara justamente
+    a amostra inteira sairia da faixa mais estrelada, e a RQ 06 compara
     quartis de popularidade. Intercalando, a amostra cobre todos os níveis de
     popularidade desde o começo.
 

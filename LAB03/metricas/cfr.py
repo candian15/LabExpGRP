@@ -6,7 +6,7 @@ Classificação pelo campo ``conclusion`` (seção 3 do enunciado):
 - sucesso: ``success``
 - falha:   ``failure``, ``timed_out``, ``startup_failure``
 - ignorar: ``cancelled``, ``skipped``, ``neutral``, ``action_required``,
-  ``stale`` ou vazio (execução em andamento) — não entra em cálculo nenhum.
+  ``stale`` ou vazio (execução em andamento); não entra em cálculo nenhum.
 
 Atenção: isso mede falha de *pipeline*, não falha em produção.
 Considera todos os workflows do repositório juntos (FAQ do enunciado).
