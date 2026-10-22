@@ -4,8 +4,10 @@
 > `resultados/rq1_rq4_descritiva.csv`, `rq1_rq4_dora.csv` e `rq1_rq4_notas.csv`, gerados por
 > `python -m analises.rq1_rq4_descritiva`. A versão LaTeX está em `resultados_rq1_rq4.tex`.
 >
-> **Os valores do CFR (b) estão entre `[[ ]]`**: eles dependem da heurística de *release*
-> corretiva, que ainda será substituída pela versão final. Todos os outros números são
+> **Os valores do CFR (b) estão entre `[[ ]]`**: os que aparecem foram calculados com a
+> heurística v1 e precisam ser refeitos com a v4, adotada depois da validação manual. Para
+> atualizá-los, regere o dataset (`python -m pipeline`) e rode
+> `python -m analises.rq1_rq4_descritiva --saida resultados`. Todos os outros números são
 > definitivos.
 
 ## Visão geral

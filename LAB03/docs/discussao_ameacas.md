@@ -121,7 +121,8 @@ adotada. Qualquer afirmação sobre a taxa de falha da amostra é condicional à
 escolhida, e assim deve ser lida.
 
 *A heurística de release corretiva não atinge o limiar exigido.* As versões testadas ficaram
-entre [[0,56]] e [[0,64]] de F1, abaixo do mínimo de 0,70. O CFR (b), a RQ 08 e o C2 da RQ 07
+entre 0,56 e 0,65 de F1, abaixo do mínimo de 0,70. A versão adotada, a v4, alcançou 0,65.
+O CFR (b), a RQ 08 e o C2 da RQ 07
 herdam esse erro de medida. Vale registrar que mesmo os avaliadores humanos não foram
 unânimes nessa dimensão: o kappa de Fleiss para *release* corretiva foi de 0,876, com 26
 divergências em 299 itens. Esse valor funciona como teto prático para qualquer heurística
