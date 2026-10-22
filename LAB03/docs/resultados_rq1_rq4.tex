@@ -42,6 +42,14 @@ de versionamento, muitas vezes mensal ou trimestral por decisão do projeto. A f
 baixa reflete a prática de versionamento do ecossistema open-source, e não necessariamente
 uma capacidade de entrega limitada.
 
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\textwidth]{rq1_rq4_distribuicoes.png}
+\caption{Distribuição das seis métricas nos 350 repositórios. Frequência, \textit{lead time}
+e tempo de recuperação em escala logarítmica; a linha tracejada marca a mediana.}
+\label{fig:distribuicoes}
+\end{figure}
+
 \subsection{RQ 02: lead time para mudanças}
 
 As duas variantes dão resultados próximos: \textbf{251,7~h (10,5 dias)} na variante (a), que
@@ -83,6 +91,14 @@ avaliado pela outra. Esse é o ponto de maior fragilidade de constructo do traba
 na seção de Ameaças à Validade. Pela variante (a), 283 repositórios (80,9\%) ficam na faixa
 \textit{Elite} (CFR $\leq$ 0,15), a nota mais generosa das quatro.
 
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\textwidth]{rq1_rq4_pares.png}
+\caption{As duas variantes lado a lado. À esquerda, o \textit{lead time}, cujas variantes
+quase se sobrepõem; à direita, o CFR, em que elas divergem por quase uma ordem de grandeza.}
+\label{fig:pares}
+\end{figure}
+
 \subsection{RQ 04: tempo de recuperação}
 
 A mediana é de \textbf{2,56~h}, com IQR de 8,55~h, calculada sobre os 330 repositórios com ao
@@ -105,7 +121,7 @@ confiança na mediana reportada.
 \subsection{Classificação DORA geral}
 
 A categoria de cada repositório é a mediana das quatro notas, arredondada para baixo
-(Tabela~\ref{tab:dora}).
+(Tabela~\ref{tab:dora} e Figura~\ref{fig:dora}).
 
 \begin{table}[ht]
 \centering
@@ -122,6 +138,13 @@ Low    &  23 &  6,6 \\
 \hline
 \end{tabular}
 \end{table}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.7\textwidth]{rq1_rq4_dora.png}
+\caption{Classificação DORA geral dos 350 repositórios.}
+\label{fig:dora}
+\end{figure}
 
 A amostra se concentra no meio da escala: 302 repositórios (86,3\%) são \textit{High} ou
 \textit{Medium} e as duas pontas somam menos de 14\%. A distribuição por nota mostra que o

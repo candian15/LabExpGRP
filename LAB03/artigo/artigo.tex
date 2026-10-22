@@ -1,0 +1,113 @@
+% Artigo do Lab03 -- Mineração de Métricas DORA.
+%
+% Para compilar, baixe o template da SBC e ponha sbc-template.sty e sbc.bst nesta pasta:
+%   https://www.sbc.org.br/documentos-da-sbc/summary/169-templates-para-artigos-e-capitulos-de-livros/878-modelosparapublicaodeartigos
+%
+%   pdflatex artigo && bibtex artigo && pdflatex artigo && pdflatex artigo
+%
+% As seções vêm dos arquivos de ../docs/. Não edite o texto aqui: edite lá, para o .md e o
+% .tex continuarem iguais. As figuras vêm de ../resultados/, geradas pelos scripts de
+% ../analises/.
+%
+% Trechos [[ ]] ainda não foram preenchidos; veja a lista no fim deste arquivo.
+
+\documentclass[12pt]{article}
+
+\usepackage{sbc-template}
+\usepackage{graphicx,url}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+
+\graphicspath{{../resultados/}}
+\sloppy
+
+\title{Métricas DORA em projetos open-source: o que se pode medir com dados públicos do
+GitHub}
+
+\author{João Santana Lopes\inst{1}, Pedro Maia\inst{1}, Artur Candian\inst{1}}
+
+\address{Pontifícia Universidade Católica de Minas Gerais (PUC Minas)\\
+  Laboratório de Experimentação de Software
+  \email{[[e-mails]]}
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+[[Abstract em inglês, 10 linhas: contexto, o que foi medido, amostra, principal achado e
+implicação. Escrever por último, quando os números finais estiverem fechados.]]
+\end{abstract}
+
+\begin{resumo}
+[[Resumo em português, mesma estrutura do abstract.]]
+\end{resumo}
+
+% ---------------------------------------------------------------- Introdução
+\section{Introdução}
+
+[[Contexto: o que são as métricas DORA, por que medi-las em projetos open-source, e qual a
+lacuna -- os dados que o DORA usa vêm de pesquisas com equipes, não de repositórios públicos.
+Fechar com as oito questões de pesquisa e a estrutura do artigo.]]
+
+\subsection{Hipóteses}
+
+\input{../docs/hipoteses_rq3_rq5}
+
+% ---------------------------------------------------------------- Metodologia
+\section{Metodologia}
+
+\input{../docs/metodologia_dados}
+\input{../docs/metodologia_definicoes_heuristica}
+\input{../docs/metodologia_validacao_manual}
+
+% ---------------------------------------------------------------- Resultados
+\section{Resultados}
+
+\input{../docs/resultados_rq1_rq4}
+
+% [[ \input{../docs/resultados_rq5_rq6} -- Artur, depois de rodar as RQ 05 e RQ 06 ]]
+% [[ \input{../docs/resultados_rq7_rq8} -- Pedro, depois de rodar as RQ 07 e RQ 08 ]]
+
+% ------------------------------------------------- Discussão e ameaças à validade
+\input{../docs/discussao_ameacas}
+
+% ---------------------------------------------------------------- Replicação
+\section{Replicação cruzada}
+
+[[Relato da seção 9 do enunciado, na entrega final: qual pipeline foi executado, o que
+travou, a comparação dos resultados com o CSV original (diferença relativa por métrica e \%
+de repositórios com a mesma classificação DORA), as Issues abertas no repositório do grupo
+autor e as Issues recebidas e respondidas. Base: replicacao\_outro\_grupo/notas.md e a saída
+de analises/comparar\_replicacao.py.]]
+
+% ---------------------------------------------------------------- Conclusão
+\section{Conclusão}
+
+[[Retomar as oito RQs em um parágrafo, o achado central (duas operacionalizações do CFR
+discordam a ponto de mudar a categoria de um terço da amostra) e o que fica para trabalhos
+futuros.]]
+
+% ---------------------------------------------------------------- Disponibilidade
+\section*{Disponibilidade dos dados}
+
+Todo o código, os dados coletados e os roteiros de análise estão em
+\url{https://github.com/candian15/LabExpGRP}, na pasta \texttt{LAB03}. A coleta é reproduzida
+por um único comando, e o dicionário de dados descreve cada coluna dos CSVs.
+
+\bibliographystyle{sbc}
+\bibliography{referencias}
+
+\end{document}
+
+% =====================================================================
+% LACUNAS, por responsável
+%
+% Todos   abstract, resumo, Introdução, Conclusão, e-mails dos autores
+% Artur   tabela de F1 das versões da heurística (metodologia_definicoes_heuristica)
+%         resultados_rq5_rq6.{md,tex}
+% Pedro   resultados_rq7_rq8.{md,tex}
+% João    valores do CFR (b) em resultados_rq1_rq4 e discussao_ameacas (dependem da v4)
+%         seção de Replicação cruzada (entrega final)
+% =====================================================================
