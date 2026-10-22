@@ -7,10 +7,13 @@ from metricas.cfr_entrega import (
     assunto,
     cfr_entrega,
     classificar_releases,
+    commits_substantivos,
     eh_correcao,
     eh_corretiva,
     fracao_correcoes,
+    fracao_correcoes_substantivas,
     so_patch,
+    so_secao_de_correcao,
     versao_semver,
 )
 
@@ -21,12 +24,13 @@ def commit(msg):
     return {"sha": "x", "data": "2026-05-01T00:00:00Z", "message": msg}
 
 
-def item(tag, data, anterior, msgs=(), status="ok"):
+def item(tag, data, anterior, msgs=(), status="ok", body=""):
     return {
         "tag_name": tag,
         "published_at": f"{data}T12:00:00Z",
         "anterior": anterior,
         "status": status,
+        "body": body,
         "commits": [commit(m) for m in msgs],
     }
 
@@ -227,3 +231,77 @@ def test_heuristica_muda_o_resultado():
     ]
     assert cfr_entrega(comps, FIM, versao="v1")["n_falhas"] == 1
     assert cfr_entrega(comps, FIM, versao="v2")["n_falhas"] == 0
+
+
+# ------------------------------------------------------------------ sinais da v4
+def test_commits_substantivos_tira_manutencao_e_dependencias():
+    commits = [commit(m) for m in (
+        "fix: corrige o parser", "chore: limpa imports", "ci: ajusta o workflow",
+        "build(deps): bump lodash from 4.17.20 to 4.17.21", "docs: README",
+        "feat: nova opção", "Merge pull request #12",
+    )]
+    assert [assunto(c["message"]) for c in commits_substantivos(commits)] == [
+        "fix: corrige o parser", "feat: nova opção"]
+
+
+def test_fracao_substantiva_ignora_o_ruido():
+    # 1 correção e 1 novidade entre os substantivos: metade, apesar dos 4 de manutenção
+    commits = [commit(m) for m in (
+        "fix: a", "feat: b", "chore: c", "docs: d", "ci: e", "test: f")]
+    assert fracao_correcoes_substantivas(commits) == 0.5
+    assert fracao_correcoes(commits) == pytest.approx(1 / 6)  # a bruta se dilui
+
+
+def test_fracao_substantiva_sem_commits_uteis_e_zero():
+    assert fracao_correcoes_substantivas([commit("chore: deps"), commit("docs: x")]) == 0.0
+    assert fracao_correcoes_substantivas([]) == 0.0
+
+
+@pytest.mark.parametrize("body,esperado", [
+    ("## Bug Fixes\n- corrige o parser", True),
+    ("### Fixed\n- trava ao abrir", True),
+    ("## Bug Fixes\n- a\n## Features\n- b", False),      # tem novidade junto
+    ("## Features\n- nova tela", False),
+    ("", False),
+    (None, False),
+])
+def test_so_secao_de_correcao(body, esperado):
+    assert so_secao_de_correcao(body) is esperado
+
+
+# ------------------------------------------------------------------------- v4
+def test_v4_release_notes_so_de_correcao_bastam():
+    # nem é patch, mas as notas só falam de correção
+    c = item("v3.0.0", "2026-05-12", "v2.9.0", ["feat: x"], body="## Bug Fixes\n- y")
+    assert eh_corretiva(c, "v4") is True
+
+
+def test_v4_notas_com_novidade_nao_contam():
+    c = item("v3.0.0", "2026-05-12", "v2.9.0", ["feat: x"],
+             body="## Bug Fixes\n- a\n## Features\n- b")
+    assert eh_corretiva(c, "v4") is False
+
+
+def test_v4_patch_sozinho_nao_basta():
+    # era o que a v1 fazia e gerava os falsos positivos
+    c = item("v2.3.1", "2026-05-12", "v2.3.0", ["chore: bump deps", "docs: readme"])
+    assert eh_corretiva(c, "v4") is False
+    assert eh_corretiva(c, "v1") is True
+
+
+def test_v4_patch_com_correcoes_em_peso():
+    c = item("v2.3.1", "2026-05-12", "v2.3.0", ["fix: a", "feat: b", "chore: deps"])
+    assert eh_corretiva(c, "v4") is True   # 1 de 2 substantivos = 0,5 >= 0,30
+
+
+def test_v4_patch_com_poucas_correcoes_nao_conta():
+    msgs = ["fix: a"] + ["feat: b"] * 5
+    assert eh_corretiva(item("v2.3.1", "2026-05-12", "v2.3.0", msgs), "v4") is False  # 1/6
+
+
+def test_v4_primeira_release_nunca_e_corretiva():
+    assert eh_corretiva(item("v1.0.0", "2026-01-01", None, body="## Bug Fixes\n- x"), "v4") is False
+
+
+def test_v4_esta_registrada():
+    assert "v4" in HEURISTICAS

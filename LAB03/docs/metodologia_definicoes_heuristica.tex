@@ -1,5 +1,4 @@
 % Rascunho da parte do Artur na Metodologia (template SBC).
-% Trechos [[ ]] dependem da validação manual.
 
 \subsection{Definições operacionais}
 
@@ -41,4 +40,47 @@ heurística, e o consenso seguiu o protocolo da seção de validação manual. C
 heurística com o consenso por precisão, recall e F1 da classe ``corretiva'', aceitando
 F1 $\geq$ 0,70.
 
-[[ Tabela com v1, v2 e v3 e a versão escolhida ]]
+\begin{table}[ht]
+\centering
+\caption{Desempenho de cada versão da heurística contra o consenso da amostra-ouro
+(299 \textit{releases}, 111 corretivas).}
+\label{tab:heuristica}
+\begin{tabular}{lrrrrrrr}
+\hline
+\textbf{Versão} & \textbf{VP} & \textbf{FP} & \textbf{FN} & \textbf{VN} &
+\textbf{Precisão} & \textbf{Recall} & \textbf{F1} \\
+\hline
+v1 & 110 & 170 &  1 &  18 & 0,39 & 0,99 & 0,56 \\
+v2 &  84 &  74 & 27 & 114 & 0,53 & 0,76 & 0,62 \\
+v3 &  71 &  67 & 40 & 121 & 0,51 & 0,64 & 0,57 \\
+v4 &  72 &  33 & 39 & 155 & 0,69 & 0,65 & \textbf{0,67} \\
+\hline
+\end{tabular}
+\end{table}
+
+A \textbf{v4} foi a escolhida, com F1 de 0,67. \textbf{Nenhuma versão atingiu o limiar de
+0,70}, e isso é reportado como limitação nas ameaças à validade.
+
+O problema das três primeiras versões é a mesma suposição: tratar toda mudança de
+\textit{patch} no SemVer como correção de defeito. Publicar \textit{patch} é a prática
+recomendada pelo próprio SemVer e não implica corrigir nada, de modo que a v1 marcou 170
+\textit{releases} que o consenso considerou não corretivas --- ela acerta quase todas as
+corretivas (recall 0,99) ao custo de dizer ``sim'' para quase tudo (precisão 0,39). A v3
+tentou apertar o critério exigindo também um \textit{commit} de correção, mas perdeu
+corretivas verdadeiras sem ganhar precisão.
+
+A v4 troca o critério isolado de \textit{patch} por dois sinais. O primeiro são as
+\textit{release notes}: quando elas trazem uma seção de correção e nenhuma de novidade, 88\%
+das \textit{releases} da amostra-ouro são corretivas pelo consenso, contra 56\% quando o
+único sinal é a mudança de \textit{patch}. O segundo é a proporção de correções entre os
+\textit{commits substantivos}, isto é, descontando manutenção, dependências e
+infraestrutura (\texttt{chore}, \texttt{ci}, \texttt{docs}, \texttt{test},
+\texttt{bump}): essa fração separa melhor os dois grupos (mediana de 0,43 nas corretivas
+contra 0,21 nas demais) do que a fração sobre todos os \textit{commits} (0,30 contra 0,18),
+porque dezenas de atualizações automáticas de dependência diluíam as correções de uma
+\textit{release} pequena.
+
+O ganho se concentra na precisão, que sobe de 0,53 para 0,69: os falsos positivos caem de 74
+para 33. Permanecem 39 falsos negativos, em sua maioria \textit{releases} grandes de
+projetos que não seguem SemVer e cujas notas misturam correções e novidades --- os mesmos
+casos em que os avaliadores humanos também divergiram.

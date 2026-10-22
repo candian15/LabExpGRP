@@ -1,7 +1,8 @@
 # Metodologia — definições operacionais e heurística de release corretiva
 
-> Rascunho da parte do Artur na seção de Metodologia. Os trechos entre `[[ ]]` só podem
-> ser preenchidos depois da validação manual (consenso do grupo + `avaliar_heuristica.py`).
+> Parte do Artur na seção de Metodologia. Os números da heurística saem de
+> `validacao/historico_heuristica.md`, gerado por `avaliar_heuristica.py`. A versão LaTeX
+> está em `metodologia_definicoes_heuristica.tex`.
 
 ## Definições operacionais
 
@@ -60,6 +61,33 @@ de validação manual. Comparamos a heurística com o consenso por precisão, re
 classe "corretiva" (`precision_recall_fscore_support`, scikit-learn), com limiar de
 F1 ≥ 0,70 para aceitar a heurística.
 
-[[ Tabela com v1, v2, v3: precisão, recall e F1 (copiar de validacao/historico_heuristica.md) ]]
+| Versão | VP | FP | FN | VN | Precisão | Recall | F1 |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| v1 | 110 | 170 | 1 | 18 | 0,39 | 0,99 | 0,56 |
+| v2 | 84 | 74 | 27 | 114 | 0,53 | 0,76 | 0,62 |
+| v3 | 71 | 67 | 40 | 121 | 0,51 | 0,64 | 0,57 |
+| v4 | 72 | 33 | 39 | 155 | 0,69 | 0,65 | **0,67** |
 
-[[ Versão escolhida, F1 obtido e o que as versões anteriores erravam (falsos positivos e falsos negativos mais comuns) ]]
+A **v4** foi a escolhida, com F1 de 0,67. **Nenhuma versão atingiu o limiar de 0,70**, e isso
+é reportado como limitação nas ameaças à validade.
+
+O problema das três primeiras versões é a mesma suposição: tratar toda mudança de *patch* no
+SemVer como correção de defeito. Publicar *patch* é a prática recomendada pelo próprio SemVer
+e não implica corrigir nada, de modo que a v1 marcou 170 releases que o consenso considerou
+não corretivas — ela acerta quase todas as corretivas (recall 0,99) ao custo de dizer "sim"
+para quase tudo (precisão 0,39). A v3 tentou apertar o critério exigindo também um commit de
+correção, mas perdeu corretivas verdadeiras sem ganhar precisão.
+
+A v4 troca o critério isolado de *patch* por dois sinais. O primeiro são as *release notes*:
+quando elas trazem uma seção de correção e nenhuma de novidade, 88% das releases da
+amostra-ouro são corretivas pelo consenso, contra 56% quando o único sinal é a mudança de
+*patch*. O segundo é a proporção de correções entre os **commits substantivos**, isto é,
+descontando manutenção, dependências e infraestrutura (`chore`, `ci`, `docs`, `test`,
+`bump`): essa fração separa melhor os dois grupos (mediana de 0,43 nas corretivas contra 0,21
+nas demais) do que a fração sobre todos os commits (0,30 contra 0,18), porque dezenas de
+atualizações automáticas de dependência diluíam as correções de uma release pequena.
+
+O ganho se concentra na precisão, que sobe de 0,53 para 0,69: os falsos positivos caem de 74
+para 33. Permanecem 39 falsos negativos, em sua maioria releases grandes de projetos que não
+seguem SemVer e cujas notas misturam correções e novidades — os mesmos casos em que os
+avaliadores humanos também divergiram.

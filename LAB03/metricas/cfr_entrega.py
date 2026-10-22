@@ -43,6 +43,21 @@ JANELA_DIAS = 7
 _SEMVER = re.compile(r"(\d+)\.(\d+)\.(\d+)")
 _CORRECAO = re.compile(r"\b(revert|hotfix|bugfix|fix(?:es|ed)?)\b", re.IGNORECASE)
 
+# Commits que não são trabalho de produto: manutenção, dependências e infraestrutura.
+# Eles inflam o denominador da fração de correções e escondem releases que, no que
+# interessa, só corrigem.
+_RUIDO = re.compile(
+    r"^\s*(chore|build|ci|docs?|test|style|refactor)\b"
+    r"|\b(bump|update|upgrade)\b.*\b(dep|dependenc|version|lockfile)"
+    r"|^\s*(merge|release|version)\b",
+    re.IGNORECASE,
+)
+
+# Cabeçalhos de seção nas release notes. A maioria dos projetos gera as notas a partir
+# dos commits e separa correções de novidades em seções próprias.
+_SECAO_CORRECAO = re.compile(r"^#{1,4}\s*.*(bug ?fix|fixes|fixed|patch|corre\u00e7|hotfix)", re.IGNORECASE | re.MULTILINE)
+_SECAO_NOVIDADE = re.compile(r"^#{1,4}\s*.*(feature|new|added|enhancement|novidade|what's new)", re.IGNORECASE | re.MULTILINE)
+
 
 # --------------------------------------------------------------- sinais simples
 def versao_semver(tag: str | None) -> tuple[int, int, int] | None:
@@ -78,29 +93,77 @@ def fracao_correcoes(commits: list[dict]) -> float:
     return sum(1 for c in commits if eh_correcao(c.get("message"))) / len(commits)
 
 
+def commits_substantivos(commits: list[dict]) -> list[dict]:
+    """Commits sem os de manutenção, dependências e infraestrutura (ver ``_RUIDO``)."""
+    return [c for c in commits if not _RUIDO.search(assunto(c.get("message")))]
+
+
+def fracao_correcoes_substantivas(commits: list[dict]) -> float:
+    """Proporção de correções entre os commits substantivos (0 se não houver nenhum)."""
+    uteis = commits_substantivos(commits)
+    if not uteis:
+        return 0.0
+    return sum(1 for c in uteis if eh_correcao(c.get("message"))) / len(uteis)
+
+
+def so_secao_de_correcao(body: str | None) -> bool:
+    """As release notes têm seção de correção e **nenhuma** seção de novidade."""
+    texto = body or ""
+    return bool(_SECAO_CORRECAO.search(texto)) and not _SECAO_NOVIDADE.search(texto)
+
+
 # --------------------------------------------------------- versões da heurística
-# Assinatura: (tag anterior, tag da release, commits entre as duas) -> é corretiva?
-Heuristica = Callable[[str | None, str, list[dict]], bool]
+# Assinatura: a comparação inteira (um item de ``comparacoes``) -> é corretiva?
+# Recebe o item todo, e não só as tags e os commits, porque a partir da v4 as release
+# notes (``body``) também entram na decisão.
+Heuristica = Callable[[dict], bool]
 
 
-def _v1(anterior, atual, commits) -> bool:
+def _v1(c: dict) -> bool:
     """v1 (exemplo do enunciado): só patch OU algum commit de correção."""
-    return so_patch(anterior, atual) or any(eh_correcao(c.get("message")) for c in commits)
+    commits = c.get("commits") or []
+    return so_patch(c.get("anterior"), c["tag_name"]) or any(eh_correcao(x.get("message")) for x in commits)
 
 
-def _v2(anterior, atual, commits) -> bool:
+def _v2(c: dict) -> bool:
     """v2: só patch OU pelo menos metade dos commits são correções."""
-    return so_patch(anterior, atual) or fracao_correcoes(commits) >= 0.5
+    return so_patch(c.get("anterior"), c["tag_name"]) or fracao_correcoes(c.get("commits") or []) >= 0.5
 
 
-def _v3(anterior, atual, commits) -> bool:
+def _v3(c: dict) -> bool:
     """v3: (só patch E algum commit de correção) OU pelo menos metade dos commits são correções."""
-    algum = any(eh_correcao(c.get("message")) for c in commits)
-    return (so_patch(anterior, atual) and algum) or fracao_correcoes(commits) >= 0.5
+    commits = c.get("commits") or []
+    algum = any(eh_correcao(x.get("message")) for x in commits)
+    return (so_patch(c.get("anterior"), c["tag_name"]) and algum) or fracao_correcoes(commits) >= 0.5
 
 
-HEURISTICAS: dict[str, Heuristica] = {"v1": _v1, "v2": _v2, "v3": _v3}
-VERSAO_PADRAO = "v1"  # trocar pela melhor versão depois da validação manual
+LIMIAR_CORRECOES_V4 = 0.30
+
+
+def _v4(c: dict) -> bool:
+    """v4: as release notes só falam de correção, OU é patch com correções em peso.
+
+    A v1 marcava qualquer mudança de *patch* como corretiva, o que gerava muitos
+    falsos positivos: publicar *patch* é a prática recomendada no SemVer e não
+    implica corrigir defeito. A v4 troca esse critério isolado por dois:
+
+    1. as **release notes** trazem seção de correção e nenhuma de novidade -- o sinal
+       mais forte da amostra-ouro, porque a maioria dos projetos gera as notas a partir
+       dos commits e separa as seções;
+    2. a versão é *patch* **e** pelo menos ``LIMIAR_CORRECOES_V4`` dos commits
+       substantivos são correções -- commits de manutenção e de dependências ficam fora
+       da conta, senão uma release de correções pequenas se dilui entre dezenas de
+       *bumps* automáticos.
+    """
+    commits = c.get("commits") or []
+    if so_secao_de_correcao(c.get("body")):
+        return True
+    return (so_patch(c.get("anterior"), c["tag_name"])
+            and fracao_correcoes_substantivas(commits) >= LIMIAR_CORRECOES_V4)
+
+
+HEURISTICAS: dict[str, Heuristica] = {"v1": _v1, "v2": _v2, "v3": _v3, "v4": _v4}
+VERSAO_PADRAO = "v4"  # melhor F1 na amostra-ouro (0,67); ver validacao/historico_heuristica.md
 
 
 def _heuristica(versao: str) -> Heuristica:
@@ -125,10 +188,9 @@ def _ordenadas(comparacoes: list[dict]) -> list[dict]:
 
 def eh_corretiva(comparacao: dict, versao: str = VERSAO_PADRAO) -> bool:
     """Classifica uma release (um item de ``comparacoes``) com a heurística escolhida."""
-    anterior = comparacao.get("anterior")
-    if anterior is None:  # primeira release da história: não tem o que corrigir
+    if comparacao.get("anterior") is None:  # primeira release da história: não tem o que corrigir
         return False
-    return _heuristica(versao)(anterior, comparacao["tag_name"], comparacao.get("commits") or [])
+    return _heuristica(versao)(comparacao)
 
 
 def classificar_releases(comparacoes: list[dict], versao: str = VERSAO_PADRAO) -> list[dict]:
