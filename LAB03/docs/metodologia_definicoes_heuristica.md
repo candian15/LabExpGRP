@@ -66,9 +66,9 @@ F1 ≥ 0,70 para aceitar a heurística.
 | v1 | 110 | 170 | 1 | 18 | 0,39 | 0,99 | 0,56 |
 | v2 | 84 | 74 | 27 | 114 | 0,53 | 0,76 | 0,62 |
 | v3 | 71 | 67 | 40 | 121 | 0,51 | 0,64 | 0,57 |
-| v4 | 72 | 33 | 39 | 155 | 0,69 | 0,65 | **0,67** |
+| v4 | 81 | 57 | 30 | 131 | 0,59 | 0,73 | **0,65** |
 
-A **v4** foi a escolhida, com F1 de 0,67. **Nenhuma versão atingiu o limiar de 0,70**, e isso
+A **v4** foi a escolhida, com F1 de 0,65. **Nenhuma versão atingiu o limiar de 0,70**, e isso
 é reportado como limitação nas ameaças à validade.
 
 O problema das três primeiras versões é a mesma suposição: tratar toda mudança de *patch* no
@@ -81,13 +81,16 @@ correção, mas perdeu corretivas verdadeiras sem ganhar precisão.
 A v4 troca o critério isolado de *patch* por dois sinais. O primeiro são as *release notes*:
 quando elas trazem uma seção de correção e nenhuma de novidade, 88% das releases da
 amostra-ouro são corretivas pelo consenso, contra 56% quando o único sinal é a mudança de
-*patch*. O segundo é a proporção de correções entre os **commits substantivos**, isto é,
-descontando manutenção, dependências e infraestrutura (`chore`, `ci`, `docs`, `test`,
-`bump`): essa fração separa melhor os dois grupos (mediana de 0,43 nas corretivas contra 0,21
-nas demais) do que a fração sobre todos os commits (0,30 contra 0,18), porque dezenas de
-atualizações automáticas de dependência diluíam as correções de uma release pequena.
+*patch*. O segundo é a exigência de pelo menos um commit de correção entre os
+**substantivos**, isto é, descontando manutenção, dependências e infraestrutura (`chore`,
+`ci`, `docs`, `test`, `bump`). Sem esse desconto, uma release de *patch* composta apenas de
+atualizações automáticas de dependência seria classificada como corretiva, que é o caso mais
+frequente entre os falsos positivos da v1.
 
-O ganho se concentra na precisão, que sobe de 0,53 para 0,69: os falsos positivos caem de 74
-para 33. Permanecem 39 falsos negativos, em sua maioria releases grandes de projetos que não
-seguem SemVer e cujas notas misturam correções e novidades — os mesmos casos em que os
-avaliadores humanos também divergiram.
+O ganho se concentra na precisão, que sobe de 0,39 na v1 para 0,59: os falsos positivos caem
+de 170 para 57, mantendo um recall de 0,73. Permanecem 30 falsos negativos, em sua maioria
+releases grandes de projetos que não seguem SemVer e cujas notas misturam correções e
+novidades — os mesmos casos em que os avaliadores humanos também divergiram.
+
+Nenhum dos critérios usa limiar numérico ajustado: a regra é composta de condições binárias,
+o que a torna reproduzível por outro grupo sem calibração.

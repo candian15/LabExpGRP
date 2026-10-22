@@ -98,12 +98,9 @@ def commits_substantivos(commits: list[dict]) -> list[dict]:
     return [c for c in commits if not _RUIDO.search(assunto(c.get("message")))]
 
 
-def fracao_correcoes_substantivas(commits: list[dict]) -> float:
-    """Proporção de correções entre os commits substantivos (0 se não houver nenhum)."""
-    uteis = commits_substantivos(commits)
-    if not uteis:
-        return 0.0
-    return sum(1 for c in uteis if eh_correcao(c.get("message"))) / len(uteis)
+def tem_correcao_substantiva(commits: list[dict]) -> bool:
+    """Algum commit de correção que não seja manutenção, dependência ou infraestrutura."""
+    return any(eh_correcao(c.get("message")) for c in commits_substantivos(commits))
 
 
 def so_secao_de_correcao(body: str | None) -> bool:
@@ -137,33 +134,28 @@ def _v3(c: dict) -> bool:
     return (so_patch(c.get("anterior"), c["tag_name"]) and algum) or fracao_correcoes(commits) >= 0.5
 
 
-LIMIAR_CORRECOES_V4 = 0.30
-
-
 def _v4(c: dict) -> bool:
-    """v4: as release notes só falam de correção, OU é patch com correções em peso.
+    """v4: as release notes só falam de correção, OU é patch com alguma correção real.
 
-    A v1 marcava qualquer mudança de *patch* como corretiva, o que gerava muitos
-    falsos positivos: publicar *patch* é a prática recomendada no SemVer e não
-    implica corrigir defeito. A v4 troca esse critério isolado por dois:
+    A v1 marcava qualquer mudança de *patch* como corretiva, o que gerava muitos falsos
+    positivos: publicar *patch* é a prática recomendada no SemVer e não implica corrigir
+    defeito. A v4 troca esse critério isolado por dois:
 
     1. as **release notes** trazem seção de correção e nenhuma de novidade -- o sinal
        mais forte da amostra-ouro, porque a maioria dos projetos gera as notas a partir
        dos commits e separa as seções;
-    2. a versão é *patch* **e** pelo menos ``LIMIAR_CORRECOES_V4`` dos commits
-       substantivos são correções -- commits de manutenção e de dependências ficam fora
-       da conta, senão uma release de correções pequenas se dilui entre dezenas de
-       *bumps* automáticos.
+    2. a versão é *patch* **e** há pelo menos um commit de correção entre os
+       **substantivos** -- atualização de dependência e manutenção não contam, senão um
+       *bump* automático sozinho bastaria para a release virar corretiva.
     """
-    commits = c.get("commits") or []
     if so_secao_de_correcao(c.get("body")):
         return True
     return (so_patch(c.get("anterior"), c["tag_name"])
-            and fracao_correcoes_substantivas(commits) >= LIMIAR_CORRECOES_V4)
+            and tem_correcao_substantiva(c.get("commits") or []))
 
 
 HEURISTICAS: dict[str, Heuristica] = {"v1": _v1, "v2": _v2, "v3": _v3, "v4": _v4}
-VERSAO_PADRAO = "v4"  # melhor F1 na amostra-ouro (0,67); ver validacao/historico_heuristica.md
+VERSAO_PADRAO = "v4"  # melhor F1 na amostra-ouro (0,65); ver validacao/historico_heuristica.md
 
 
 def _heuristica(versao: str) -> Heuristica:

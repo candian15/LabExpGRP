@@ -11,7 +11,7 @@ from metricas.cfr_entrega import (
     eh_correcao,
     eh_corretiva,
     fracao_correcoes,
-    fracao_correcoes_substantivas,
+    tem_correcao_substantiva,
     so_patch,
     so_secao_de_correcao,
     versao_semver,
@@ -244,17 +244,11 @@ def test_commits_substantivos_tira_manutencao_e_dependencias():
         "fix: corrige o parser", "feat: nova opção"]
 
 
-def test_fracao_substantiva_ignora_o_ruido():
-    # 1 correção e 1 novidade entre os substantivos: metade, apesar dos 4 de manutenção
-    commits = [commit(m) for m in (
-        "fix: a", "feat: b", "chore: c", "docs: d", "ci: e", "test: f")]
-    assert fracao_correcoes_substantivas(commits) == 0.5
-    assert fracao_correcoes(commits) == pytest.approx(1 / 6)  # a bruta se dilui
-
-
-def test_fracao_substantiva_sem_commits_uteis_e_zero():
-    assert fracao_correcoes_substantivas([commit("chore: deps"), commit("docs: x")]) == 0.0
-    assert fracao_correcoes_substantivas([]) == 0.0
+def test_tem_correcao_substantiva_ignora_o_ruido():
+    assert tem_correcao_substantiva([commit("fix: a"), commit("chore: b")]) is True
+    # o "fix" está só num commit de manutenção: não conta
+    assert tem_correcao_substantiva([commit("chore: fix lockfile"), commit("docs: x")]) is False
+    assert tem_correcao_substantiva([]) is False
 
 
 @pytest.mark.parametrize("body,esperado", [
@@ -289,14 +283,15 @@ def test_v4_patch_sozinho_nao_basta():
     assert eh_corretiva(c, "v1") is True
 
 
-def test_v4_patch_com_correcoes_em_peso():
+def test_v4_patch_com_alguma_correcao_real():
     c = item("v2.3.1", "2026-05-12", "v2.3.0", ["fix: a", "feat: b", "chore: deps"])
-    assert eh_corretiva(c, "v4") is True   # 1 de 2 substantivos = 0,5 >= 0,30
+    assert eh_corretiva(c, "v4") is True
 
 
-def test_v4_patch_com_poucas_correcoes_nao_conta():
-    msgs = ["fix: a"] + ["feat: b"] * 5
-    assert eh_corretiva(item("v2.3.1", "2026-05-12", "v2.3.0", msgs), "v4") is False  # 1/6
+def test_v4_patch_so_com_manutencao_nao_conta():
+    # era o caso que mais gerava falso positivo na v1
+    c = item("v2.3.1", "2026-05-12", "v2.3.0", ["chore(deps): bump lodash", "ci: cache"])
+    assert eh_corretiva(c, "v4") is False
 
 
 def test_v4_primeira_release_nunca_e_corretiva():
