@@ -1,0 +1,17 @@
+rq,nota_de,nota,categoria,n,pct
+RQ01,nota_frequencia,4,Elite,5,1.43
+RQ01,nota_frequencia,3,High,85,24.29
+RQ01,nota_frequencia,2,Medium,153,43.71
+RQ01,nota_frequencia,1,Low,107,30.57
+RQ02,nota_lead_time,4,Elite,57,16.29
+RQ02,nota_lead_time,3,High,89,25.43
+RQ02,nota_lead_time,2,Medium,103,29.43
+RQ02,nota_lead_time,1,Low,101,28.86
+RQ03,nota_cfr,4,Elite,283,80.86
+RQ03,nota_cfr,3,High,41,11.71
+RQ03,nota_cfr,2,Medium,18,5.14
+RQ03,nota_cfr,1,Low,8,2.29
+RQ04,nota_recuperacao,4,Elite,86,26.06
+RQ04,nota_recuperacao,3,High,196,59.39
+RQ04,nota_recuperacao,2,Medium,38,11.52
+RQ04,nota_recuperacao,1,Low,10,3.03

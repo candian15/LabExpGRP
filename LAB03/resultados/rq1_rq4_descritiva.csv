@@ -1,0 +1,8 @@
+rq,metrica,rotulo,unidade,n,minimo,q1,mediana,q3,iqr,maximo
+RQ01,deployment_frequency,Frequência de deploy,releases/semana,350,0.0959,0.1918,0.4219,1.0356,0.8438000000000001,49.5562
+RQ02,lead_time_a,Lead time (a),horas,350,0.064,50.844625,251.74715,848.4498,797.605175,114735.7789
+RQ02,lead_time_b,Lead time (b),horas,350,0.3486,65.37205,284.00059999999996,845.44925,780.0772,92930.3689
+RQ03,cfr_a_ci,"CFR (a), proxy de CI",fração,350,0.0,0.021275,0.049,0.1212,0.099925,0.7879
+RQ03,cfr_b_entrega,"CFR (b), proxy de entrega",fração,350,0.0,0.1667,0.3889,0.633275,0.4665750000000001,1.0
+RQ04,recuperacao,Tempo de recuperação,horas,330,0.0465,0.9788250000000001,2.5551500000000003,9.527875,8.54905,1417.9894
+RQ04,prop_censurados,Episódios censurados (só quem tem episódio),fração,330,0.0,0.0,0.0,0.0033,0.0033,0.6667
