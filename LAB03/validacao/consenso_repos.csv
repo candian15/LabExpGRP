@@ -8,7 +8,7 @@ LinuxCNC/linuxcnc,aplicacao,sim
 Panniantong/Agent-Reach,cli,sim
 RooCodeInc/Roo-Code,aplicacao,sim
 Significant-Gravitas/AutoGPT,aplicacao,sim
-Skyvern-AI/skyvern,aplicacao,sim
+Skyvern-AI/skyvern,biblioteca,sim
 VueTorrent/VueTorrent,aplicacao,sim
 WordPress/gutenberg,aplicacao,sim
 actiontech/sqle,aplicacao,sim
@@ -36,7 +36,7 @@ livewire/livewire,biblioteca,sim
 maplibre/maplibre-gl-js,biblioteca,sim
 marimo-team/marimo,aplicacao,sim
 microsoft/TypeScript,biblioteca,sim
-modelcontextprotocol/servers,aplicacao,sim
+modelcontextprotocol/servers,outro,sim
 mrdoob/three.js,biblioteca,sim
 nunchux-ai/nunchaku,biblioteca,sim
 open-multi-agent/open-multi-agent,biblioteca,sim

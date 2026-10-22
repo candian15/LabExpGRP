@@ -15,13 +15,13 @@ repositorio;BtbN/FFmpeg-Builds;;https://github.com/BtbN/FFmpeg-Builds;;outro;sim
 release;BtbN/FFmpeg-Builds;autobuild-2025-10-31-13-40;https://github.com/BtbN/FFmpeg-Builds/releases/tag/autobuild-2025-10-31-13-40;https://github.com/BtbN/FFmpeg-Builds/compare/autobuild-2025-09-30-13-19...autobuild-2025-10-31-13-40;;;nao;só atualização de dependências
 release;BtbN/FFmpeg-Builds;autobuild-2026-03-31-13-11;https://github.com/BtbN/FFmpeg-Builds/releases/tag/autobuild-2026-03-31-13-11;https://github.com/BtbN/FFmpeg-Builds/compare/autobuild-2026-02-28-12-59...autobuild-2026-03-31-13-11;;;nao;manutenção/CI
 release;BtbN/FFmpeg-Builds;autobuild-2026-06-30-13-34;https://github.com/BtbN/FFmpeg-Builds/releases/tag/autobuild-2026-06-30-13-34;https://github.com/BtbN/FFmpeg-Builds/compare/autobuild-2026-05-31-13-22...autobuild-2026-06-30-13-34;;;nao;
-release;BtbN/FFmpeg-Builds;autobuild-2026-07-31-14-10;https://github.com/BtbN/FFmpeg-Builds/releases/tag/autobuild-2026-07-31-14-10;https://github.com/BtbN/FFmpeg-Builds/compare/autobuild-2026-06-30-13-34...autobuild-2026-07-31-14-10;;;nao;vários fixes de build, mas foco em atualização
+release;BtbN/FFmpeg-Builds;autobuild-2026-07-31-14-10;https://github.com/BtbN/FFmpeg-Builds/releases/tag/autobuild-2026-07-31-14-10;https://github.com/BtbN/FFmpeg-Builds/compare/autobuild-2026-06-30-13-34...autobuild-2026-07-31-14-10;;;sim;vários fixes de build, mas foco em atualização
 release;BtbN/FFmpeg-Builds;autobuild-2026-08-31-13-27;https://github.com/BtbN/FFmpeg-Builds/releases/tag/autobuild-2026-08-31-13-27;https://github.com/BtbN/FFmpeg-Builds/compare/autobuild-2026-07-31-14-10...autobuild-2026-08-31-13-27;;;nao;
 repositorio;Faugus/faugus-launcher;;https://github.com/Faugus/faugus-launcher;;aplicacao;sim;;
 release;Faugus/faugus-launcher;1.9.6;https://github.com/Faugus/faugus-launcher/releases/tag/1.9.6;https://github.com/Faugus/faugus-launcher/compare/1.9.5...1.9.6;;;nao;mista: 1 fix e 2 novidades
 release;Faugus/faugus-launcher;1.13.6;https://github.com/Faugus/faugus-launcher/releases/tag/1.13.6;https://github.com/Faugus/faugus-launcher/compare/1.13.5...1.13.6;;;sim;
 release;Faugus/faugus-launcher;1.15.11;https://github.com/Faugus/faugus-launcher/releases/tag/1.15.11;https://github.com/Faugus/faugus-launcher/compare/1.15.10...1.15.11;;;nao;
-release;Faugus/faugus-launcher;1.18.5;https://github.com/Faugus/faugus-launcher/releases/tag/1.18.5;https://github.com/Faugus/faugus-launcher/compare/1.18.4...1.18.5;;;sim;hotfix + separação de opção
+release;Faugus/faugus-launcher;1.18.5;https://github.com/Faugus/faugus-launcher/releases/tag/1.18.5;https://github.com/Faugus/faugus-launcher/compare/1.18.4...1.18.5;;;nao;hotfix + separação de opção
 release;Faugus/faugus-launcher;2.4.0;https://github.com/Faugus/faugus-launcher/releases/tag/2.4.0;https://github.com/Faugus/faugus-launcher/compare/2.3.0...2.4.0;;;nao;
 repositorio;JanDeDobbeleer/oh-my-posh;;https://github.com/JanDeDobbeleer/oh-my-posh;;cli;sim;;
 release;JanDeDobbeleer/oh-my-posh;v27.6.0;https://github.com/JanDeDobbeleer/oh-my-posh/releases/tag/v27.6.0;https://github.com/JanDeDobbeleer/oh-my-posh/compare/v27.5.2...v27.6.0;;;nao;2 fixes e 1 feature (minor)
@@ -41,7 +41,7 @@ release;Panniantong/Agent-Reach;v1.4.0;https://github.com/Panniantong/Agent-Reac
 release;Panniantong/Agent-Reach;v1.4.2;https://github.com/Panniantong/Agent-Reach/releases/tag/v1.4.2;https://github.com/Panniantong/Agent-Reach/compare/v1.4.1...v1.4.2;;;nao;
 release;Panniantong/Agent-Reach;v1.5.0;https://github.com/Panniantong/Agent-Reach/releases/tag/v1.5.0;https://github.com/Panniantong/Agent-Reach/compare/v1.4.2...v1.5.0;;;nao;
 repositorio;RooCodeInc/Roo-Code;;https://github.com/RooCodeInc/Roo-Code;;aplicacao;sim;;extensão de editor (VS Code)
-release;RooCodeInc/Roo-Code;v3.36.5;https://github.com/RooCodeInc/Roo-Code/releases/tag/v3.36.5;https://github.com/RooCodeInc/Roo-Code/compare/v3.36.4...v3.36.5;;;nao;"mista; destaque é GPT-5.2, mas há 6 fixes"
+release;RooCodeInc/Roo-Code;v3.36.5;https://github.com/RooCodeInc/Roo-Code/releases/tag/v3.36.5;https://github.com/RooCodeInc/Roo-Code/compare/v3.36.4...v3.36.5;;;sim;"mista; destaque é GPT-5.2, mas há 6 fixes"
 release;RooCodeInc/Roo-Code;v3.36.6;https://github.com/RooCodeInc/Roo-Code/releases/tag/v3.36.6;https://github.com/RooCodeInc/Roo-Code/compare/v3.36.5...v3.36.6;;;nao;
 release;RooCodeInc/Roo-Code;v3.36.14;https://github.com/RooCodeInc/Roo-Code/releases/tag/v3.36.14;https://github.com/RooCodeInc/Roo-Code/compare/v3.36.13...v3.36.14;;;nao;
 release;RooCodeInc/Roo-Code;v3.41.2;https://github.com/RooCodeInc/Roo-Code/releases/tag/v3.41.2;https://github.com/RooCodeInc/Roo-Code/compare/v3.41.1...v3.41.2;;;sim;1 add e 3 fixes
@@ -220,7 +220,7 @@ release;microsoft/TypeScript;v5.8.3;https://github.com/microsoft/TypeScript/rele
 release;microsoft/TypeScript;v5.9.2;https://github.com/microsoft/TypeScript/releases/tag/v5.9.2;https://github.com/microsoft/TypeScript/compare/v5.8.3...v5.9.2;;;nao;release estável da 5.9
 release;microsoft/TypeScript;v6.0.3;https://github.com/microsoft/TypeScript/releases/tag/v6.0.3;https://github.com/microsoft/TypeScript/compare/v6.0.2...v6.0.3;;;sim;
 release;microsoft/TypeScript;v7.0.2;https://github.com/microsoft/TypeScript/releases/tag/v7.0.2;https://github.com/microsoft/TypeScript/compare/v6.0.3...v7.0.2;;;nao;lançamento do TypeScript 7
-repositorio;modelcontextprotocol/servers;;https://github.com/modelcontextprotocol/servers;;aplicacao;sim;;coleção de servidores MCP de referência
+repositorio;modelcontextprotocol/servers;;https://github.com/modelcontextprotocol/servers;;outro;sim;;coleção de servidores MCP de referência
 release;modelcontextprotocol/servers;2025.11.25;https://github.com/modelcontextprotocol/servers/releases/tag/2025.11.25;https://github.com/modelcontextprotocol/servers/compare/2025.9.25...2025.11.25;;;nao;"notas só listam pacotes; commits mistos"
 release;modelcontextprotocol/servers;2025.12.18;https://github.com/modelcontextprotocol/servers/releases/tag/2025.12.18;https://github.com/modelcontextprotocol/servers/compare/2025.11.25...2025.12.18;;;nao;"notas só listam pacotes; maioria docs"
 release;modelcontextprotocol/servers;2026.1.14;https://github.com/modelcontextprotocol/servers/releases/tag/2026.1.14;https://github.com/modelcontextprotocol/servers/compare/2025.12.18...2026.1.14;;;nao;"notas só listam pacotes; refactor"
@@ -275,7 +275,7 @@ release;rbatis/rbatis;v4.6.14;https://github.com/rbatis/rbatis/releases/tag/v4.6
 release;rbatis/rbatis;v4.7.0;https://github.com/rbatis/rbatis/releases/tag/v4.7.0;https://github.com/rbatis/rbatis/compare/v4.6.15...v4.7.0;;;nao;
 release;rbatis/rbatis;v4.8.0;https://github.com/rbatis/rbatis/releases/tag/v4.8.0;https://github.com/rbatis/rbatis/compare/v4.7.2...v4.8.0;;;nao;
 repositorio;rcourtman/Pulse;;https://github.com/rcourtman/Pulse;;aplicacao;sim;;
-release;rcourtman/Pulse;v4.19.2;https://github.com/rcourtman/Pulse/releases/tag/v4.19.2;https://github.com/rcourtman/Pulse/compare/v4.19.1...v4.19.2;;;nao;mista: features + vários fixes de concorrência
+release;rcourtman/Pulse;v4.19.2;https://github.com/rcourtman/Pulse/releases/tag/v4.19.2;https://github.com/rcourtman/Pulse/compare/v4.19.1...v4.19.2;;;sim;mista: features + vários fixes de concorrência
 release;rcourtman/Pulse;v5.0.2;https://github.com/rcourtman/Pulse/releases/tag/v5.0.2;https://github.com/rcourtman/Pulse/compare/v5.0.1...v5.0.2;;;sim;
 release;rcourtman/Pulse;v5.0.4;https://github.com/rcourtman/Pulse/releases/tag/v5.0.4;https://github.com/rcourtman/Pulse/compare/v5.0.3...v5.0.4;;;nao;
 release;rcourtman/Pulse;v5.0.9;https://github.com/rcourtman/Pulse/releases/tag/v5.0.9;https://github.com/rcourtman/Pulse/compare/v5.0.8...v5.0.9;;;sim;
@@ -329,7 +329,7 @@ release;streamlink/streamlink;8.2.1;https://github.com/streamlink/streamlink/rel
 release;streamlink/streamlink;8.6.0;https://github.com/streamlink/streamlink/releases/tag/8.6.0;https://github.com/streamlink/streamlink/compare/8.5.0...8.6.0;;;nao;fixes de segurança, mas muitas adições
 release;streamlink/streamlink;8.6.1;https://github.com/streamlink/streamlink/releases/tag/8.6.1;https://github.com/streamlink/streamlink/compare/8.6.0...8.6.1;;;sim;
 repositorio;synthetic-sciences/openscience;;https://github.com/synthetic-sciences/openscience;;aplicacao;sim;;
-release;synthetic-sciences/openscience;v2.0.24;https://github.com/synthetic-sciences/openscience/releases/tag/v2.0.24;https://github.com/synthetic-sciences/openscience/compare/v2.0.23...v2.0.24;;;sim;"notas dizem bug fixes; commits têm feats"
+release;synthetic-sciences/openscience;v2.0.24;https://github.com/synthetic-sciences/openscience/releases/tag/v2.0.24;https://github.com/synthetic-sciences/openscience/compare/v2.0.23...v2.0.24;;;nao;"notas dizem bug fixes; commits têm feats"
 release;synthetic-sciences/openscience;v2.0.61;https://github.com/synthetic-sciences/openscience/releases/tag/v2.0.61;https://github.com/synthetic-sciences/openscience/compare/v2.0.60...v2.0.61;;;sim;recupera previews quebrados + unificação de UI
 release;synthetic-sciences/openscience;v2.0.87;https://github.com/synthetic-sciences/openscience/releases/tag/v2.0.87;https://github.com/synthetic-sciences/openscience/compare/v2.0.86...v2.0.87;;;nao;
 release;synthetic-sciences/openscience;v2.0.102;https://github.com/synthetic-sciences/openscience/releases/tag/v2.0.102;https://github.com/synthetic-sciences/openscience/compare/v2.0.101...v2.0.102;;;sim;

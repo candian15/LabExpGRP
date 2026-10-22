@@ -12,11 +12,11 @@ BOINC/boinc,dockerwrapper/18,sim
 BtbN/FFmpeg-Builds,autobuild-2025-10-31-13-40,nao
 BtbN/FFmpeg-Builds,autobuild-2026-03-31-13-11,nao
 BtbN/FFmpeg-Builds,autobuild-2026-06-30-13-34,nao
-BtbN/FFmpeg-Builds,autobuild-2026-07-31-14-10,nao
+BtbN/FFmpeg-Builds,autobuild-2026-07-31-14-10,sim
 BtbN/FFmpeg-Builds,autobuild-2026-08-31-13-27,nao
 Faugus/faugus-launcher,1.13.6,sim
 Faugus/faugus-launcher,1.15.11,nao
-Faugus/faugus-launcher,1.18.5,sim
+Faugus/faugus-launcher,1.18.5,nao
 Faugus/faugus-launcher,1.9.6,nao
 Faugus/faugus-launcher,2.4.0,nao
 JanDeDobbeleer/oh-my-posh,v27.6.0,nao
@@ -37,7 +37,7 @@ RooCodeInc/Roo-Code,v3.36.14,nao
 RooCodeInc/Roo-Code,v3.36.5,nao
 RooCodeInc/Roo-Code,v3.36.6,nao
 RooCodeInc/Roo-Code,v3.41.2,sim
-RooCodeInc/Roo-Code,v3.47.2,sim
+RooCodeInc/Roo-Code,v3.47.2,nao
 Significant-Gravitas/AutoGPT,autogpt-platform-beta-v0.6.55,nao
 Significant-Gravitas/AutoGPT,autogpt-platform-beta-v0.6.57,nao
 Significant-Gravitas/AutoGPT,autogpt-platform-beta-v0.6.58,nao
@@ -114,7 +114,7 @@ external-secrets/external-secrets,helm-chart-2.9.0,nao
 external-secrets/external-secrets,v1.1.1,sim
 external-secrets/external-secrets,v2.8.0,nao
 facebook/lexical,v0.36.2,sim
-facebook/lexical,v0.37.0,nao
+facebook/lexical,v0.37.0,sim
 facebook/lexical,v0.38.2,sim
 facebook/lexical,v0.40.0,nao
 facebook/lexical,v0.43.0,nao
@@ -161,7 +161,7 @@ langflow-ai/langflow,v1.9.6,sim
 libp2p/go-libp2p,v0.44.0,nao
 libp2p/go-libp2p,v0.45.0,nao
 libp2p/go-libp2p,v0.46.0,sim
-libp2p/go-libp2p,v0.48.0,nao
+libp2p/go-libp2p,v0.48.0,sim
 libp2p/go-libp2p,v0.49.0,nao
 livewire/livewire,v3.8.1,sim
 livewire/livewire,v4.0.0,nao
@@ -228,7 +228,7 @@ rbatis/rbatis,v4.6.14,nao
 rbatis/rbatis,v4.6.9,sim
 rbatis/rbatis,v4.7.0,nao
 rbatis/rbatis,v4.8.0,nao
-rcourtman/Pulse,v4.19.2,nao
+rcourtman/Pulse,v4.19.2,sim
 rcourtman/Pulse,v5.0.2,sim
 rcourtman/Pulse,v5.0.4,nao
 rcourtman/Pulse,v5.0.9,sim
@@ -275,7 +275,7 @@ streamlink/streamlink,8.6.0,nao
 streamlink/streamlink,8.6.1,sim
 synthetic-sciences/openscience,v2.0.102,sim
 synthetic-sciences/openscience,v2.0.122,nao
-synthetic-sciences/openscience,v2.0.24,sim
+synthetic-sciences/openscience,v2.0.24,nao
 synthetic-sciences/openscience,v2.0.61,sim
 synthetic-sciences/openscience,v2.0.87,nao
 timescale/timescaledb,2.23.0,nao

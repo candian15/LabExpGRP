@@ -11,7 +11,7 @@ release;BOINC/boinc;dockerwrapper/16;https://github.com/BOINC/boinc/releases/tag
 release;BOINC/boinc;dockerwrapper/18;https://github.com/BOINC/boinc/releases/tag/dockerwrapper/18;https://github.com/BOINC/boinc/compare/vboxwrapper/26212...dockerwrapper/18;;;sim;
 release;BOINC/boinc;client_release/8.2/8.2.11;https://github.com/BOINC/boinc/releases/tag/client_release/8.2/8.2.11;https://github.com/BOINC/boinc/compare/dockerwrapper/21...client_release/8.2/8.2.11;;;sim;
 release;BOINC/boinc;client_release/8.2/8.2.13;https://github.com/BOINC/boinc/releases/tag/client_release/8.2/8.2.13;https://github.com/BOINC/boinc/compare/client_release/8.2/8.2.12...client_release/8.2/8.2.13;;;sim;hotfix
-repositorio;BtbN/FFmpeg-Builds;;https://github.com/BtbN/FFmpeg-Builds;;outro;sim;;builds automaticos mensais de binarios do FFmpeg
+repositorio;BtbN/FFmpeg-Builds;;https://github.com/BtbN/FFmpeg-Builds;;outro;nao;;builds automaticos mensais de binarios do FFmpeg
 release;BtbN/FFmpeg-Builds;autobuild-2025-10-31-13-40;https://github.com/BtbN/FFmpeg-Builds/releases/tag/autobuild-2025-10-31-13-40;https://github.com/BtbN/FFmpeg-Builds/compare/autobuild-2025-09-30-13-19...autobuild-2025-10-31-13-40;;;nao;build automatico - so atualizacao de dependencias
 release;BtbN/FFmpeg-Builds;autobuild-2026-03-31-13-11;https://github.com/BtbN/FFmpeg-Builds/releases/tag/autobuild-2026-03-31-13-11;https://github.com/BtbN/FFmpeg-Builds/compare/autobuild-2026-02-28-12-59...autobuild-2026-03-31-13-11;;;nao;build automatico - manutencao
 release;BtbN/FFmpeg-Builds;autobuild-2026-06-30-13-34;https://github.com/BtbN/FFmpeg-Builds/releases/tag/autobuild-2026-06-30-13-34;https://github.com/BtbN/FFmpeg-Builds/compare/autobuild-2026-05-31-13-22...autobuild-2026-06-30-13-34;;;nao;build automatico - manutencao
@@ -21,7 +21,7 @@ repositorio;Faugus/faugus-launcher;;https://github.com/Faugus/faugus-launcher;;a
 release;Faugus/faugus-launcher;1.9.6;https://github.com/Faugus/faugus-launcher/releases/tag/1.9.6;https://github.com/Faugus/faugus-launcher/compare/1.9.5...1.9.6;;;nao;duvida: 1 fix + 2 novidades
 release;Faugus/faugus-launcher;1.13.6;https://github.com/Faugus/faugus-launcher/releases/tag/1.13.6;https://github.com/Faugus/faugus-launcher/compare/1.13.5...1.13.6;;;sim;
 release;Faugus/faugus-launcher;1.15.11;https://github.com/Faugus/faugus-launcher/releases/tag/1.15.11;https://github.com/Faugus/faugus-launcher/compare/1.15.10...1.15.11;;;nao;
-release;Faugus/faugus-launcher;1.18.5;https://github.com/Faugus/faugus-launcher/releases/tag/1.18.5;https://github.com/Faugus/faugus-launcher/compare/1.18.4...1.18.5;;;sim;hotfix + separacao de opcao
+release;Faugus/faugus-launcher;1.18.5;https://github.com/Faugus/faugus-launcher/releases/tag/1.18.5;https://github.com/Faugus/faugus-launcher/compare/1.18.4...1.18.5;;;nao;hotfix + separacao de opcao
 release;Faugus/faugus-launcher;2.4.0;https://github.com/Faugus/faugus-launcher/releases/tag/2.4.0;https://github.com/Faugus/faugus-launcher/compare/2.3.0...2.4.0;;;nao;
 repositorio;JanDeDobbeleer/oh-my-posh;;https://github.com/JanDeDobbeleer/oh-my-posh;;cli;sim;;
 release;JanDeDobbeleer/oh-my-posh;v27.6.0;https://github.com/JanDeDobbeleer/oh-my-posh/releases/tag/v27.6.0;https://github.com/JanDeDobbeleer/oh-my-posh/compare/v27.5.2...v27.6.0;;;nao;duvida: 2 fixes e 1 feature
@@ -45,14 +45,14 @@ release;RooCodeInc/Roo-Code;v3.36.5;https://github.com/RooCodeInc/Roo-Code/relea
 release;RooCodeInc/Roo-Code;v3.36.6;https://github.com/RooCodeInc/Roo-Code/releases/tag/v3.36.6;https://github.com/RooCodeInc/Roo-Code/compare/v3.36.5...v3.36.6;;;nao;
 release;RooCodeInc/Roo-Code;v3.36.14;https://github.com/RooCodeInc/Roo-Code/releases/tag/v3.36.14;https://github.com/RooCodeInc/Roo-Code/compare/v3.36.13...v3.36.14;;;nao;duvida: release mista
 release;RooCodeInc/Roo-Code;v3.41.2;https://github.com/RooCodeInc/Roo-Code/releases/tag/v3.41.2;https://github.com/RooCodeInc/Roo-Code/compare/v3.41.1...v3.41.2;;;sim;3 fixes e 1 add
-release;RooCodeInc/Roo-Code;v3.47.2;https://github.com/RooCodeInc/Roo-Code/releases/tag/v3.47.2;https://github.com/RooCodeInc/Roo-Code/compare/v3.47.1...v3.47.2;;;sim;2 fixes e 1 add
+release;RooCodeInc/Roo-Code;v3.47.2;https://github.com/RooCodeInc/Roo-Code/releases/tag/v3.47.2;https://github.com/RooCodeInc/Roo-Code/compare/v3.47.1...v3.47.2;;;nao;2 fixes e 1 add
 repositorio;Significant-Gravitas/AutoGPT;;https://github.com/Significant-Gravitas/AutoGPT;;aplicacao;sim;;
 release;Significant-Gravitas/AutoGPT;autogpt-platform-beta-v0.6.55;https://github.com/Significant-Gravitas/AutoGPT/releases/tag/autogpt-platform-beta-v0.6.55;https://github.com/Significant-Gravitas/AutoGPT/compare/autogpt-platform-beta-v0.6.54...autogpt-platform-beta-v0.6.55;;;nao;
 release;Significant-Gravitas/AutoGPT;autogpt-platform-beta-v0.6.57;https://github.com/Significant-Gravitas/AutoGPT/releases/tag/autogpt-platform-beta-v0.6.57;https://github.com/Significant-Gravitas/AutoGPT/compare/autogpt-platform-beta-v0.6.56...autogpt-platform-beta-v0.6.57;;;nao;
 release;Significant-Gravitas/AutoGPT;autogpt-platform-beta-v0.6.58;https://github.com/Significant-Gravitas/AutoGPT/releases/tag/autogpt-platform-beta-v0.6.58;https://github.com/Significant-Gravitas/AutoGPT/compare/autogpt-platform-beta-v0.6.57...autogpt-platform-beta-v0.6.58;;;nao;
 release;Significant-Gravitas/AutoGPT;autogpt-platform-beta-v0.7.0;https://github.com/Significant-Gravitas/AutoGPT/releases/tag/autogpt-platform-beta-v0.7.0;https://github.com/Significant-Gravitas/AutoGPT/compare/autogpt-platform-beta-v0.6.70...autogpt-platform-beta-v0.7.0;;;nao;
 release;Significant-Gravitas/AutoGPT;autogpt-platform-beta-v0.7.3;https://github.com/Significant-Gravitas/AutoGPT/releases/tag/autogpt-platform-beta-v0.7.3;https://github.com/Significant-Gravitas/AutoGPT/compare/autogpt-platform-beta-v0.7.2...autogpt-platform-beta-v0.7.3;;;nao;
-repositorio;Skyvern-AI/skyvern;;https://github.com/Skyvern-AI/skyvern;;aplicacao;sim;;tambem tem SDK
+repositorio;Skyvern-AI/skyvern;;https://github.com/Skyvern-AI/skyvern;;biblioteca;sim;;tambem tem SDK
 release;Skyvern-AI/skyvern;v0.2.16;https://github.com/Skyvern-AI/skyvern/releases/tag/v0.2.16;https://github.com/Skyvern-AI/skyvern/compare/v0.2.15...v0.2.16;;;nao;
 release;Skyvern-AI/skyvern;v0.2.21;https://github.com/Skyvern-AI/skyvern/releases/tag/v0.2.21;https://github.com/Skyvern-AI/skyvern/compare/v0.2.20...v0.2.21;;;nao;
 release;Skyvern-AI/skyvern;v1.0.35;https://github.com/Skyvern-AI/skyvern/releases/tag/v1.0.35;https://github.com/Skyvern-AI/skyvern/compare/v1.0.34...v1.0.35;;;sim;duvida: maioria fixes mas ha feats
@@ -138,7 +138,7 @@ release;external-secrets/external-secrets;v2.8.0;https://github.com/external-sec
 release;external-secrets/external-secrets;helm-chart-2.9.0;https://github.com/external-secrets/external-secrets/releases/tag/helm-chart-2.9.0;https://github.com/external-secrets/external-secrets/compare/v2.9.0...helm-chart-2.9.0;;;nao;release do helm chart
 repositorio;facebook/lexical;;https://github.com/facebook/lexical;;biblioteca;sim;;
 release;facebook/lexical;v0.36.2;https://github.com/facebook/lexical/releases/tag/v0.36.2;https://github.com/facebook/lexical/compare/v0.36.1...v0.36.2;;;sim;
-release;facebook/lexical;v0.37.0;https://github.com/facebook/lexical/releases/tag/v0.37.0;https://github.com/facebook/lexical/compare/v0.36.2...v0.37.0;;;nao;duvida: CVE + features experimentais
+release;facebook/lexical;v0.37.0;https://github.com/facebook/lexical/releases/tag/v0.37.0;https://github.com/facebook/lexical/compare/v0.36.2...v0.37.0;;;sim;duvida: CVE + features experimentais
 release;facebook/lexical;v0.38.2;https://github.com/facebook/lexical/releases/tag/v0.38.2;https://github.com/facebook/lexical/compare/v0.38.1...v0.38.2;;;sim;
 release;facebook/lexical;v0.40.0;https://github.com/facebook/lexical/releases/tag/v0.40.0;https://github.com/facebook/lexical/compare/v0.39.0...v0.40.0;;;nao;
 release;facebook/lexical;v0.43.0;https://github.com/facebook/lexical/releases/tag/v0.43.0;https://github.com/facebook/lexical/compare/v0.42.0...v0.43.0;;;nao;
@@ -194,7 +194,7 @@ repositorio;libp2p/go-libp2p;;https://github.com/libp2p/go-libp2p;;biblioteca;si
 release;libp2p/go-libp2p;v0.44.0;https://github.com/libp2p/go-libp2p/releases/tag/v0.44.0;https://github.com/libp2p/go-libp2p/compare/v0.43.0...v0.44.0;;;nao;
 release;libp2p/go-libp2p;v0.45.0;https://github.com/libp2p/go-libp2p/releases/tag/v0.45.0;https://github.com/libp2p/go-libp2p/compare/v0.44.0...v0.45.0;;;nao;duvida: release mista
 release;libp2p/go-libp2p;v0.46.0;https://github.com/libp2p/go-libp2p/releases/tag/v0.46.0;https://github.com/libp2p/go-libp2p/compare/v0.45.0...v0.46.0;;;sim;duvida: fixes + bump quic-go
-release;libp2p/go-libp2p;v0.48.0;https://github.com/libp2p/go-libp2p/releases/tag/v0.48.0;https://github.com/libp2p/go-libp2p/compare/v0.47.0...v0.48.0;;;nao;duvida: limpeza interna e alguns fixes
+release;libp2p/go-libp2p;v0.48.0;https://github.com/libp2p/go-libp2p/releases/tag/v0.48.0;https://github.com/libp2p/go-libp2p/compare/v0.47.0...v0.48.0;;;sim;duvida: limpeza interna e alguns fixes
 release;libp2p/go-libp2p;v0.49.0;https://github.com/libp2p/go-libp2p/releases/tag/v0.49.0;https://github.com/libp2p/go-libp2p/compare/v0.48.0...v0.49.0;;;nao;duvida: release mista
 repositorio;livewire/livewire;;https://github.com/livewire/livewire;;biblioteca;sim;;
 release;livewire/livewire;v4.0.0;https://github.com/livewire/livewire/releases/tag/v4.0.0;https://github.com/livewire/livewire/compare/v3.7.4...v4.0.0;;;nao;
@@ -275,7 +275,7 @@ release;rbatis/rbatis;v4.6.14;https://github.com/rbatis/rbatis/releases/tag/v4.6
 release;rbatis/rbatis;v4.7.0;https://github.com/rbatis/rbatis/releases/tag/v4.7.0;https://github.com/rbatis/rbatis/compare/v4.6.15...v4.7.0;;;nao;
 release;rbatis/rbatis;v4.8.0;https://github.com/rbatis/rbatis/releases/tag/v4.8.0;https://github.com/rbatis/rbatis/compare/v4.7.2...v4.8.0;;;nao;
 repositorio;rcourtman/Pulse;;https://github.com/rcourtman/Pulse;;aplicacao;sim;;
-release;rcourtman/Pulse;v4.19.2;https://github.com/rcourtman/Pulse/releases/tag/v4.19.2;https://github.com/rcourtman/Pulse/compare/v4.19.1...v4.19.2;;;nao;duvida: features e muitos fixes de concorrencia
+release;rcourtman/Pulse;v4.19.2;https://github.com/rcourtman/Pulse/releases/tag/v4.19.2;https://github.com/rcourtman/Pulse/compare/v4.19.1...v4.19.2;;;sim;duvida: features e muitos fixes de concorrencia
 release;rcourtman/Pulse;v5.0.2;https://github.com/rcourtman/Pulse/releases/tag/v5.0.2;https://github.com/rcourtman/Pulse/compare/v5.0.1...v5.0.2;;;sim;seguranca e fixes
 release;rcourtman/Pulse;v5.0.4;https://github.com/rcourtman/Pulse/releases/tag/v5.0.4;https://github.com/rcourtman/Pulse/compare/v5.0.3...v5.0.4;;;nao;
 release;rcourtman/Pulse;v5.0.9;https://github.com/rcourtman/Pulse/releases/tag/v5.0.9;https://github.com/rcourtman/Pulse/compare/v5.0.8...v5.0.9;;;sim;
@@ -334,7 +334,7 @@ release;synthetic-sciences/openscience;v2.0.61;https://github.com/synthetic-scie
 release;synthetic-sciences/openscience;v2.0.87;https://github.com/synthetic-sciences/openscience/releases/tag/v2.0.87;https://github.com/synthetic-sciences/openscience/compare/v2.0.86...v2.0.87;;;nao;duvida: release mista
 release;synthetic-sciences/openscience;v2.0.102;https://github.com/synthetic-sciences/openscience/releases/tag/v2.0.102;https://github.com/synthetic-sciences/openscience/compare/v2.0.101...v2.0.102;;;sim;
 release;synthetic-sciences/openscience;v2.0.122;https://github.com/synthetic-sciences/openscience/releases/tag/v2.0.122;https://github.com/synthetic-sciences/openscience/compare/v2.0.121...v2.0.122;;;nao;sem mudancas notaveis - incerto
-repositorio;timescale/timescaledb;;https://github.com/timescale/timescaledb;;outro;sim;;extensao do PostgreSQL
+repositorio;timescale/timescaledb;;https://github.com/timescale/timescaledb;;biblioteca;sim;;extensao do PostgreSQL
 release;timescale/timescaledb;2.23.0;https://github.com/timescale/timescaledb/releases/tag/2.23.0;https://github.com/timescale/timescaledb/compare/2.22.1...2.23.0;;;nao;
 release;timescale/timescaledb;2.26.2;https://github.com/timescale/timescaledb/releases/tag/2.26.2;https://github.com/timescale/timescaledb/compare/2.26.1...2.26.2;;;sim;
 release;timescale/timescaledb;2.27.0;https://github.com/timescale/timescaledb/releases/tag/2.27.0;https://github.com/timescale/timescaledb/compare/2.26.4...2.27.0;;;nao;
@@ -342,7 +342,7 @@ release;timescale/timescaledb;2.28.2;https://github.com/timescale/timescaledb/re
 release;timescale/timescaledb;2.29.0;https://github.com/timescale/timescaledb/releases/tag/2.29.0;https://github.com/timescale/timescaledb/compare/2.28.3...2.29.0;;;nao;
 repositorio;vercel/ai-elements;;https://github.com/vercel/ai-elements;;biblioteca;sim;;
 release;vercel/ai-elements;ai-elements@1.1.0;https://github.com/vercel/ai-elements/releases/tag/ai-elements%401.1.0;https://github.com/vercel/ai-elements/compare/ai-elements@1.0.0...ai-elements@1.1.0;;;sim;sem notas - commits de fix
-release;vercel/ai-elements;ai-elements@1.1.1;https://github.com/vercel/ai-elements/releases/tag/ai-elements%401.1.1;https://github.com/vercel/ai-elements/compare/ai-elements@1.1.0...ai-elements@1.1.1;;;sim;sem notas - maioria Resolves # (fixes)
+release;vercel/ai-elements;ai-elements@1.1.1;https://github.com/vercel/ai-elements/releases/tag/ai-elements%401.1.1;https://github.com/vercel/ai-elements/compare/ai-elements@1.1.0...ai-elements@1.1.1;;;nao;sem notas - maioria Resolves # (fixes)
 release;vercel/ai-elements;ai-elements@1.3.1;https://github.com/vercel/ai-elements/releases/tag/ai-elements%401.3.1;https://github.com/vercel/ai-elements/compare/ai-elements@1.3.0...ai-elements@1.3.1;;;nao;sem notas - provider, STT e testes
 release;vercel/ai-elements;ai-elements@1.6.0;https://github.com/vercel/ai-elements/releases/tag/ai-elements%401.6.0;https://github.com/vercel/ai-elements/compare/ai-elements@1.5.0...ai-elements@1.6.0;;;nao;
 release;vercel/ai-elements;ai-elements@1.6.3;https://github.com/vercel/ai-elements/releases/tag/ai-elements%401.6.3;https://github.com/vercel/ai-elements/compare/ai-elements@1.6.2...ai-elements@1.6.3;;;sim;

@@ -11,11 +11,11 @@ release;BOINC/boinc;dockerwrapper/16;https://github.com/BOINC/boinc/releases/tag
 release;BOINC/boinc;dockerwrapper/18;https://github.com/BOINC/boinc/releases/tag/dockerwrapper/18;https://github.com/BOINC/boinc/compare/vboxwrapper/26212...dockerwrapper/18;;;sim;"compare sem commits; decidido pelas notes"
 release;BOINC/boinc;client_release/8.2/8.2.11;https://github.com/BOINC/boinc/releases/tag/client_release/8.2/8.2.11;https://github.com/BOINC/boinc/compare/dockerwrapper/21...client_release/8.2/8.2.11;;;sim;
 release;BOINC/boinc;client_release/8.2/8.2.13;https://github.com/BOINC/boinc/releases/tag/client_release/8.2/8.2.13;https://github.com/BOINC/boinc/compare/client_release/8.2/8.2.12...client_release/8.2/8.2.13;;;sim;hotfix declarado (crash no Wayland)
-repositorio;BtbN/FFmpeg-Builds;;https://github.com/BtbN/FFmpeg-Builds;;outro;sim;;"builds automaticos do FFmpeg; usuario baixa os binarios"
+repositorio;BtbN/FFmpeg-Builds;;https://github.com/BtbN/FFmpeg-Builds;;cli;sim;;"builds automaticos do FFmpeg; usuario baixa os binarios"
 release;BtbN/FFmpeg-Builds;autobuild-2025-10-31-13-40;https://github.com/BtbN/FFmpeg-Builds/releases/tag/autobuild-2025-10-31-13-40;https://github.com/BtbN/FFmpeg-Builds/compare/autobuild-2025-09-30-13-19...autobuild-2025-10-31-13-40;;;nao;
 release;BtbN/FFmpeg-Builds;autobuild-2026-03-31-13-11;https://github.com/BtbN/FFmpeg-Builds/releases/tag/autobuild-2026-03-31-13-11;https://github.com/BtbN/FFmpeg-Builds/compare/autobuild-2026-02-28-12-59...autobuild-2026-03-31-13-11;;;nao;
 release;BtbN/FFmpeg-Builds;autobuild-2026-06-30-13-34;https://github.com/BtbN/FFmpeg-Builds/releases/tag/autobuild-2026-06-30-13-34;https://github.com/BtbN/FFmpeg-Builds/compare/autobuild-2026-05-31-13-22...autobuild-2026-06-30-13-34;;;nao;
-release;BtbN/FFmpeg-Builds;autobuild-2026-07-31-14-10;https://github.com/BtbN/FFmpeg-Builds/releases/tag/autobuild-2026-07-31-14-10;https://github.com/BtbN/FFmpeg-Builds/compare/autobuild-2026-06-30-13-34...autobuild-2026-07-31-14-10;;;nao;"build mensal; fixes sao de build, nao o foco"
+release;BtbN/FFmpeg-Builds;autobuild-2026-07-31-14-10;https://github.com/BtbN/FFmpeg-Builds/releases/tag/autobuild-2026-07-31-14-10;https://github.com/BtbN/FFmpeg-Builds/compare/autobuild-2026-06-30-13-34...autobuild-2026-07-31-14-10;;;sim;"build mensal; fixes sao de build, nao o foco"
 release;BtbN/FFmpeg-Builds;autobuild-2026-08-31-13-27;https://github.com/BtbN/FFmpeg-Builds/releases/tag/autobuild-2026-08-31-13-27;https://github.com/BtbN/FFmpeg-Builds/compare/autobuild-2026-07-31-14-10...autobuild-2026-08-31-13-27;;;nao;
 repositorio;Faugus/faugus-launcher;;https://github.com/Faugus/faugus-launcher;;aplicacao;sim;;
 release;Faugus/faugus-launcher;1.9.6;https://github.com/Faugus/faugus-launcher/releases/tag/1.9.6;https://github.com/Faugus/faugus-launcher/compare/1.9.5...1.9.6;;;nao;
@@ -24,7 +24,7 @@ release;Faugus/faugus-launcher;1.15.11;https://github.com/Faugus/faugus-launcher
 release;Faugus/faugus-launcher;1.18.5;https://github.com/Faugus/faugus-launcher/releases/tag/1.18.5;https://github.com/Faugus/faugus-launcher/compare/1.18.4...1.18.5;;;sim;hotfix declarado
 release;Faugus/faugus-launcher;2.4.0;https://github.com/Faugus/faugus-launcher/releases/tag/2.4.0;https://github.com/Faugus/faugus-launcher/compare/2.3.0...2.4.0;;;nao;
 repositorio;JanDeDobbeleer/oh-my-posh;;https://github.com/JanDeDobbeleer/oh-my-posh;;cli;sim;;
-release;JanDeDobbeleer/oh-my-posh;v27.6.0;https://github.com/JanDeDobbeleer/oh-my-posh/releases/tag/v27.6.0;https://github.com/JanDeDobbeleer/oh-my-posh/compare/v27.5.2...v27.6.0;;;nao;"2 fixes e 1 feature; versao minor"
+release;JanDeDobbeleer/oh-my-posh;v27.6.0;https://github.com/JanDeDobbeleer/oh-my-posh/releases/tag/v27.6.0;https://github.com/JanDeDobbeleer/oh-my-posh/compare/v27.5.2...v27.6.0;;;sim;"2 fixes e 1 feature; versao minor"
 release;JanDeDobbeleer/oh-my-posh;v29.0.0;https://github.com/JanDeDobbeleer/oh-my-posh/releases/tag/v29.0.0;https://github.com/JanDeDobbeleer/oh-my-posh/compare/v28.10.0...v29.0.0;;;nao;
 release;JanDeDobbeleer/oh-my-posh;v29.2.2;https://github.com/JanDeDobbeleer/oh-my-posh/releases/tag/v29.2.2;https://github.com/JanDeDobbeleer/oh-my-posh/compare/v29.2.1...v29.2.2;;;sim;
 release;JanDeDobbeleer/oh-my-posh;v29.9.1;https://github.com/JanDeDobbeleer/oh-my-posh/releases/tag/v29.9.1;https://github.com/JanDeDobbeleer/oh-my-posh/compare/v29.9.0...v29.9.1;;;sim;
@@ -45,14 +45,14 @@ release;RooCodeInc/Roo-Code;v3.36.5;https://github.com/RooCodeInc/Roo-Code/relea
 release;RooCodeInc/Roo-Code;v3.36.6;https://github.com/RooCodeInc/Roo-Code/releases/tag/v3.36.6;https://github.com/RooCodeInc/Roo-Code/compare/v3.36.5...v3.36.6;;;nao;
 release;RooCodeInc/Roo-Code;v3.36.14;https://github.com/RooCodeInc/Roo-Code/releases/tag/v3.36.14;https://github.com/RooCodeInc/Roo-Code/compare/v3.36.13...v3.36.14;;;nao;
 release;RooCodeInc/Roo-Code;v3.41.2;https://github.com/RooCodeInc/Roo-Code/releases/tag/v3.41.2;https://github.com/RooCodeInc/Roo-Code/compare/v3.41.1...v3.41.2;;;sim;3 fixes e 1 feature pequena
-release;RooCodeInc/Roo-Code;v3.47.2;https://github.com/RooCodeInc/Roo-Code/releases/tag/v3.47.2;https://github.com/RooCodeInc/Roo-Code/compare/v3.47.1...v3.47.2;;;sim;corrige regressao da migracao para o AI SDK
+release;RooCodeInc/Roo-Code;v3.47.2;https://github.com/RooCodeInc/Roo-Code/releases/tag/v3.47.2;https://github.com/RooCodeInc/Roo-Code/compare/v3.47.1...v3.47.2;;;nao;corrige regressao da migracao para o AI SDK
 repositorio;Significant-Gravitas/AutoGPT;;https://github.com/Significant-Gravitas/AutoGPT;;aplicacao;sim;;
 release;Significant-Gravitas/AutoGPT;autogpt-platform-beta-v0.6.55;https://github.com/Significant-Gravitas/AutoGPT/releases/tag/autogpt-platform-beta-v0.6.55;https://github.com/Significant-Gravitas/AutoGPT/compare/autogpt-platform-beta-v0.6.54...autogpt-platform-beta-v0.6.55;;;nao;
 release;Significant-Gravitas/AutoGPT;autogpt-platform-beta-v0.6.57;https://github.com/Significant-Gravitas/AutoGPT/releases/tag/autogpt-platform-beta-v0.6.57;https://github.com/Significant-Gravitas/AutoGPT/compare/autogpt-platform-beta-v0.6.56...autogpt-platform-beta-v0.6.57;;;nao;
 release;Significant-Gravitas/AutoGPT;autogpt-platform-beta-v0.6.58;https://github.com/Significant-Gravitas/AutoGPT/releases/tag/autogpt-platform-beta-v0.6.58;https://github.com/Significant-Gravitas/AutoGPT/compare/autogpt-platform-beta-v0.6.57...autogpt-platform-beta-v0.6.58;;;nao;
 release;Significant-Gravitas/AutoGPT;autogpt-platform-beta-v0.7.0;https://github.com/Significant-Gravitas/AutoGPT/releases/tag/autogpt-platform-beta-v0.7.0;https://github.com/Significant-Gravitas/AutoGPT/compare/autogpt-platform-beta-v0.6.70...autogpt-platform-beta-v0.7.0;;;nao;
 release;Significant-Gravitas/AutoGPT;autogpt-platform-beta-v0.7.3;https://github.com/Significant-Gravitas/AutoGPT/releases/tag/autogpt-platform-beta-v0.7.3;https://github.com/Significant-Gravitas/AutoGPT/compare/autogpt-platform-beta-v0.7.2...autogpt-platform-beta-v0.7.3;;;nao;
-repositorio;Skyvern-AI/skyvern;;https://github.com/Skyvern-AI/skyvern;;aplicacao;sim;;"plataforma + SDK; README destaca o produto"
+repositorio;Skyvern-AI/skyvern;;https://github.com/Skyvern-AI/skyvern;;biblioteca;sim;;"plataforma + SDK; README destaca o produto"
 release;Skyvern-AI/skyvern;v0.2.16;https://github.com/Skyvern-AI/skyvern/releases/tag/v0.2.16;https://github.com/Skyvern-AI/skyvern/compare/v0.2.15...v0.2.16;;;nao;
 release;Skyvern-AI/skyvern;v0.2.21;https://github.com/Skyvern-AI/skyvern/releases/tag/v0.2.21;https://github.com/Skyvern-AI/skyvern/compare/v0.2.20...v0.2.21;;;nao;
 release;Skyvern-AI/skyvern;v1.0.35;https://github.com/Skyvern-AI/skyvern/releases/tag/v1.0.35;https://github.com/Skyvern-AI/skyvern/compare/v1.0.34...v1.0.35;;;nao;"release periodica; muitos fixes, mas sem foco em um bug"
@@ -138,7 +138,7 @@ release;external-secrets/external-secrets;v2.8.0;https://github.com/external-sec
 release;external-secrets/external-secrets;helm-chart-2.9.0;https://github.com/external-secrets/external-secrets/releases/tag/helm-chart-2.9.0;https://github.com/external-secrets/external-secrets/compare/v2.9.0...helm-chart-2.9.0;;;nao;so publica o chart
 repositorio;facebook/lexical;;https://github.com/facebook/lexical;;biblioteca;sim;;
 release;facebook/lexical;v0.36.2;https://github.com/facebook/lexical/releases/tag/v0.36.2;https://github.com/facebook/lexical/compare/v0.36.1...v0.36.2;;;sim;notes: bug fix release
-release;facebook/lexical;v0.37.0;https://github.com/facebook/lexical/releases/tag/v0.37.0;https://github.com/facebook/lexical/compare/v0.36.2...v0.37.0;;;nao;atualiza dependencia por CVE que nao afeta o lexical + collab v2 experimental
+release;facebook/lexical;v0.37.0;https://github.com/facebook/lexical/releases/tag/v0.37.0;https://github.com/facebook/lexical/compare/v0.36.2...v0.37.0;;;sim;atualiza dependencia por CVE que nao afeta o lexical + collab v2 experimental
 release;facebook/lexical;v0.38.2;https://github.com/facebook/lexical/releases/tag/v0.38.2;https://github.com/facebook/lexical/compare/v0.38.1...v0.38.2;;;sim;patch para regressao
 release;facebook/lexical;v0.40.0;https://github.com/facebook/lexical/releases/tag/v0.40.0;https://github.com/facebook/lexical/compare/v0.39.0...v0.40.0;;;nao;"release mensal; muitos fixes mas nao mira um bug especifico"
 release;facebook/lexical;v0.43.0;https://github.com/facebook/lexical/releases/tag/v0.43.0;https://github.com/facebook/lexical/compare/v0.42.0...v0.43.0;;;nao;
@@ -183,7 +183,7 @@ release;jo-inc/camofox-browser;v1.2.0;https://github.com/jo-inc/camofox-browser/
 release;jo-inc/camofox-browser;v1.9.1;https://github.com/jo-inc/camofox-browser/releases/tag/v1.9.1;https://github.com/jo-inc/camofox-browser/compare/v1.8.0...v1.9.1;;;nao;"melhoria do reporter de memory leak; commits sao ajustes para scanner"
 release;jo-inc/camofox-browser;v1.11.1;https://github.com/jo-inc/camofox-browser/releases/tag/v1.11.1;https://github.com/jo-inc/camofox-browser/compare/v1.11.0...v1.11.1;;;sim;corrige publicacao no ClawHub
 release;jo-inc/camofox-browser;camoufox-backup-356281398;https://github.com/jo-inc/camofox-browser/releases/tag/camoufox-backup-356281398;https://github.com/jo-inc/camofox-browser/compare/v1.13.0...camoufox-backup-356281398;;;nao;espelho de binario de outro projeto, nao e release do proprio software
-release;jo-inc/camofox-browser;v1.17.0;https://github.com/jo-inc/camofox-browser/releases/tag/v1.17.0;https://github.com/jo-inc/camofox-browser/compare/v1.16.0...v1.17.0;;;sim;corrige falha reportada (#9334) na obtencao de PDFs inline
+release;jo-inc/camofox-browser;v1.17.0;https://github.com/jo-inc/camofox-browser/releases/tag/v1.17.0;https://github.com/jo-inc/camofox-browser/compare/v1.16.0...v1.17.0;;;nao;corrige falha reportada (#9334) na obtencao de PDFs inline
 repositorio;langflow-ai/langflow;;https://github.com/langflow-ai/langflow;;aplicacao;sim;;
 release;langflow-ai/langflow;1.6.5;https://github.com/langflow-ai/langflow/releases/tag/1.6.5;https://github.com/langflow-ai/langflow/compare/1.6.4...1.6.5;;;sim;so bug fixes + pin de versao
 release;langflow-ai/langflow;1.6.9;https://github.com/langflow-ai/langflow/releases/tag/1.6.9;https://github.com/langflow-ai/langflow/compare/1.6.8...1.6.9;;;nao;"atualiza pip/setuptools; notes vazias"
@@ -255,7 +255,7 @@ release;opendatalab/MinerU;mineru-2.6.2-released;https://github.com/opendatalab/
 release;opendatalab/MinerU;mineru-2.6.7-released;https://github.com/opendatalab/MinerU/releases/tag/mineru-2.6.7-released;https://github.com/opendatalab/MinerU/compare/mineru-2.6.6-released...mineru-2.6.7-released;;;sim;notes: Bug fix #4168
 release;opendatalab/MinerU;mineru-3.4.5-released;https://github.com/opendatalab/MinerU/releases/tag/mineru-3.4.5-released;https://github.com/opendatalab/MinerU/compare/mineru-3.4.4-released...mineru-3.4.5-released;;;sim;
 release;opendatalab/MinerU;mineru-4.0.5-released;https://github.com/opendatalab/MinerU/releases/tag/mineru-4.0.5-released;https://github.com/opendatalab/MinerU/compare/mineru-4.0.4-released...mineru-4.0.5-released;;;nao;
-release;opendatalab/MinerU;mineru-4.0.6-released;https://github.com/opendatalab/MinerU/releases/tag/mineru-4.0.6-released;https://github.com/opendatalab/MinerU/compare/mineru-4.0.5-released...mineru-4.0.6-released;;;nao;corrige regressao, mas traz tambem o visualizador EPUB
+release;opendatalab/MinerU;mineru-4.0.6-released;https://github.com/opendatalab/MinerU/releases/tag/mineru-4.0.6-released;https://github.com/opendatalab/MinerU/compare/mineru-4.0.5-released...mineru-4.0.6-released;;;sim;corrige regressao, mas traz tambem o visualizador EPUB
 repositorio;openstyles/stylus;;https://github.com/openstyles/stylus;;aplicacao;sim;;extensao de navegador
 release;openstyles/stylus;v2.3.17;https://github.com/openstyles/stylus/releases/tag/v2.3.17;https://github.com/openstyles/stylus/compare/v2.3.16...v2.3.17;;;sim;
 release;openstyles/stylus;v2.3.30;https://github.com/openstyles/stylus/releases/tag/v2.3.30;https://github.com/openstyles/stylus/compare/v2.3.29...v2.3.30;;;sim;
@@ -304,7 +304,7 @@ release;ruvnet/RuView;v1057;https://github.com/ruvnet/RuView/releases/tag/v1057;
 release;ruvnet/RuView;v1201;https://github.com/ruvnet/RuView/releases/tag/v1201;https://github.com/ruvnet/RuView/compare/v0.7.0-esp32...v1201;;;nao;
 release;ruvnet/RuView;v1388;https://github.com/ruvnet/RuView/releases/tag/v1388;https://github.com/ruvnet/RuView/compare/v0.10.0...v1388;;;nao;
 release;ruvnet/RuView;v1548;https://github.com/ruvnet/RuView/releases/tag/v1548;https://github.com/ruvnet/RuView/compare/v1544...v1548;;;sim;fix de captura no firmware
-repositorio;sgl-project/sglang-omni;;https://github.com/sgl-project/sglang-omni;;aplicacao;sim;;"framework de serving; usado subindo um servidor"
+repositorio;sgl-project/sglang-omni;;https://github.com/sgl-project/sglang-omni;;biblioteca;sim;;"framework de serving; usado subindo um servidor"
 release;sgl-project/sglang-omni;0.1.1;https://github.com/sgl-project/sglang-omni/releases/tag/0.1.1;https://github.com/sgl-project/sglang-omni/compare/0.1.0...0.1.1;;;nao;
 release;sgl-project/sglang-omni;v0.1.2;https://github.com/sgl-project/sglang-omni/releases/tag/v0.1.2;https://github.com/sgl-project/sglang-omni/compare/0.1.1...v0.1.2;;;nao;
 release;sgl-project/sglang-omni;v0.1.3;https://github.com/sgl-project/sglang-omni/releases/tag/v0.1.3;https://github.com/sgl-project/sglang-omni/compare/v0.1.2...v0.1.3;;;nao;
