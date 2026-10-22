@@ -1,29 +1,22 @@
-% Hipóteses informais RQ 03--05 (colar na seção de Introdução, template SBC)
+% Hipóteses informais, registradas antes da coleta (Sprint 1, commit 0e9bcc6).
+% Só as RQ 03 a 05 tiveram hipótese registrada; as demais são tratadas como exploratórias.
 
-\textbf{RQ 03: taxa de falha das mudanças.} Esperamos que a variante de CI (a)
-fique, na mediana, entre 10\% e 25\%. Como os \textit{runs} considerados são
-disparados por \textit{push} no \textit{default branch}, boa parte das mudanças já
-passou pela validação de um \textit{pull request} antes do \textit{merge}. Ainda
-assim, problemas de integração, testes instáveis (\textit{flaky}) e dependências
-externas devem gerar uma parte das falhas. Para a variante de
-entrega (b), esperamos valores parecidos ou menores e uma distribuição com muitos
-repositórios em 0\%. Também esperamos que as duas variantes concordem pouco entre
-si, porque a variante (a) mede falha de \textit{pipeline} e a (b) aproxima falha
-percebida pelo usuário.
+Antes da coleta, registramos hipóteses para as RQ~03 a 05; as demais questões foram tratadas
+como exploratórias.
 
-\textbf{RQ 04: tempo de recuperação.} Esperamos uma mediana da ordem de algumas
-horas, o que colocaria a maioria dos repositórios na faixa \textit{High}. Em
-projetos ativos, a falha costuma ser resolvida pelo próximo \textit{push}.
-Esperamos, porém, uma cauda longa e um IQR largo, de minutos a vários dias,
-porque mantenedores de projetos \textit{open-source} trabalham de forma voluntária
-e assíncrona e alguns \textit{workflows} rodam raramente. Pelo mesmo motivo,
-esperamos uma proporção não trivial de episódios censurados.
+\textbf{RQ 03.} Esperávamos o CFR (a) entre 10\% e 25\% na mediana: os \textit{runs} vêm de
+\textit{push} no \textit{default branch}, já validados por um \textit{pull request}, mas
+testes instáveis e dependências externas ainda devem falhar. Para o CFR (b), esperávamos
+valores parecidos ou menores, com muitos repositórios em 0\%, e pouca concordância entre as
+variantes, porque a (a) mede falha de \textit{pipeline} e a (b) aproxima falha percebida pelo
+usuário.
 
-\textbf{RQ 05: frequência de \textit{deploy} $\times$ taxa de falha.} Para a
-variante (a), esperamos uma correlação de Spearman fraca e negativa ou nula, em
-linha com a afirmação do DORA de que velocidade e estabilidade não são um
-\textit{trade-off}. Para a variante (b), esperamos uma correlação positiva, em
-parte como artefato da métrica: quem publica muitas \textit{releases} tem mais
-chances de publicar um \textit{patch} em até 7 dias após qualquer
-\textit{release}. Se isso se confirmar, a resposta da RQ 05 depende da definição
-operacional, assim como a análise de sensibilidade da RQ 07 investiga.
+\textbf{RQ 04.} Esperávamos uma mediana de algumas horas, com a maioria na faixa
+\textit{High}, uma cauda longa (de minutos a dias, já que mantenedores trabalham de forma
+voluntária e assíncrona) e uma proporção não trivial de episódios censurados.
+
+\textbf{RQ 05.} Para o CFR (a), esperávamos correlação fraca negativa ou nula, como afirma o
+DORA ao dizer que velocidade e estabilidade não são um \textit{trade-off}. Para o CFR (b),
+esperávamos correlação positiva, em parte por artefato da métrica: quem publica muitas
+\textit{releases} tem mais chance de publicar um \textit{patch} em até 7 dias após qualquer
+uma delas.

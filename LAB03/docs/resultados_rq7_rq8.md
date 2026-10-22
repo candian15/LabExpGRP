@@ -2,7 +2,7 @@
 
 > Parte do Pedro na seção de Resultados. Os números vêm de `resultados/rq7_*.csv` e
 > `resultados/rq8_*.csv`, gerados por `analises.rq7_sensibilidade` e `analises.rq8_rework`.
-> A versão LaTeX está em `resultados_rq7_rq8.tex`.
+> A versão condensada, usada no artigo, está em `resultados_rq7_rq8.tex`.
 
 ## RQ 07: A classificação muda se a unidade de deploy for outra?
 
@@ -26,11 +26,11 @@ A distribuição das categorias muda de forma substantiva entre elas:
 
 A concordância entre as classificações, medida pelo kappa ponderado, fica na faixa moderada:
 
-| Par | Repositórios que mudam de categoria | Kappa ponderado |
+| Par | Repositórios que mudam de categoria (IC 95%) | Kappa ponderado |
 |---|---:|---:|
-| C1 × C2 | 32,9% | 0,515 |
-| C1 × C3 | 25,4% | 0,657 |
-| C2 × C3 | 28,0% | 0,602 |
+| C1 × C2 | 32,9% [28,0; 38,0] | 0,515 |
+| C1 × C3 | 25,4% [21,1; 30,0] | 0,657 |
+| C2 × C3 | 28,0% [23,4; 32,6] | 0,602 |
 
 Entre um quarto e um terço dos repositórios trocam de categoria conforme a definição. A faixa
 *Elite* é a mais sensível: vai de 8 repositórios em C2 a 33 em C3, uma variação de quatro

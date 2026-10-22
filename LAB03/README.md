@@ -101,7 +101,7 @@ CFR (a)); as variantes (b) ficam no CSV para a análise de sensibilidade.
 | [metricas/classificacao.py](metricas/classificacao.py) | Notas por métrica e categoria DORA (RQ 07) |
 | [pipeline/coleta_variantes.py](pipeline/coleta_variantes.py) | Pré-releases (C2) e tags (C3) da RQ 07 → `dados/variantes.csv` |
 | [validacao/](validacao/PROTOCOLO.md) | Amostra-ouro, kappa de Fleiss, consenso e avaliação da heurística |
-| [analises/](analises/) | Análises das RQs (`python -m analises.rq1_rq4_descritiva`, `rq5_correlacao`, `rq6_fatores`, `rq7_sensibilidade`, `rq8_rework`), com saída em `resultados/` |
+| [analises/](analises/) | Análises das RQs (`python -m analises.rq1_rq4_descritiva`, `rq5_correlacao`, `rq6_fatores`, `rq7_sensibilidade`, `rq8_rework` e `ic_bootstrap`, que calcula os intervalos de confiança), com saída em `resultados/` |
 
 Os módulos de coleta também rodam sozinhos, para inspecionar um repositório:
 

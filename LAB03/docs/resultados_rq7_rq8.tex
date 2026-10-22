@@ -1,76 +1,37 @@
 % Resultados -- RQ 07 e RQ 08 (parte do Pedro).
-% Números de resultados/rq7_*.csv e resultados/rq8_*.csv.
+% Números de resultados/rq7_*.csv, resultados/rq8_*.csv e resultados/ic_bootstrap.csv.
 
-\subsection{RQ 07: sensibilidade à definição de deploy}
-
-Recalculamos a classificação DORA dos 350 repositórios sob três operacionalizações de
-\textit{deploy}: C1 (referência), que usa apenas \textit{releases}, com
-\textit{lead time} (a) e CFR (a); C2, que inclui pré-\textit{releases} e adota as
-variantes (b); e C3, que usa \textit{tags} com o CFR na variante (a).
+\textbf{RQ 07.} Recalculamos a classificação sob três definições de \textit{deploy}: C1
+(referência), com \textit{releases}, \textit{lead time} (a) e CFR (a); C2, com
+\textit{releases} e pré-\textit{releases} e as variantes (b); e C3, com \textit{tags},
+\textit{lead time} (b) e CFR (a). Entre um quarto e um terço dos repositórios mudam de
+categoria entre as combinações, e o kappa ponderado fica entre 0,52 e 0,66
+(Tabela~\ref{tab:rq7}). A faixa \textit{Elite} é a mais sensível: vai de 8 repositórios em C2
+a 33 em C3.
 
 \begin{table}[ht]
 \centering
-\caption{Distribuição das categorias DORA sob as três definições de \textit{deploy}.}
-\label{tab:rq7dist}
-\begin{tabular}{lrrr}
+\caption{Classificação DORA sob as três definições de \textit{deploy} e concordância entre
+elas (IC 95\% por \textit{bootstrap}).}
+\label{tab:rq7}
+\small
+\begin{tabular}{lrrr@{\hspace{2em}}lcc}
 \hline
-\textbf{Categoria} & \textbf{C1} & \textbf{C2} & \textbf{C3} \\
+\textbf{Categoria} & \textbf{C1} & \textbf{C2} & \textbf{C3} &
+\textbf{Par} & \textbf{Mudam de categoria} & \textbf{Kappa pond.} \\
 \hline
-Elite  &  25 &   8 &  33 \\
-High   & 143 & 134 & 164 \\
-Medium & 159 & 186 & 138 \\
-Low    &  23 &  22 &  15 \\
+Elite  &  25 &   8 &  33 & C1 $\times$ C2 & 32,9\% [28,0; 38,0] & 0,515 \\
+High   & 143 & 134 & 164 & C1 $\times$ C3 & 25,4\% [21,1; 30,0] & 0,657 \\
+Medium & 159 & 186 & 138 & C2 $\times$ C3 & 28,0\% [23,4; 32,6] & 0,602 \\
+Low    &  23 &  22 &  15 & & & \\
 \hline
 \end{tabular}
 \end{table}
 
-A concordância entre as classificações, medida pelo kappa ponderado, fica na faixa moderada
-(Tabela~\ref{tab:rq7pares}). Entre um quarto e um terço dos repositórios trocam de categoria
-conforme a definição adotada. A faixa \textit{Elite} é a mais sensível: vai de 8 repositórios
-em C2 a 33 em C3, uma variação de quatro vezes sobre o mesmo conjunto de projetos e a mesma
-janela de observação.
-
-\begin{table}[ht]
-\centering
-\caption{Concordância entre as classificações, par a par.}
-\label{tab:rq7pares}
-\begin{tabular}{lrr}
-\hline
-\textbf{Par} & \textbf{Repositórios que mudam} & \textbf{Kappa ponderado} \\
-\hline
-C1 $\times$ C2 & 32,9\% & 0,515 \\
-C1 $\times$ C3 & 25,4\% & 0,657 \\
-C2 $\times$ C3 & 28,0\% & 0,602 \\
-\hline
-\end{tabular}
-\end{table}
-
-\subsection{RQ 08: rework rate}
-
-O \textit{rework rate} é a proporção de \textit{releases} corretivas publicadas na janela,
-calculada como \texttt{cfrb\_releases\_corretivas} dividido por \texttt{n\_releases}.
-Diferente do CFR (b), ele conta toda \textit{release} corretiva, e não apenas as que vieram
-em até 7 dias depois de outra.
-
-\begin{table}[ht]
-\centering
-\caption{\textit{Rework rate} e CFR (b) nos 350 repositórios.}
-\label{tab:rq8}
-\begin{tabular}{lrrrr}
-\hline
-\textbf{Métrica} & \textbf{n} & \textbf{Q1} & \textbf{Mediana} & \textbf{Q3} \\
-\hline
-\textit{Rework rate} & 350 & 0,225 & 0,500 & 0,726 \\
-CFR (b)              & 350 & 0,052 & 0,200 & 0,416 \\
-\hline
-\end{tabular}
-\end{table}
-
-A mediana do \textit{rework rate} é 2,5 vezes a do CFR (b). As duas medidas se correlacionam
-($\rho = 0{,}522$, $p < 0{,}001$), mas 309 dos 350 repositórios têm \textit{rework
-rate} maior que o CFR (b), e 21 não publicaram nenhuma \textit{release} corretiva na janela.
-
-Metade das \textit{releases} desses projetos corrige alguma coisa, mas apenas uma em cada
-cinco corrige algo publicado na semana anterior. A maior parte do retrabalho é manutenção de
-rotina, e não resposta a uma entrega recém-quebrada. Ao exigir a janela de 7 dias, o
-CFR (b) mede um fenômeno mais estreito que ``\textit{release} corretiva''.
+\textbf{RQ 08.} O \textit{rework rate}, proporção de \textit{releases} corretivas sobre o
+total de \textit{releases} da janela, tem mediana de 0,500
+(Q1 0,225; Q3 0,726), 2,5 vezes a do CFR (b). As duas medidas se correlacionam
+($\rho = 0{,}522$, $p < 0{,}001$), mas 309 dos 350 repositórios têm \textit{rework rate} maior
+que o CFR (b), e 21 não publicaram nenhuma \textit{release} corretiva. A diferença vem da
+definição: o \textit{rework rate} conta toda \textit{release} corretiva, e o CFR (b) só as que
+vieram em até 7 dias depois de outra.

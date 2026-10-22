@@ -44,6 +44,6 @@ O resultado final fica em `consenso.csv`, que o Arthur usa para avaliar a heurí
 
 | Etapa | Data | Observação |
 |---|---|---|
-| Sorteio | | |
-| Rotulagem | | |
-| Reunião de desempate | | |
+| Sorteio | 15/10/2026 | 60 repositórios e 299 releases (`sorteio_amostra_ouro.py`, issue #63) |
+| Rotulagem | 15/10 a 21/10/2026 | as três planilhas commitadas; rótulos revisados e kappa e consenso regerados em 21/10 (issue #80) |
+| Reunião de desempate | não houve | nenhum item ficou sem maioria (empate 1-1-1) |

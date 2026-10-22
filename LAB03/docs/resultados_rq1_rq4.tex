@@ -1,152 +1,73 @@
 % Resultados -- RQ 01 a RQ 04 (parte do João).
-% Números de resultados/rq1_rq4_descritiva.csv, rq1_rq4_dora.csv e rq1_rq4_notas.csv,
-% gerados por: python -m analises.rq1_rq4_descritiva
+% Números de resultados/rq1_rq4_*.csv (python -m analises.rq1_rq4_descritiva) e dos
+% intervalos de resultados/ic_bootstrap.csv (python -m analises.ic_bootstrap).
 
-\subsection{Visão geral}
-
-A amostra final tem 350 repositórios. Como as quatro métricas têm distribuições assimétricas
-e cauda longa, reportamos mediana e intervalo interquartil (IQR), e não média e desvio
-padrão. A Tabela~\ref{tab:descritiva} resume as seis variáveis.
+Como as distribuições são assimétricas e têm cauda longa, reportamos mediana e IQR. Para
+saber o quanto cada número é estável, calculamos também intervalos de confiança de 95\% por
+\textit{bootstrap} percentil (2.000 reamostragens dos repositórios, semente fixa) para as
+medianas, as correlações e as proporções de mudança de categoria
+(Tabela~\ref{tab:descritiva}).
 
 \begin{table}[ht]
 \centering
-\caption{Estatística descritiva das métricas DORA (350 repositórios).}
+\caption{Estatística descritiva das métricas DORA (350 repositórios) e IC 95\% da mediana.}
 \label{tab:descritiva}
-\begin{tabular}{lrrrrr}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lrrrrrc}
 \hline
-\textbf{Métrica} & \textbf{n} & \textbf{Q1} & \textbf{Mediana} & \textbf{Q3} & \textbf{IQR} \\
+\textbf{Métrica} & \textbf{n} & \textbf{Q1} & \textbf{Mediana} & \textbf{Q3} & \textbf{IQR} &
+\textbf{IC 95\% da mediana} \\
 \hline
-Frequência de deploy (releases/semana) & 350 & 0,19 & 0,42 & 1,04 & 0,84 \\
-Lead time (a) (horas)                  & 350 & 50,8 & 251,7 & 848,4 & 797,6 \\
-Lead time (b) (horas)                  & 350 & 65,4 & 284,0 & 845,4 & 780,1 \\
-CFR (a), proxy de CI                   & 350 & 0,021 & 0,049 & 0,121 & 0,100 \\
-CFR (b), proxy de entrega              & 350 & 0,052 & 0,200 & 0,416 & 0,364 \\
-Tempo de recuperação (horas)           & 330 & 0,98 & 2,56 & 9,53 & 8,55 \\
+Frequência (releases/semana) & 350 & 0,19 & 0,42 & 1,04 & 0,84 & [0,35; 0,46] \\
+Lead time (a) (h)            & 350 & 50,8 & 251,7 & 848,4 & 797,6 & [196,7; 337,3] \\
+Lead time (b) (h)            & 350 & 65,4 & 284,0 & 845,4 & 780,1 & [206,8; 331,6] \\
+CFR (a), proxy de CI         & 350 & 0,021 & 0,049 & 0,121 & 0,100 & [0,041; 0,065] \\
+CFR (b), proxy de entrega    & 350 & 0,052 & 0,200 & 0,416 & 0,364 & [0,174; 0,227] \\
+Recuperação (h)              & 330 & 0,98 & 2,56 & 9,53 & 8,55 & [2,08; 3,30] \\
 \hline
 \end{tabular}
 \end{table}
 
-\subsection{RQ 01: frequência de deploy}
-
-A mediana é de 0,42 \textit{release} por semana, cerca de uma a cada duas semanas e
-meia, com IQR de 0,84. A distribuição é fortemente assimétrica à direita
-(Figura~\ref{fig:distribuicoes}): 260 repositórios (74,3\%) publicam menos de uma
-\textit{release} por semana e apenas 5 (1,4\%) alcançam o patamar \textit{Elite} de sete ou
-mais por semana. O máximo observado é de 49,6.
-
-Nesta dimensão a amostra vai pior que nas outras: 107 repositórios (30,6\%) ficam em \textit{Low} e
-153 (43,7\%) em \textit{Medium}. Os cortes DORA foram concebidos para \textit{deploys} em
-ambientes de entrega contínua, enquanto uma \textit{release} publicada no GitHub é um marco
-de versionamento, muitas vezes mensal ou trimestral por decisão do projeto. A frequência
-baixa reflete mais a prática de versionamento do ecossistema open-source do que uma
-capacidade de entrega limitada.
-
 \begin{figure}[ht]
 \centering
-\includegraphics[width=\textwidth]{rq1_rq4_distribuicoes.png}
-\caption{Distribuição das seis métricas nos 350 repositórios. Frequência, \textit{lead time}
-e tempo de recuperação em escala logarítmica; a linha tracejada marca a mediana.}
+\includegraphics[width=0.92\textwidth]{rq1_rq4_distribuicoes.png}
+\caption{Distribuição das seis métricas. Frequência, \textit{lead time} e recuperação em escala
+logarítmica; a linha tracejada marca a mediana.}
 \label{fig:distribuicoes}
 \end{figure}
 
-\subsection{RQ 02: lead time para mudanças}
+\textbf{RQ 01.} A mediana é de 0,42 \textit{release} por semana, cerca de uma a cada duas
+semanas e meia. 260 repositórios (74,3\%) publicam menos de uma por semana, e só 5 (1,4\%)
+alcançam o patamar \textit{Elite} de sete ou mais; 107 (30,6\%) ficam em \textit{Low} e 153
+(43,7\%) em \textit{Medium}.
 
-As duas variantes dão resultados próximos: 251,7~h (10,5 dias) na variante (a), que
-mede da publicação da \textit{release} até o \textit{commit} mais antigo nela, e
-284,0~h (11,8 dias) na variante (b), que considera todos os \textit{commits}. Os
-IQRs são semelhantes (797,6~h e 780,1~h), as caixas se sobrepõem quase inteiramente
-(Figura~\ref{fig:pares}) e a correlação de Spearman entre elas é de 0,744.
+\textbf{RQ 02.} As variantes ficaram próximas: 251,7~h (10,5 dias) na (a) e 284,0~h (11,8
+dias) na (b), com ICs quase sobrepostos e correlação de Spearman de 0,744 entre elas. Elas
+divergem em repositórios específicos por construção: a variante (a) usa o \textit{commit}
+mais antigo de cada \textit{release}, então um único \textit{commit} antigo ``esquecido'' num
+ramo faz o \textit{lead time} daquela \textit{release} explodir, enquanto na (b) ele é só um
+valor entre muitos e quase não move a mediana. Nas medianas da amostra as duas ficaram
+próximas, mas o efeito aparece na cauda: o máximo é de $1{,}1 \times 10^{5}$~h na variante (a)
+e de $9{,}3 \times 10^{4}$~h na (b). Pelos cortes
+DORA, 57 repositórios ficam em \textit{Elite}, 89 em \textit{High}, 103 em \textit{Medium} e
+101 em \textit{Low}.
 
-Para a RQ~02, portanto, escolher uma ou outra variante muda pouco a conclusão. A dispersão é
-grande nas duas (de 0,06~h a $1{,}1 \times 10^{5}$~h na variante (a)): há projetos que
-publicam a partir de um ramo recente e outros que acumulam \textit{commits} por meses antes
-de publicar. Na classificação, a distribuição é
-relativamente equilibrada: 57 em \textit{Elite}, 89 em \textit{High}, 103 em \textit{Medium}
-e 101 em \textit{Low}.
+\textbf{RQ 03.} A mediana do CFR (a) é 0,049 (IQR 0,100), e 13 repositórios (3,7\%) não têm
+nenhum \textit{run} com falha; pelos cortes, 283 (80,9\%) ficam em \textit{Elite}. A mediana
+do CFR (b) é 0,200 (IQR 0,364), quatro vezes maior, com 80 repositórios (22,9\%) em zero. As
+duas variantes ordenam os repositórios de forma muito diferente: a correlação de Spearman
+entre elas é de 0,107 ($p = 0{,}045$), e o IC 95\% vai de praticamente zero ($-0{,}0001$) a 0,21.
 
-\subsection{RQ 03: taxa de falha das mudanças}
+\textbf{RQ 04.} A mediana é de 2,56~h (IQR 8,55~h) nos 330 repositórios com ao menos um
+episódio de falha seguida de sucesso. 196 (59,4\%) ficam em \textit{High} (de 1~h a menos de um
+dia), 86 (26,1\%) em \textit{Elite} e 48 (14,5\%) em 24~h ou mais; o máximo é de 1.418~h. Os
+20 repositórios (5,7\%) sem nenhum episódio ficam fora da mediana; a maioria deles não teve
+falha alguma, como o \texttt{arendst/Tasmota}, com 569 \textit{runs} válidos. A censura foi
+desprezível: mediana 0, terceiro quartil 0,0033, e 70,9\% dos repositórios sem nenhum episódio
+censurado.
 
-Aqui as duas variantes divergem mais do que em qualquer outra métrica, e as hipóteses da
-Introdução erraram nas duas direções.
-
-A variante (a), proxy de CI, tem mediana de 0,049 (4,9\%) e IQR de 0,100. A
-hipótese previa uma mediana entre 10\% e 25\%: o observado é menos da metade do piso
-previsto, e 13 repositórios (3,7\%) não têm nenhum \textit{run} com falha na janela. A
-explicação provável é que os \textit{runs} contados são disparados por \textit{push} no
-\textit{default branch}, isto é, mudanças já validadas por um \textit{pull request} antes do
-\textit{merge}: mede-se a taxa de falha do que já foi aprovado, e não a de todas as mudanças
-propostas.
-
-A variante (b), proxy de entrega, tem mediana de 0,200 (20,0\%) e IQR de 0,364. A
-hipótese previa valores parecidos ou menores que os da variante (a) e concentração em 0\%;
-o observado é quatro vezes maior que o da variante (a), embora 80 repositórios (22,9\%) de
-fato fiquem em zero.
-
-Confirmou-se a terceira hipótese: as duas variantes concordam pouco. Além de terem medianas
-diferentes, elas ordenam os repositórios de maneiras diferentes: a correlação de Spearman
-entre elas é de 0,107 ($p = 0{,}045$), praticamente nula, e um repositório bem avaliado por
-uma pode ser mal avaliado pela outra. Voltamos a esse problema de constructo na seção de Ameaças à Validade. Pela variante (a), 283 repositórios (80,9\%) ficam na faixa
-\textit{Elite} (CFR $\leq$ 0,15), a nota mais generosa das quatro.
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=\textwidth]{rq1_rq4_pares.png}
-\caption{As duas variantes lado a lado. À esquerda, o \textit{lead time}, cujas variantes
-quase se sobrepõem; à direita, o CFR, em que a mediana da variante (b) é quatro vezes a da (a).}
-\label{fig:pares}
-\end{figure}
-
-\subsection{RQ 04: tempo de recuperação}
-
-A mediana é de 2,56~h, com IQR de 8,55~h, calculada sobre os 330 repositórios com ao
-menos um episódio de falha seguida de sucesso na janela. A hipótese se confirma: previa-se
-``algumas horas'' e a maioria na faixa \textit{High} (de 1~h a menos de um dia), e de fato 196
-repositórios (59,4\%) caem nessa faixa, contra 86 (26,1\%) em \textit{Elite} e 48 (14,5\%)
-em 24~h ou mais. A cauda longa também se confirma: o máximo é de 1.418~h, quase dois meses.
-
-Vinte repositórios (5,7\%) não tiveram nenhum episódio na janela e ficam fora do
-cálculo da mediana, como determina o protocolo. São, em sua maioria, repositórios cujos
-\textit{workflows} não registraram falha alguma no período, e não repositórios inativos:
-\texttt{arendst/Tasmota}, por exemplo, tem 569 \textit{runs} válidos e nenhuma falha.
-
-Esperávamos uma proporção não trivial de episódios censurados, isto é, que a janela não viu
-encerrar, e isso não se confirmou. A censura foi desprezível: mediana 0,
-terceiro quartil 0,0033, e 234 dos 330 repositórios (70,9\%) sem nenhum episódio censurado.
-Quase toda falha iniciada dentro da janela também foi resolvida dentro dela, então a censura
-pouco afeta a mediana.
-
-\subsection{Classificação DORA geral}
-
-A categoria de cada repositório é a mediana das quatro notas, arredondada para baixo
-(Tabela~\ref{tab:dora} e Figura~\ref{fig:dora}).
-
-\begin{table}[ht]
-\centering
-\caption{Distribuição da classificação DORA geral.}
-\label{tab:dora}
-\begin{tabular}{lrr}
-\hline
-\textbf{Categoria} & \textbf{n} & \textbf{\%} \\
-\hline
-Elite  &  25 &  7,1 \\
-High   & 143 & 40,9 \\
-Medium & 159 & 45,4 \\
-Low    &  23 &  6,6 \\
-\hline
-\end{tabular}
-\end{table}
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.7\textwidth]{rq1_rq4_dora.png}
-\caption{Classificação DORA geral dos 350 repositórios.}
-\label{fig:dora}
-\end{figure}
-
-A amostra se concentra no meio da escala: 302 repositórios (86,3\%) são \textit{High} ou
-\textit{Medium} e as duas pontas somam menos de 14\%. A distribuição por nota mostra que o
-resultado é puxado para cima pela nota de CFR, \textit{Elite} em 80,9\% dos casos, e para
-baixo pela nota de frequência, \textit{Low} ou \textit{Medium} em 74,3\%. O perfil típico da
-amostra é o de projetos que publicam com pouca frequência, mas com baixa taxa de falha de CI
-e recuperação rápida. Como a nota de CFR usa a variante (a), e como essa variante diverge
-fortemente da (b), essa distribuição depende da definição operacional adotada; a Discussão mede esse efeito.
+\textbf{Classificação geral.} 25 repositórios (7,1\%) são \textit{Elite}, 143 (40,9\%)
+\textit{High}, 159 (45,4\%) \textit{Medium} e 23 (6,6\%) \textit{Low}. A nota de CFR puxa a
+categoria para cima (\textit{Elite} em 80,9\% dos casos) e a de frequência para baixo
+(\textit{Low} ou \textit{Medium} em 74,3\%).

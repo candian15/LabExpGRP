@@ -1,7 +1,7 @@
 # Introdução
 
 > Seção escrita pelos três. As hipóteses ficam em `hipoteses_rq3_rq5.md`, que entra logo
-> depois desta seção no artigo. A versão LaTeX está em `introducao.tex`.
+> depois desta seção no artigo. A versão condensada, usada no artigo, está em `introducao.tex`.
 
 As métricas DORA, propostas pelo programa *DevOps Research and Assessment*, descrevem o
 desempenho de entrega de uma equipe de software por quatro indicadores: a frequência de

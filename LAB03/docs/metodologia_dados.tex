@@ -2,40 +2,22 @@
 % Vem antes das definições operacionais (Arthur) e da validação manual (Pedro).
 % Números de dados/funil.csv, dados/repositorios.csv e do log da coleta.
 
-\subsection{Fonte de dados e coleta}
+\subsection{Fonte de dados, janela e amostra}
 
-Todos os dados vêm da API REST do GitHub, consultada por um \textit{pipeline} próprio em
-Python que usa apenas a biblioteca \texttt{requests}. A coleta inteira é reproduzida por um
-único comando. Cada resposta da API é gravada em um \textit{cache} local indexado pelo
-\textit{hash} da URL, de modo que uma coleta interrompida continua de onde parou. A execução
-final fez 11.989 chamadas à API e reaproveitou 58.459 respostas do \textit{cache}.
+Os dados vêm da API REST do GitHub, consultada por um \textit{pipeline} próprio em Python
+(só com a biblioteca \texttt{requests}) que roda com um único comando. Cada resposta fica em
+um \textit{cache} local indexado pelo \textit{hash} da URL, então uma coleta interrompida
+continua de onde parou; a execução final fez 11.989 chamadas e reaproveitou 58.459 respostas
+do \textit{cache}. O cliente espera o \textit{reset} da cota e repete erros 5xx com
+\textit{backoff} exponencial. A janela vai de 01/10/2025 a 30/09/2026, inclusiva, e só
+entram \textit{releases} e \textit{workflow runs} do \textit{default branch} criados nela.
 
-A busca de repositórios devolve no máximo 1.000 itens por consulta, e só a faixa de 1.000 a
-1.500 estrelas tem 20.493 repositórios. Por isso, dividimos a busca em sete faixas de
-estrelas (1.000--1.500, 1.500--2.500, 2.500--4.000, 4.000--7.000, 7.000--12.000,
-12.000--25.000 e mais de 25.000). De cada faixa entraram os 1.000 repositórios mais
-estrelados, num total de 7.000 candidatos. Os candidatos foram avaliados alternando as
-faixas, para que a amostra não saísse inteira da faixa mais popular.
-
-O cliente HTTP respeita a cota da API, esperando o \textit{reset} quando ela acaba, e repete
-erros 5xx e falhas de rede com \textit{backoff} exponencial (1, 2, 4, 8 e 16~s), até seis
-tentativas. Todas as listagens são paginadas pelo cabeçalho \texttt{Link}. A listagem de
-\textit{workflow runs} também devolve no máximo 1.000 resultados, e o seu
-\texttt{total\_count} satura em 2.500. Por isso, os \textit{runs} são pedidos mês a mês, e o
-mês que passa do teto é dividido ao meio até caber nele.
-
-\subsection{Janela de observação}
-
-A janela tem 12 meses, de 01/10/2025 a 30/09/2026, inclusiva nas duas pontas, e é a mesma
-para todos os repositórios. Só entram releases publicadas e \textit{workflow runs} criados
-dentro dela, e só no \textit{default branch}. A idade do repositório é medida até o fim da
-janela, e não até a data da execução, para que uma nova execução chegue ao mesmo valor.
-
-\subsection{Seleção da amostra}
-
-Os candidatos passaram por filtros em sequência. Cada repositório parou no primeiro filtro em
-que falhou, e por isso tem um único motivo de descarte. A coleta parou ao completar 350
-repositórios aprovados, acima do mínimo de 300. A Tabela~\ref{tab:funil} mostra o funil.
+A busca devolve no máximo 1.000 repositórios por consulta, e só a faixa de 1.000 a 1.500
+estrelas tem 20.493. Dividimos então a busca em sete faixas de estrelas, das quais entraram
+os 1.000 mais estrelados de cada (7.000 candidatos), avaliados alternando as faixas. A
+listagem de \textit{runs} também para em 1.000, então os \textit{runs} são pedidos mês a mês,
+e o mês que passa do teto é dividido ao meio até caber. Cada candidato parou no primeiro
+filtro em que falhou, e a coleta parou ao completar 350 aprovados (Tabela~\ref{tab:funil}).
 
 \begin{table}[ht]
 \centering
@@ -54,42 +36,16 @@ $\geq$ 5 releases na janela    & 439   & 618 & menos de 5 releases \\
 $\geq$ 50 \textit{runs} válidos & 352  & 81  & menos de 50 \textit{runs} válidos \\
 Coleta sem erro                & 350   & 2   & erro definitivo da API \\
 \hline
-\textbf{Amostra final}         & \textbf{350} & -- & -- \\
-\hline
 \end{tabular}
 \end{table}
 
-Os 5.435 candidatos não avaliados nunca foram consultados, porque a coleta parou ao fechar
-a amostra; eles não foram reprovados por critério algum. Os seis repositórios com mais de
-1.000 \textit{runs} em um único dia foram descartados porque não há como recuperar todos os
-\textit{runs} desses dias, nem saber quantos faltam. Mantê-los faria o CFR~(a) e o tempo de
-recuperação serem calculados sobre dados truncados. Com isso, a amostra exclui os projetos de
-maior volume de CI. Os dois erros definitivos foram um HTTP 504 recorrente e uma listagem de
-releases que passou do limite de 10.000 resultados paginados da API.
-
-A amostra final reúne 350 repositórios com 1.493 a 291.317 estrelas (mediana de 11.944),
-concentrados nas faixas mais populares: 97 têm mais de 25.000 estrelas e 27 estão na faixa
-de 1.000 a 1.500. As linguagens mais frequentes são TypeScript (73), Python (72), Go (45),
-Rust (39) e JavaScript (28). A mediana é de 22 releases e 688 \textit{runs} válidos por
-repositório na janela, e a idade mediana é de 6,0 anos.
-
-A amostra não é aleatória. Dentro de cada faixa, só os 1.000 repositórios mais estrelados
-chegaram a ser candidatos. Além disso, as faixas foram avaliadas na mesma proporção, mas os
-repositórios mais populares passaram mais nos filtros, e por isso a amostra final pende para
-eles. Os resultados valem para repositórios populares que usam GitHub Actions e publicam
-releases, e não para o GitHub como um todo.
-
-\subsection{Dicionário de dados}
-
-O \textit{pipeline} gera dois arquivos. O \texttt{repositorios.csv} tem uma linha por
-repositório avaliado, aprovado ou descartado, e o \texttt{funil.csv} tem uma linha por etapa
-da seleção. O dicionário completo, com tipo, unidade e origem de cada coluna, está no
-repositório do trabalho. As colunas de \texttt{repositorios.csv} formam cinco grupos:
-(i) metadados (estrelas, linguagem, \textit{default branch}, idade e contribuidores);
-(ii) contagens da seleção (releases na janela, sem rascunhos e pré-releases, e
-\textit{runs} válidos, isto é, de \texttt{push} no \textit{default branch} que terminam em
-sucesso ou falha); (iii) as métricas DORA em todas as variantes, com as contagens da
-heurística de release corretiva e a proporção de episódios censurados; (iv) a nota de 1 a 4
-por métrica e a categoria geral; e (v) o motivo do descarte. Valor vazio significa
-\textit{não medido}, e não zero; métrica vazia não recebe nota e fica fora da mediana da
-categoria geral.
+Os 5.435 não avaliados nunca foram consultados, porque a amostra já estava completa. Os seis
+repositórios com mais de 1.000 \textit{runs} em um único dia saíram porque a API não devolve
+todos os \textit{runs} desses dias, e o CFR (a) e a recuperação seriam calculados sobre dados
+truncados. A amostra final tem de 1.493 a 291.317 estrelas (mediana de 11.944); as
+linguagens mais frequentes são TypeScript (73), Python (72), Go (45), Rust (39) e JavaScript
+(28), e a mediana é de 22 \textit{releases}, 688 \textit{runs} válidos e 6,0 anos de idade.
+Ela não é aleatória: dentro de cada faixa só os mais estrelados viraram candidatos, e os mais
+populares passaram mais nos filtros. Os resultados valem para repositórios populares que usam
+GitHub Actions e publicam \textit{releases}. O dicionário de dados, com tipo, unidade e origem
+de cada coluna, está no repositório.

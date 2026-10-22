@@ -5,9 +5,9 @@
 %
 %   pdflatex artigo && bibtex artigo && pdflatex artigo && pdflatex artigo
 %
-% As seções vêm dos arquivos de ../docs/. Não edite o texto aqui: edite lá, para o .md e o
-% .tex continuarem iguais. As figuras vêm de ../resultados/, geradas pelos scripts de
-% ../analises/.
+% As seções vêm dos .tex de ../docs/, que são a versão condensada do artigo (máximo de 10
+% páginas); os .md de lá são a versão estendida, com mais detalhes. As figuras vêm de
+% ../resultados/, geradas pelos scripts de ../analises/.
 %
 
 \documentclass[12pt]{article}
@@ -99,41 +99,32 @@ dados públicos são contingentes a escolhas operacionais raramente explicitadas
 \section{Conclusão}
 
 Medimos as quatro métricas DORA em 350 repositórios \textit{open-source} populares usando
-somente dados públicos do GitHub. A amostra publica com pouca frequência (mediana de 0,42
-\textit{release} por semana, com 74,3\% abaixo de uma por semana), leva cerca de dez dias
-entre o \textit{commit} mais antigo e a publicação, registra baixa taxa de falha de
-integração contínua (mediana de 0,049) e se recupera rápido (mediana de 2,56~h, com 59,4\%
-na faixa \textit{High}). A classificação geral concentra-se no meio da escala: 86,3\% dos
-repositórios são \textit{High} ou \textit{Medium}.
+somente dados públicos do GitHub. A amostra publica pouco (mediana de 0,42 \textit{release} por
+semana), leva cerca de dez dias entre o \textit{commit} mais antigo e a publicação, falha pouco
+no CI (mediana de 0,049) e se recupera rápido (mediana de 2,56~h); 86,3\% dos repositórios são
+\textit{High} ou \textit{Medium}.
 
-Esses valores dependem bastante de decisões de medição. As duas operacionalizações da taxa
-de falha correlacionam-se a $\rho = 0{,}107$ e discordam sobre a categoria de 20,6\% da
-amostra; trocar a definição de \textit{deploy} move entre 25\% e 33\% dos repositórios, e a
-faixa \textit{Elite} varia de 8 a 33 projetos conforme a combinação adotada. A correlação
-entre frequência e taxa de falha é praticamente nula na variante de CI ($\rho = 0{,}127$) e
-forte na variante de entrega ($\rho = 0{,}613$), em boa parte por artefato da construção da
-métrica. Uma classificação DORA de projetos \textit{open-source} só pode ser interpretada
-junto com as escolhas operacionais que a produziram.
+Esses valores dependem bastante de decisões de medição. As duas variantes da taxa de falha
+correlacionam-se a $\rho = 0{,}107$ e discordam sobre a categoria de 20,6\% da amostra; trocar
+a definição de \textit{deploy} move entre 25\% e 33\% dos repositórios, e a faixa
+\textit{Elite} varia de 8 a 33 projetos. A correlação entre frequência e taxa de falha é fraca
+no CI ($\rho = 0{,}127$) e forte na entrega ($\rho = 0{,}613$), em boa parte por artefato da
+métrica. Na validação manual, o \textit{proxy} de \textit{release} se sustentou (59 de 60
+repositórios), mas a melhor heurística de \textit{release} corretiva ficou em F1 de 0,65, numa
+dimensão em que os próprios avaliadores divergiram em 26 de 299 casos. Uma classificação DORA
+de projetos \textit{open-source} só pode ser interpretada junto com as escolhas operacionais
+que a produziram.
 
-Na validação manual, o \textit{proxy} de \textit{release} se sustentou: o consenso dos três
-avaliadores considerou que as \textit{releases} representam entregas reais em 59 dos 60
-repositórios da amostra-ouro. Já a melhor heurística automática para identificar
-\textit{releases} corretivas alcançou F1 de 0,65, abaixo do limiar de 0,70, em uma dimensão
-na qual os próprios avaliadores divergiram em 26 de 299 casos.
+Como trabalhos futuros, sugerimos usar projetos com ambiente de produção observável (por
+exemplo, imagens de contêiner com data de implantação) no lugar do \textit{proxy} de
+\textit{release}, estender a janela para além de 12 meses e ampliar a amostra-ouro para treinar
+e validar a heurística em conjuntos disjuntos.
 
-Como trabalhos futuros, sugerimos três caminhos: usar projetos que publicam
-ambiente de produção observável (por exemplo, imagens de contêiner com data de implantação)
-para substituir o \textit{proxy} de \textit{release}; estender a janela para além de 12 meses,
-separando característica estável de efeito de período; e ampliar a amostra-ouro, de modo a
-permitir treinar e validar a heurística de \textit{release} corretiva em conjuntos
-disjuntos.
-
-% ---------------------------------------------------------------- Disponibilidade
 \section*{Disponibilidade dos dados}
 
-Todo o código, os dados coletados e os roteiros de análise estão em
-\url{https://github.com/candian15/LabExpGRP}, na pasta \texttt{LAB03}. A coleta é reproduzida
-por um único comando, e o dicionário de dados descreve cada coluna dos CSVs.
+Código, dados e roteiros de análise: \url{https://github.com/candian15/LabExpGRP} (pasta
+\texttt{LAB03}). Quadro do GitHub Projects:
+\url{https://github.com/users/candian15/projects/2}.
 
 \bibliographystyle{sbc}
 \bibliography{referencias}

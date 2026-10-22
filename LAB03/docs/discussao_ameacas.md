@@ -1,7 +1,7 @@
 # Discussão e Ameaças à Validade
 
 > Seções escritas pelos três. Os números vêm de `resultados/`, `validacao/kappa.csv` e
-> `dados/funil.csv`. A versão LaTeX está em `discussao_ameacas.tex`.
+> `dados/funil.csv`. A versão condensada, usada no artigo, está em `discussao_ameacas.tex`.
 >
 > Todos os números são definitivos, calculados sobre o dataset final, com a heurística v4
 > do CFR (b).
@@ -131,6 +131,13 @@ de 0,500; o CFR (b), que só conta correções em até 7 dias, fica em 0,200. Ou
 parte das correções nesses projetos é manutenção de rotina, e o CFR (b) captura só a fração
 que responde a uma entrega recente.
 
+### As conclusões são robustas?
+
+Depende da RQ. A do *lead time* (RQ 02) se mantém nas duas variantes. As da taxa de falha
+(RQ 03 e 05) e a classificação geral não se mantêm: trocar a variante do CFR muda a categoria
+de 20,6% dos repositórios, e trocar a unidade de *deploy* muda entre 25% e 33%, e nenhum desses
+ICs desce abaixo de 21%.
+
 ## Ameaças à Validade
 
 Seguimos as quatro categorias de Wohlin et al.
@@ -229,6 +236,10 @@ O tempo de recuperação é calculado sobre 330 repositórios; os 20 sem episód
 reportados à parte, e não imputados. A censura dentro da janela mostrou-se desprezível (70,9%
 dos repositórios não têm nenhum episódio censurado), o que reduz o risco de subestimação da
 mediana.
+
+Os ICs por *bootstrap* mostram que as medianas e as proporções de mudança de categoria são
+estáveis, mas que a correlação entre as variantes do CFR (0,107, IC de −0,0001 a 0,21) não se
+distingue com segurança de zero.
 
 Por fim, o kappa de "releases são entregas reais" (0,745) deve ser lido junto com a
 distribuição dos rótulos: como o consenso pôs 59 dos 60 repositórios na mesma categoria, uma

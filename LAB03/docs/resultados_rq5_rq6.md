@@ -2,7 +2,7 @@
 
 > Parte do Arthur na seção de Resultados. Os números vêm de `resultados/rq5_spearman.csv` e
 > `resultados/rq6_testes.csv`, gerados por `analises.rq5_correlacao` e `analises.rq6_fatores`.
-> A versão LaTeX está em `resultados_rq5_rq6.tex`.
+> A versão condensada, usada no artigo, está em `resultados_rq5_rq6.tex`.
 
 ## RQ 05: Frequência de deploy e taxa de falha se correlacionam?
 
@@ -10,10 +10,10 @@ Calculamos a correlação de Spearman entre a frequência de deploy e o CFR, sep
 cada variante. Spearman trabalha com postos, o que é adequado às distribuições assimétricas
 observadas e ao grande número de empates em zero no CFR (a).
 
-| Variante do CFR | n | ρ | p | Interpretação |
+| Variante do CFR | n | ρ | IC 95% de ρ | p | Interpretação |
 |---|---:|---:|---:|---|
-| (a) proxy de CI | 350 | 0,127 | 0,017 | fraca positiva |
-| (b) proxy de entrega | 350 | 0,613 | < 0,001 | forte positiva |
+| (a) proxy de CI | 350 | 0,127 | [0,03; 0,22] | 0,017 | fraca positiva |
+| (b) proxy de entrega | 350 | 0,613 | [0,53; 0,68] | < 0,001 | forte positiva |
 
 As duas são estatisticamente significativas ao nível de 5%, mas o coeficiente da variante (b)
 é quase cinco vezes o da (a). Na variante (a), um ρ de 0,127 explica menos de 2% da variância conjunta:

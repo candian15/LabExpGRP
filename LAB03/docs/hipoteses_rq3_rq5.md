@@ -3,6 +3,9 @@
 > Escritas antes da coleta, como pede o enunciado. Texto pronto para o João
 > juntar na Introdução; a versão LaTeX está em `hipoteses_rq3_rq5.tex`.
 
+Antes da coleta, registramos hipóteses para as RQ 03 a 05; as demais questões foram tratadas
+como exploratórias.
+
 **RQ 03: taxa de falha das mudanças.** Esperamos que a variante de CI (a)
 fique, na mediana, entre 10% e 25%. Como os runs considerados são disparados
 por *push* no default branch, boa parte das mudanças já passou pela validação de

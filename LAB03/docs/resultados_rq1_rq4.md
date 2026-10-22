@@ -2,7 +2,7 @@
 
 > Parte do João na seção de Resultados. Os números saem de
 > `resultados/rq1_rq4_descritiva.csv`, `rq1_rq4_dora.csv` e `rq1_rq4_notas.csv`, gerados por
-> `python -m analises.rq1_rq4_descritiva`. A versão LaTeX está em `resultados_rq1_rq4.tex`.
+> `python -m analises.rq1_rq4_descritiva`. A versão condensada, usada no artigo, está em `resultados_rq1_rq4.tex`.
 >
 > Todos os números são definitivos, calculados sobre o dataset final, com a heurística v4
 > do CFR (b).
@@ -13,14 +13,18 @@ A amostra final tem 350 repositórios. Como as quatro métricas têm distribuiç
 assimétricas e cauda longa, reportamos mediana e intervalo interquartil (IQR), e não média
 e desvio padrão. A Tabela 1 resume as seis variáveis.
 
-| Métrica | n | Q1 | Mediana | Q3 | IQR |
+| Métrica | n | Q1 | Mediana | Q3 | IQR | IC 95% da mediana |
 |---|---|---|---|---|---|
-| Frequência de deploy (releases/semana) | 350 | 0,19 | 0,42 | 1,04 | 0,84 |
-| Lead time (a) (horas) | 350 | 50,8 | 251,7 | 848,4 | 797,6 |
-| Lead time (b) (horas) | 350 | 65,4 | 284,0 | 845,4 | 780,1 |
-| CFR (a), proxy de CI | 350 | 0,021 | 0,049 | 0,121 | 0,100 |
-| CFR (b), proxy de entrega | 350 | 0,052 | 0,200 | 0,416 | 0,364 |
-| Tempo de recuperação (horas) | 330 | 0,98 | 2,56 | 9,53 | 8,55 |
+| Frequência de deploy (releases/semana) | 350 | 0,19 | 0,42 | 1,04 | 0,84 | [0,35; 0,46] |
+| Lead time (a) (horas) | 350 | 50,8 | 251,7 | 848,4 | 797,6 | [196,7; 337,3] |
+| Lead time (b) (horas) | 350 | 65,4 | 284,0 | 845,4 | 780,1 | [206,8; 331,6] |
+| CFR (a), proxy de CI | 350 | 0,021 | 0,049 | 0,121 | 0,100 | [0,041; 0,065] |
+| CFR (b), proxy de entrega | 350 | 0,052 | 0,200 | 0,416 | 0,364 | [0,174; 0,227] |
+| Tempo de recuperação (horas) | 330 | 0,98 | 2,56 | 9,53 | 8,55 | [2,08; 3,30] |
+
+Os intervalos de confiança de 95% são de *bootstrap* percentil, com 2.000 reamostragens dos
+repositórios e semente fixa (`python -m analises.ic_bootstrap`, saída em
+`resultados/ic_bootstrap.csv`).
 
 ## RQ 01: Com que frequência são feitos deploys?
 
@@ -50,6 +54,12 @@ conclusão. A dispersão é grande nas duas (de 0,06 h a 1,1 × 10⁵ h na varia
 projetos que publicam a partir de um ramo de desenvolvimento recente e outros que acumulam
 *commits* por meses antes de publicar.
 
+As variantes divergem em repositórios específicos por construção. A variante (a) usa o
+*commit* mais antigo de cada *release*, então um único *commit* antigo "esquecido" num ramo
+faz o *lead time* daquela *release* explodir; na (b) ele é só um valor entre muitos e quase não
+move a mediana. Nas medianas da amostra as duas ficaram próximas, mas o efeito aparece na
+cauda: o máximo é de 1,1 × 10⁵ h na variante (a) e de 9,3 × 10⁴ h na (b).
+
 Na classificação, o *lead time* distribui os repositórios de forma relativamente equilibrada:
 57 em *Elite*, 89 em *High*, 103 em *Medium* e 101 em *Low*.
 
@@ -72,7 +82,7 @@ de fato fiquem em zero.
 
 A hipótese que se confirmou foi a terceira: as duas variantes concordam pouco. Além de
 terem medianas diferentes, elas ordenam os repositórios de maneiras diferentes: a correlação
-de Spearman entre elas é de 0,107 (p = 0,045), praticamente nula, e um repositório bem
+de Spearman entre elas é de 0,107 (p = 0,045, IC 95% de −0,0001 a 0,21), praticamente nula, e um repositório bem
 avaliado por uma pode ser mal avaliado pela outra. A Figura 2, à direita, mostra as duas distribuições lado a
 lado.
 

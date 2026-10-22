@@ -2,57 +2,37 @@
 % As hipóteses entram logo depois, de hipoteses_rq3_rq5.tex.
 
 As métricas DORA, propostas pelo programa \textit{DevOps Research and
-Assessment}~\cite{dora2024}, descrevem o desempenho de entrega de uma equipe de software por
-quatro indicadores: a frequência de \textit{deploy}, o \textit{lead time} para mudanças, a
-taxa de falha das mudanças e o tempo de recuperação após uma falha. Com os quatro, a equipe é
-classificada como \textit{Elite}, \textit{High}, \textit{Medium} ou \textit{Low}, e a
-literatura associa as categorias superiores a
-práticas como integração contínua, automação de testes e implantação em pequenos
-lotes~\cite{forsgren2018}.
-
-Essas métricas foram estabelecidas a partir de questionários respondidos por profissionais, e
-isso limita seu uso fora desse contexto. Os dados originais são autorrelatados e privados, então
-ninguém consegue auditá-los nem reproduzi-los. Além disso, as faixas de desempenho foram calibradas em equipes corporativas que praticam
-entrega contínua, e não se sabe o que elas significam quando aplicadas a projetos
+Assessment}~\cite{dora2024}, descrevem o desempenho de entrega de uma equipe por quatro
+indicadores: frequência de \textit{deploy}, \textit{lead time} para mudanças, taxa de falha
+das mudanças (CFR) e tempo de recuperação. Com os quatro, a equipe é classificada como
+\textit{Elite}, \textit{High}, \textit{Medium} ou \textit{Low}, e a literatura associa as
+categorias superiores a práticas como integração contínua e implantação em pequenos
+lotes~\cite{forsgren2018}. As faixas vieram de questionários autorrelatados por equipes
+corporativas, que não podem ser auditados, e não se sabe o que significam em projetos
 \textit{open-source}, cujo ritmo de publicação é decidido por mantenedores voluntários.
 
-Neste trabalho calculamos as quatro métricas apenas com dados públicos do GitHub, sobre uma
-amostra de 350 repositórios populares que usam GitHub
-Actions, em uma janela fixa de 12 meses. Como a API não informa quando uma mudança chegou à
-produção nem quando um defeito afetou usuários, usamos dois \textit{proxies}: a publicação de uma \textit{release} aproxima o \textit{deploy}, e a falha de um
-\textit{workflow} de integração contínua aproxima a falha de uma mudança. Toda a coleta é
-reproduzida por um único comando, e o conjunto de dados resultante é publicado junto com o
-código.
-
-Como os valores dependem desses \textit{proxies}, também os verificamos. Sorteamos uma
-amostra-ouro de 60 repositórios e 299 \textit{releases}, que os três autores julgaram de
-forma independente; medimos a concordância entre eles e avaliamos contra esse consenso a
-heurística automática que identifica \textit{releases} corretivas. Por fim,
-comparamos três definições alternativas de \textit{deploy} para ver o quanto as conclusões
-mudam com elas, e a discussão usa bastante esses resultados.
+Neste trabalho calculamos as quatro métricas apenas com dados públicos do GitHub, para 350
+repositórios populares que usam GitHub Actions, em uma janela fixa de 12 meses. Como a API
+não informa quando uma mudança chegou à produção nem quando um defeito afetou usuários,
+usamos dois \textit{proxies}: a publicação de uma \textit{release} aproxima o
+\textit{deploy}, e a falha de um \textit{workflow} de CI aproxima a falha de uma mudança.
+Também verificamos esses \textit{proxies}: três avaliadores rotularam uma amostra-ouro de 60
+repositórios e 299 \textit{releases}, contra a qual avaliamos a heurística que identifica
+\textit{releases} corretivas, e comparamos três definições de \textit{deploy} para ver o
+quanto as conclusões mudam com elas.
 
 \subsection{Questões de pesquisa}
 
-\begin{description}
+\begin{description}\itemsep0pt
 \item[RQ 01] Com que frequência são feitos \textit{deploys} nesses projetos?
 \item[RQ 02] Qual o \textit{lead time} para mudanças, nas variantes (a) e (b)?
 \item[RQ 03] Qual a taxa de falha das mudanças, nas variantes (a) e (b)?
 \item[RQ 04] Qual o tempo de recuperação após uma falha?
 \item[RQ 05] Frequência de \textit{deploy} e taxa de falha se correlacionam?
-\item[RQ 06] Linguagem, popularidade, número de contribuidores, idade e tipo do projeto
-  explicam diferenças no desempenho?
-\item[RQ 07] A classificação muda se a unidade de \textit{deploy} for definida de outra forma?
-\item[RQ 08] Qual a proporção de \textit{releases} corretivas (\textit{rework rate}) e como
-  ela se compara ao CFR (b)?
+\item[RQ 06] Que características dos repositórios se associam ao desempenho?
+\item[RQ 07] A classificação muda se o \textit{deploy} for definido de outra forma?
+\item[RQ 08] Qual a proporção de \textit{releases} corretivas (\textit{rework rate})?
 \end{description}
 
-Nas RQ~01 a RQ~04 reportamos a mediana e o intervalo interquartil de cada métrica, além da
-distribuição das categorias DORA.
-
-\subsection{Estrutura do artigo}
-
-A Seção~2 descreve a metodologia: a fonte de dados e a seleção da amostra, as definições
-operacionais de cada métrica e a heurística do CFR (b), e o protocolo da validação manual. A
-Seção~3 apresenta os resultados por questão de pesquisa. A Seção~4 discute o que as hipóteses
-previam e o que foi observado. A Seção~5 reúne as ameaças à validade nas quatro categorias
-clássicas~\cite{wohlin2012}, e a Seção~6 apresenta as conclusões.
+A Seção~2 descreve a metodologia, a Seção~3 os resultados, a Seção~4 a discussão, a Seção~5
+as ameaças à validade~\cite{wohlin2012} e a Seção~6 as conclusões.

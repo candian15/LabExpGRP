@@ -1,52 +1,37 @@
-% Rascunho da parte do Arthur na Metodologia (template SBC).
+% Metodologia -- definições operacionais e heurística do CFR (b) (parte do Arthur).
 
 \subsection{Definições operacionais}
 
-Como o GitHub não registra \textit{deploys} nem falhas em produção, todas as métricas são
-medidas por \textit{proxies}. Consideramos \textit{deploy} uma release publicada
-(\texttt{draft = false}) no \textit{default branch}; pré-releases e tags entram apenas como
-variantes na análise de sensibilidade. A frequência de deploy é o número de releases na
-janela dividido pelo número de semanas da janela.
+\textit{Deploy} é uma \textit{release} publicada (\texttt{draft = false}); pré-\textit{releases}
+e \textit{tags} entram só como variantes na RQ~07. A frequência é o número de
+\textit{releases} na janela dividido pelo número de semanas. Os \textit{commits} de cada
+\textit{release} R vêm de \texttt{compare/\{anterior\}...\{R\}}, com a data
+\texttt{commit.author.date}; o \textit{lead time} (a) é a mediana, entre as \textit{releases},
+de ``publicação de R menos o \textit{commit} mais antigo de R'', e o (b) é a mediana sobre
+todos os \textit{commits} de todas as \textit{releases}. \textit{Releases} sem anterior ou com
+\texttt{compare} em 404 são ignoradas e contadas. O CFR (a) é a proporção de \textit{runs} de
+\texttt{push} com falha (\texttt{failure}, \texttt{timed\_out}, \texttt{startup\_failure})
+entre falhas e sucessos. O tempo de recuperação é calculado dentro de cada \textit{workflow},
+da primeira falha após um sucesso até o próximo sucesso; episódios que não terminam na janela
+são censurados e reportados. A classificação usa os cortes fixos da disciplina, com nota de
+1 a 4 por métrica, e a categoria geral é a mediana das notas, arredondada para baixo.
 
-O \textit{lead time} é calculado em duas variantes a partir de \texttt{compare/\{anterior\}...\{R\}}
-e de \texttt{commit.author.date}: (a) por release, pela diferença entre a data da release e a
-do commit mais antigo incluído; (b) por commit, sobre todos os commits de todas as releases.
-Releases sem release anterior ou com \texttt{compare} em 404 são ignoradas e contabilizadas.
-
-A \textit{change failure rate} (CFR) também tem duas variantes: (a) a proporção de execuções
-de CI com falha, que mede falha de \textit{pipeline} e não de produção; (b) a proporção de
-releases seguidas de uma release corretiva em até 7 dias.
-
-\subsection{CFR (b): proxy de entrega}
-
-Uma release R é considerada falha se for seguida, em até 7 dias, por uma release corretiva.
-O CFR (b) é o número de releases que falharam dividido pelo número de releases avaliadas.
-Releases publicadas nos últimos 7 dias da janela não podem ser avaliadas e ficam fora do
-denominador (censura); a quantidade delas é reportada.
-
-Como o GitHub não indica se uma release é corretiva, usamos uma heurística sobre a versão
-(SemVer) e o assunto dos commits entre as duas releases. R é comparada apenas com a release
-seguinte; lemos só o assunto do commit; quando o \texttt{compare} falha, vale apenas o critério
-de versão; a primeira release do repositório nunca é corretiva. Testamos quatro versões. As
-três primeiras foram v1 (só \textit{patch} ou algum commit
+O CFR (b) marca uma \textit{release} R como falha se ela for seguida, em até 7 dias, por uma
+\textit{release} corretiva, e divide as falhas pelas \textit{releases} avaliadas; as
+publicadas nos últimos 7 dias da janela ficam fora do denominador (censura). Para identificar
+\textit{releases} corretivas testamos quatro heurísticas sobre a versão (SemVer) e o assunto
+dos \textit{commits}: v1 (só \textit{patch} ou algum \textit{commit}
 \texttt{fix}/\texttt{revert}/\texttt{hotfix}), v2 (só \textit{patch} ou ao menos metade dos
-commits são correções) e v3 (\textit{patch} com algum commit de correção, ou ao menos metade
-dos commits são correções). A v4, descrita adiante, foi montada olhando os erros
-dessas três.
-
-\subsection{Validação da heurística}
-
-Sorteamos 60 repositórios da amostra final (\texttt{random\_state = 42}) e 5 releases de cada
-um. Os três integrantes rotularam as releases de forma independente, sem ver a saída da
-heurística, e o consenso seguiu o protocolo da seção de validação manual. Comparamos a
-heurística com o consenso por precisão, recall e F1 da classe ``corretiva'', aceitando
-F1 $\geq$ 0,70.
+\textit{commits} são correções), v3 (\textit{patch} com algum \textit{commit} de correção, ou
+ao menos metade de correções) e v4, descrita abaixo. Comparamos cada uma com o consenso da
+amostra-ouro (Seção~2.3) por precisão, recall e F1 da classe ``corretiva'', com limiar
+F1~$\geq$~0,70 (Tabela~\ref{tab:heuristica}).
 
 \begin{table}[ht]
 \centering
-\caption{Desempenho de cada versão da heurística contra o consenso da amostra-ouro
-(299 \textit{releases}, 111 corretivas).}
+\caption{Heurísticas contra o consenso (299 \textit{releases}, 111 corretivas).}
 \label{tab:heuristica}
+\small
 \begin{tabular}{lrrrrrrr}
 \hline
 \textbf{Versão} & \textbf{VP} & \textbf{FP} & \textbf{FN} & \textbf{VN} &
@@ -60,31 +45,13 @@ v4 &  81 &  57 & 30 & 131 & 0,59 & 0,73 & \textbf{0,65} \\
 \end{tabular}
 \end{table}
 
-A v4 foi a escolhida, com F1 de 0,65. Nenhuma versão atingiu o limiar de 0,70, e isso é
-reportado como limitação nas ameaças à validade.
-
-As três primeiras versões partem da mesma suposição: toda mudança de \textit{patch} no
-SemVer seria correção de defeito. Publicar \textit{patch} é a prática recomendada pelo
-próprio SemVer e não implica corrigir nada, de modo que a v1 marcou 170 \textit{releases}
-que o consenso considerou não corretivas. Ela acerta quase todas as corretivas (recall 0,99)
-ao custo de dizer ``sim'' para quase tudo (precisão 0,39). A v3
-tentou apertar o critério exigindo também um \textit{commit} de correção, mas perdeu
-corretivas verdadeiras sem ganhar precisão.
-
-A v4 troca o critério isolado de \textit{patch} por dois sinais. O primeiro são as
-\textit{release notes}: quando elas trazem uma seção de correção e nenhuma de novidade, 88\%
-das \textit{releases} da amostra-ouro são corretivas pelo consenso, contra 56\% quando o
-único sinal é a mudança de \textit{patch}. O segundo é a exigência de pelo menos um
-\textit{commit} de correção entre os \textit{substantivos}, isto é, descontando manutenção,
-dependências e infraestrutura (\texttt{chore}, \texttt{ci}, \texttt{docs}, \texttt{test},
-\texttt{bump}). Sem esse desconto, uma \textit{release} de \textit{patch} composta apenas
-de atualizações automáticas de dependência seria classificada como corretiva, que é o caso
-mais frequente entre os falsos positivos da v1.
-
-Quase todo o ganho vem da precisão, que sobe de 0,39 na v1 para 0,59: os falsos positivos caem
-de 170 para 57, com \textit{recall} de 0,73. Permanecem 30 falsos negativos, em sua
-maioria \textit{releases} grandes de projetos que não seguem SemVer e cujas notas misturam
-correções e novidades, os mesmos casos em que os avaliadores também divergiram.
-
-Nenhum dos critérios usa limiar numérico ajustado. A regra é composta de condições binárias
-e pode ser aplicada a outra amostra sem calibração.
+As três primeiras partem da mesma suposição, de que toda mudança de \textit{patch} é
+correção; a v1 acerta quase todas as corretivas (recall 0,99) dizendo ``sim'' para quase tudo
+(precisão 0,39). A v4 troca esse critério por dois sinais: as \textit{release notes} só têm
+seção de correção (nesse caso, 88\% das \textit{releases} da amostra-ouro são corretivas,
+contra 56\% quando o único sinal é o \textit{patch}), ou a versão é \textit{patch} e há ao
+menos um \textit{commit} de correção fora de manutenção, dependências e infraestrutura
+(\texttt{chore}, \texttt{ci}, \texttt{docs}, \texttt{test}, \texttt{bump}). Ela foi a escolhida,
+com F1 de 0,65: os falsos positivos caem de 170 para 57. Nenhuma versão atingiu 0,70, o que
+tratamos como limitação na Seção~5. A v4 não usa limiar numérico ajustado na amostra-ouro, e
+por isso pode ser aplicada a outra amostra sem calibração.

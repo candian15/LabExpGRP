@@ -3,230 +3,83 @@
 
 \section{Discussão}
 
-\subsection{As hipóteses sobre a taxa de falha erraram nas duas direções}
+\textbf{As hipóteses sobre a taxa de falha erraram nas duas direções.} Esperávamos o CFR (a)
+entre 10\% e 25\%, e ele ficou em 4,9\%. Os \textit{runs} contados são de \textit{push} no
+\textit{default branch}, ou seja, de mudanças que já passaram por um \textit{pull request}
+com CI; a métrica mede a falha do que já foi aprovado, que em projetos populares com revisão
+obrigatória é baixa. Para o CFR (b) esperávamos valores iguais ou menores, e a mediana foi
+quatro vezes maior. Parte disso vem do instrumento: a heurística adotada tem mais falsos
+positivos (57) que falsos negativos (30) na amostra-ouro, então o valor de 0,200 tende a
+superestimar o real. A única hipótese confirmada na RQ~03 foi a de que as variantes
+concordariam pouco.
 
-A Introdução previa que o CFR na variante (a) ficaria entre 10\% e 25\%. O valor observado foi
-de 4,9\%, menos da metade do piso previsto. A explicação está na definição
-operacional: os \textit{runs} contabilizados são disparados por \textit{push} no
-\textit{default branch}, ou seja, mudanças que já passaram pela revisão de um \textit{pull
-request} antes do \textit{merge}. A métrica captura a taxa de falha do que já foi aprovado, e
-não a de todas as mudanças propostas. Em projetos open-source populares, com revisão
-obrigatória e CI rodando sobre o PR, essa taxa é naturalmente baixa.
+\textbf{As duas variantes do CFR medem coisas diferentes.} Com $\rho = 0{,}107$ e IC que
+encosta no zero, um projeto bem avaliado por uma variante pode ser mal avaliado pela outra.
+Recalculando a classificação geral com o CFR (b) no lugar do (a), 72 dos 350 repositórios
+(20,6\%) mudam de categoria e a faixa \textit{Elite} cai de 25 para 8. No \textit{lead time} foi
+diferente ($\rho = 0{,}744$ e medianas próximas), porque as duas variantes medem o mesmo evento
+de formas diferentes, enquanto as do CFR medem eventos distintos: falha de \textit{pipeline}
+antes da entrega e correção depois dela.
 
-Para a variante (b) a previsão era de valores parecidos ou menores e concentração em 0\%. O
-observado foi o oposto: mediana de 0,200, quatro vezes maior que a da variante (a),
-ainda que 80 repositórios (22,9\%) de fato fiquem em zero. Parte da diferença vem do
-instrumento: a heurística que decide o que é uma \textit{release} corretiva não atinge o F1
-mínimo de 0,70 exigido, alcançando 0,65 na versão adotada. A direção do erro, porém, é
-conhecida: a heurística ainda produz mais falsos positivos (57) do que falsos negativos
-(30), de modo que 0,200 tende a superestimar o valor real.
+\textbf{A escala DORA e as releases open-source.} A frequência é a dimensão em que a amostra vai
+pior, com 74,3\% dos repositórios abaixo de uma \textit{release} por semana. Isso diz mais sobre o
+\textit{proxy} do que sobre a capacidade de entrega: uma \textit{release} é um marco de
+versionamento, muitas vezes mensal ou trimestral, enquanto o \textit{deploy} do
+DORA~\cite{dora2024} é a chegada de uma mudança à produção, e o patamar \textit{Elite} de sete por
+semana pressupõe entrega contínua em ambiente corporativo~\cite{forsgren2018}. Como a categoria
+geral é a mediana de quatro notas, ela acaba definida pelo par CFR (a) e recuperação, as
+dimensões em que a amostra vai melhor.
 
-A única hipótese confirmada sobre a RQ~03 foi a de que as duas variantes concordariam pouco, e
-ela se confirmou de forma mais forte que o previsto.
+\textbf{Velocidade e estabilidade (RQ 05).} As duas previsões se confirmaram na direção. Na
+variante (a), a correlação é positiva mas fraca, e o IC exclui o zero por pouco: publicar com
+mais frequência quase não vem acompanhado de mais falhas de CI, o que é compatível com a tese do
+DORA de que velocidade e estabilidade não são um \textit{trade-off}. Na variante (b), a
+correlação forte é em boa parte artefato da métrica, porque quem publica toda semana tem muito
+mais chances de ter uma \textit{release} corretiva em até 7 dias do que quem publica a cada
+trimestre. Com apenas a variante (b), a conclusão seria o oposto do que o DORA sustenta.
 
-\subsection{As duas variantes do CFR medem coisas diferentes}
+\textbf{O que explica as diferenças (RQ 06).} A idade é o fator mais associado ao desempenho:
+projetos mais antigos acumulam mais tempo entre o \textit{commit} mais antigo e a publicação
+($\varepsilon^2$ de 0,288 e 0,251 no \textit{lead time}) e publicam menos. A popularidade
+quase não explica nada: o número de estrelas só aparece no \textit{lead time} (b), com o menor
+efeito ($\varepsilon^2 = 0{,}049$).
 
-O trabalho mediu duas vezes a mesma métrica DORA, \textit{change failure rate}, com dois
-\textit{proxies} distintos. Além da diferença de magnitude, a correlação de Spearman entre as
-variantes é de 0,107 ($p = 0{,}045$), praticamente nula: elas não ordenam os repositórios da
-mesma forma, e um projeto bem avaliado por uma pode ser mal avaliado pela outra.
-
-O efeito sobre a conclusão é direto. A classificação DORA geral usa a nota do CFR (a).
-Recalculando-a com a variante (b), 72 dos 350 repositórios (20,6\%) mudam de
-categoria, e a faixa \textit{Elite} cai de 25 para 8. A distribuição principal (7,1\%
-\textit{Elite} e 40,9\% \textit{High}) depende, portanto, da definição operacional
-escolhida, e não só dos repositórios estudados.
-
-Na RQ~02 foi diferente: as duas variantes do \textit{lead time} produziram medianas
-próximas (251,7~h e 284,0~h) e correlação de 0,744. A escolha entre
-operacionalizações importa pouco para o \textit{lead time} e muito para o CFR. As variantes do
-\textit{lead time} medem o mesmo evento por janelas diferentes, enquanto as do CFR medem
-eventos distintos: falha de \textit{pipeline} antes da entrega e necessidade de correção
-depois dela.
-
-\subsection{A escala DORA não foi desenhada para releases de projetos open-source}
-
-A frequência de deploy é a dimensão em que a amostra vai pior: 74,3\% dos repositórios
-publicam menos de uma \textit{release} por semana e apenas 5 dos 350 alcançam o patamar
-\textit{Elite}.
-
-Esse resultado reflete mais a distância entre o conceito e o \textit{proxy} do que a
-capacidade de entrega desses projetos. Uma \textit{release} publicada no GitHub é um marco de
-versionamento, decidido pelos mantenedores e frequentemente mensal ou trimestral. Um
-\textit{deploy}, no sentido do DORA~\cite{dora2024}, é a colocação de uma mudança em
-produção, que em muitos desses projetos acontece continuamente e sem gerar \textit{release}. A
-faixa \textit{Elite}, de sete \textit{deploys} por semana, pressupõe entrega contínua em
-ambiente corporativo, o contexto em que as faixas foram estabelecidas~\cite{forsgren2018};
-aplicá-la a marcos de versionamento classifica como lentos projetos que apenas versionam com
-parcimônia.
-
-\subsection{A classificação geral é dominada por uma única nota}
-
-A categoria final é a mediana das quatro notas, e elas não contribuem igualmente: a nota de
-CFR é \textit{Elite} em 80,9\% dos casos, porque o corte \textit{Elite}
-(CFR $\leq$ 0,15) é generoso diante de uma mediana observada de 0,049. A nota de frequência,
-no sentido oposto, é \textit{Low} ou \textit{Medium} em 74,3\%.
-
-O perfil típico da amostra é o de projetos que publicam com pouca frequência, mas com baixa
-taxa de falha de CI e recuperação rápida (mediana de 2,56~h, com 59,4\% na faixa
-\textit{High}). Como a mediana de quatro notas é pouco sensível a uma delas, a classificação
-geral acaba determinada pelo par CFR/recuperação, as dimensões em que a amostra vai melhor.
-
-\subsection{Velocidade e estabilidade (RQ 05)}
-
-A hipótese previa correlação fraca negativa ou nula entre frequência de \textit{deploy} e CFR na
-variante (a), e positiva na variante (b). As duas previsões se confirmaram na direção, e a
-segunda com força muito maior que a esperada.
-
-Na variante (a), a correlação de Spearman é de $\rho = 0{,}127$ ($p = 0{,}017$, $n = 350$):
-positiva, mas fraca a ponto de não ter relevância prática. Não há evidência de que
-publicar com mais frequência venha acompanhado de mais falhas de CI, o que é compatível com a
-tese do DORA de que velocidade e estabilidade não constituem um \textit{trade-off}.
-
-Na variante (b), a correlação é de $\rho = 0{,}613$ ($p < 0{,}001$): forte e positiva. Tomada
-ao pé da letra, ela diria que os projetos que publicam mais falham muito mais. A hipótese já
-antecipava que esse resultado seria, em boa medida, um artefato da própria métrica, e a
-explicação se sustenta: o CFR (b) marca uma \textit{release} como falha quando a \textit{release} seguinte,
-publicada em até 7 dias, é corretiva. Quem publica semanalmente tem muito mais oportunidades
-de satisfazer essa condição do que quem publica trimestralmente, independentemente da
-qualidade do que entrega.
-
-Por isso reportamos as duas variantes em separado. Com apenas a (b), a conclusão seria o
-oposto do que o DORA sustenta, e por causa da construção da métrica, não do comportamento
-dos projetos.
-
-\subsection{O que explica as diferenças entre projetos (RQ 06)}
-
-Dos 30 testes de Kruskal-Wallis, 12 permanecem significativos após a correção de Holm. Os
-tamanhos de efeito desses 12, medidos por $\varepsilon^2$, vão de 0,049 a 0,288.
-
-A idade do repositório é o fator mais forte, e aparece em cinco das seis métricas. O efeito
-mais pronunciado é sobre o \textit{lead time} ($\varepsilon^2 = 0{,}288$ na variante (a) e
-0{,}251 na (b)): projetos mais antigos acumulam mais tempo entre o \textit{commit} mais antigo
-e a publicação. A idade também se associa ao CFR (b) ($\varepsilon^2 = 0{,}164$), a frequência de
-\textit{deploy} ($\varepsilon^2 = 0{,}106$) e, com efeito menor, o tempo de recuperação
-($\varepsilon^2 = 0{,}051$).
-
-O número de contribuidores se associa às duas variantes do \textit{lead time}
-($\varepsilon^2 = 0{,}171$ na (b) e 0{,}104 na (a)), e a linguagem aparece em quatro métricas,
-com $\varepsilon^2$ entre 0,078 e 0,099. A popularidade, medida por quartis de estrelas, só
-sobrevive à correção em uma métrica, o \textit{lead time} (b), com o menor efeito de todos
-($\varepsilon^2 = 0{,}049$): o número de estrelas quase não explica o desempenho de entrega.
-
-Nenhum teste sobre o tipo do projeto foi significativo. Esse fator, porém, só existe para
-os 60 repositórios da amostra-ouro, e os testes sobre ele têm poder reduzido: a ausência de
-significância ali não deve ser lida como ausência de efeito.
-
-\subsection{A definição de deploy muda a conclusão? (RQ 07 e RQ 08)}
-
-Entre um quarto e um terço dos repositórios trocam de categoria conforme a definição de
-\textit{deploy} adotada (Tabela~\ref{tab:rq7pares}), e a concordância entre as classificações
-é apenas moderada. A faixa \textit{Elite} é a mais instável: 25 repositórios em C1, 8 em C2 e
-33 em C3, uma variação de quatro vezes entre os extremos sobre o mesmo conjunto de projetos e
-a mesma janela.
-
-A RQ~08 ajuda a ler o CFR (b). O \textit{rework rate} conta toda \textit{release} corretiva
-e tem mediana de 0,500; o CFR (b), que só conta correções em até 7 dias, fica em 0,200. Ou
-seja, a maior parte das correções nesses projetos é manutenção de rotina, e o CFR (b) captura
-só a fração que responde a uma entrega recente.
+\textbf{As conclusões são robustas? (RQ 07 e RQ 08).} Depende da RQ. A do \textit{lead time}
+(RQ~02) se mantém nas duas variantes. As da taxa de falha (RQ~03 e 05) e a classificação geral
+não se mantêm: trocar a variante do CFR muda a categoria de 20,6\% dos repositórios, e trocar a
+unidade de \textit{deploy} muda entre 25\% e 33\%, e nenhum desses ICs desce abaixo de 21\%. O
+\textit{rework rate} reforça a leitura do CFR (b): metade das \textit{releases} corrige algo, mas
+só uma em cinco corrige algo publicado na semana anterior, então a maior parte da correção é
+manutenção de rotina.
 
 \section{Ameaças à Validade}
 
 Seguimos as quatro categorias de Wohlin et al.~\cite{wohlin2012}.
 
-\subsection{Validade de construto}
+\textbf{Construto.} \textit{Release} não é \textit{deploy}, e falha de CI não é falha em
+produção: um \textit{run} que falha costuma ser um erro barrado antes de chegar ao usuário. A
+validação manual sustentou o primeiro \textit{proxy} (as \textit{releases} representam entregas
+reais em 59 dos 60 repositórios da amostra-ouro), mas a heurística de \textit{release} corretiva
+não atingiu o F1 de 0,70 (0,65 na v4), e esse erro passa para o CFR (b), a RQ~08 e a C2 da
+RQ~07. Os próprios avaliadores divergiram em 26 de 299 \textit{releases}. Rebase e
+\textit{squash merge} reescrevem o \texttt{commit.author.date} e afetam o \textit{lead time}
+em direção desconhecida.
 
-As ameaças mais sérias do trabalho estão nesta categoria.
+\textbf{Interna.} As análises são correlacionais. A idade se correlaciona com a frequência
+($\rho = -0{,}306$), assim como as estrelas ($\rho = 0{,}162$) e os contribuidores
+($\rho = 0{,}119$), e esses fatores não são controlados nas RQ~01 a 04. O filtro de inclusão
+(5 \textit{releases} e 50 \textit{runs}) deixa só projetos que já versionam e automatizam com
+regularidade, e o descarte dos seis repositórios com mais de 1.000 \textit{runs} por dia tira
+da amostra os de maior atividade de CI.
 
-\textbf{Release não é deploy.} Muitos projetos entregam continuamente sem publicar
-\textit{release}, e outros publicam \textit{releases} que são apenas marcos de versionamento.
-A validação manual mediu esse risco diretamente: os três avaliadores julgaram, para cada
-repositório da amostra-ouro, se as \textit{releases} representam entregas reais ao usuário, e
-o consenso foi afirmativo em 59 dos 60 casos. É um indício favorável, mas limitado a 60
-repositórios populares.
+\textbf{Externa.} A amostra não é aleatória: entraram os 1.000 mais estrelados de cada faixa, e
+os menos estrelados de cada faixa nunca foram observados. Os resultados valem para repositórios
+populares com GitHub Actions, e não se transferem para equipes corporativas, que são o contexto
+das faixas DORA. A janela é única, de 12 meses, e não separa característica estável de efeito
+do período.
 
-\textbf{Falha de CI não é falha em produção.} Um \textit{workflow run} que falha é, na maior
-parte das vezes, um erro capturado antes de chegar ao usuário, que é a finalidade do CI. Contá-lo como \textit{change failure} inverte o sentido da métrica DORA, que mede
-falhas que atingiram produção. É a explicação mais provável para o CFR (a) observado ter
-ficado abaixo do previsto.
-
-\textbf{As duas variantes do CFR não medem a mesma coisa.} A correlação entre elas é de
-0,107 e 20,6\% dos repositórios mudam de categoria conforme a variante. Qualquer afirmação
-sobre a taxa de falha da amostra é condicional à variante escolhida.
-
-\textbf{A heurística de release corretiva não atinge o limiar exigido.} As versões testadas
-ficaram entre 0,56 e 0,65 de F1, abaixo do mínimo de 0,70; a versão adotada, a v4, alcançou
-0,65. O CFR (b), a RQ~08 e o C2
-da RQ~07 herdam esse erro de medida. Mesmo os avaliadores humanos não foram unânimes nessa
-dimensão: o kappa de Fleiss para \textit{release} corretiva foi de 0,876, com 26 divergências
-em 299 itens, o que funciona como teto prático para qualquer heurística avaliada contra esse
-consenso.
-
-\textbf{O \texttt{commit.author.date} é distorcido por rebase e squash merge.} Essas operações
-reescrevem a data do commit e afetam as duas variantes do \textit{lead time}. Não há como
-detectá-las pela API, e o efeito é de direção desconhecida.
-
-\subsection{Validade interna}
-
-As análises são observacionais e correlacionais; nenhuma afirmação causal é feita.
-
-Medimos as associações entre metadados e métricas e encontramos relações não desprezíveis: a
-idade do repositório correlaciona-se negativamente com a frequência de deploy
-($\rho = -0{,}306$, $p < 0{,}001$), e o número de estrelas ($\rho = 0{,}162$) e de
-contribuidores ($\rho = 0{,}119$) positivamente. Projetos mais antigos publicam menos
-\textit{releases} na janela; os mais populares publicam mais. Esses fatores não são
-controlados nas RQ~01 a RQ~04, que são descritivas; a RQ~06 os trata explicitamente.
-
-O filtro de inclusão introduz seleção: só entraram repositórios com ao menos 5
-\textit{releases} e 50 \textit{runs} válidos na janela. Dos 1.057 candidatos que usam Actions,
-618 foram descartados por publicar menos de 5 \textit{releases} e 81 por ter menos de 50
-\textit{runs}. A amostra final é, por construção, composta de projetos que já versionam e já
-automatizam com regularidade, o que restringe a variação na dimensão da RQ~01.
-
-Seis repositórios foram descartados por ultrapassarem 1.000 \textit{runs} em um único dia,
-limite acima do qual a API não devolve o conjunto completo. Preferimos excluí-los a calcular
-métricas sobre um subconjunto truncado de tamanho desconhecido, mas isso remove da amostra os
-projetos de maior atividade de CI. Outros dois saíram por erro definitivo da API.
-
-\subsection{Validade externa}
-
-A limitação mais importante é que a amostra não é aleatória. A busca do GitHub
-devolve no máximo 1.000 resultados por consulta, e cada faixa de estrelas contém muito mais
-repositórios que isso (a faixa de 1.000 a 1.500 estrelas sozinha tem mais de 20 mil).
-Entraram os 1.000 mais estrelados de cada uma das sete faixas, e não um sorteio delas. Fatiar a busca em faixas estreitas atenua o viés, mas não o elimina: dentro de qualquer
-faixa com mais de 1.000 repositórios, os menos estrelados nunca são observados.
-
-A amostra deve ser lida como ``repositórios populares que usam GitHub Actions'', e não como
-``repositórios com mais de 1.000 estrelas''. Projetos privados e corporativos estão
-fora, e são o contexto para o qual as faixas DORA foram concebidas. Nenhuma
-conclusão aqui se transfere automaticamente para equipes corporativas de entrega contínua.
-
-A janela de observação é única e fixa, de 12 meses. Não há como separar o que é
-característica estável de um projeto do que é efeito do período: um projeto pode ter passado
-por migração de CI, reescrita ou troca de mantenedores dentro da janela.
-
-\subsection{Validade de conclusão}
-
-Usamos mediana e IQR em vez de média e desvio padrão, porque todas as distribuições são
-assimétricas com cauda longa e a média seria dominada pelos extremos. Nas correlações usamos
-Spearman, que trabalha com postos e não pressupõe normalidade nem linearidade; o grande número
-de empates em zero no CFR (a) é tratado pela média dos postos.
-
-Nos testes por subgrupo da RQ~06 são feitas 30 comparações simultâneas, o que inflaria o erro
-tipo~I; aplicamos a correção de Holm~\cite{holm1979}. Os tamanhos de efeito são reportados junto dos
-p-valores ($\varepsilon^2$ e Cliff's delta), porque significância estatística com $n = 350$
-não implica relevância prática.
-
-Alguns subgrupos são pequenos. O tipo do projeto, usado como fator na RQ~06, só existe para os
-60 repositórios da amostra-ouro, e os testes sobre ele têm poder reduzido: um resultado não
-significativo ali não deve ser lido como ausência de efeito.
-
-O tempo de recuperação é calculado sobre 330 repositórios; os 20 sem episódio na janela são
-reportados à parte, e não imputados. A censura dentro da janela mostrou-se desprezível
-(70,9\% dos repositórios não têm nenhum episódio censurado), o que reduz o risco de
-subestimação da mediana.
-
-Por fim, o kappa de ``releases são entregas reais'' (0,745) deve ser lido junto com a
-distribuição dos rótulos: como o consenso pôs 59 dos 60 repositórios na mesma categoria, uma
-única divergência basta para derrubar o coeficiente, embora a concordância bruta seja de
-98,3\%.
+\textbf{Conclusão.} Usamos mediana, IQR e testes não paramétricos por causa da assimetria, e a
+correção de Holm nos 30 testes da RQ~06. O tipo do projeto só existe para 60 repositórios, e os
+testes sobre ele têm pouco poder. Os ICs por \textit{bootstrap} mostram que as medianas e as
+proporções de mudança de categoria são estáveis, mas que a correlação entre as variantes do CFR
+não se distingue com segurança de zero.

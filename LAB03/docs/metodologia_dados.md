@@ -1,7 +1,7 @@
 # Metodologia: fonte de dados, janela e seleção da amostra
 
 > Parte do João na seção de Metodologia. Vem antes das definições operacionais (Arthur) e da
-> validação manual (Pedro). A versão LaTeX está em `metodologia_dados.tex`. Os números saem
+> validação manual (Pedro). A versão condensada, usada no artigo, está em `metodologia_dados.tex`. Os números saem
 > de `dados/funil.csv`, `dados/repositorios.csv` e do log da coleta.
 
 ## Fonte de dados e coleta
