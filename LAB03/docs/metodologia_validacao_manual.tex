@@ -1,5 +1,4 @@
 % Metodologia -- protocolo de validação manual (parte do Pedro).
-% Trocar os [[ ]] pelos valores de validacao/kappa.csv e da saída de consenso.py.
 
 \subsection{Validação manual}
 
@@ -10,8 +9,8 @@ humano. Sorteamos uma \textbf{amostra-ouro} de 60 repositórios da amostra final
 cada um, 5 \textit{releases} da janela, com a mesma semente. Só entraram no sorteio as
 \textit{releases} com \textit{release} anterior e comparação de \textit{commits}
 disponível, porque sem a lista de \textit{commits} não é possível julgar se uma
-\textit{release} é corretiva. [[N]] repositórios tinham menos de 5 \textit{releases} nessa
-condição, e a amostra ficou com [[N]] \textit{releases}.
+\textit{release} é corretiva. Um repositório tinha menos de 5 \textit{releases} nessa
+condição, e a amostra ficou com 299 \textit{releases}.
 
 Os três autores rotularam a amostra \textbf{de forma independente}, sem consultar uns aos
 outros e sem acesso à saída da heurística. Cada um classificou: (i) o \textbf{tipo do
@@ -33,15 +32,32 @@ Landis e Koch (1977). A Tabela~\ref{tab:kappa} resume os resultados.
 \hline
 \textbf{Dimensão} & \textbf{Itens} & \textbf{$\kappa$} & \textbf{Concordância} \\
 \hline
-Tipo do projeto             & 60    & [[κ]] & [[ ]] \\
-Releases são entregas reais & 60    & [[κ]] & [[ ]] \\
-Release corretiva           & [[N]] & [[κ]] & [[ ]] \\
+Tipo do projeto             & 60    & 0,835 & Quase perfeita \\
+Releases são entregas reais & 60    & 0,745 & Substancial \\
+Release corretiva           & 299   & 0,876 & Quase perfeita \\
 \hline
 \end{tabular}
 \end{table}
 
+O menor kappa é o de \textbf{releases são entregas reais} (0,745), mas ele não indica a
+dimensão mais ambígua, e sim a mais desbalanceada: o consenso classificou 59 dos 60
+repositórios como ``sim'' e apenas um como ``incerto'', de modo que a concordância esperada
+por acaso é altíssima e uma única divergência já derruba o coeficiente. A concordância bruta
+nessa dimensão é de 98,3\%. É o comportamento conhecido do kappa sob distribuições
+concentradas, e por isso reportamos também a distribuição dos rótulos ao lado do coeficiente.
+
+A dimensão de fato mais ambígua é o \textbf{tipo do projeto} (0,835), com 9 divergências em
+60, concentradas em dois limites: o que separa biblioteca de aplicação em projetos que
+entregam ao mesmo tempo um servidor e um SDK, e o alcance da categoria ``outro''. Na dimensão
+que interessa à heurística, \textbf{release corretiva}, o kappa é de 0,876, com 26
+divergências em 299: o critério não é inteiramente objetivo nem para humanos, porque releases
+que misturam correções e novidades admitem leitura dupla. Esse valor funciona como teto
+prático para o que se pode esperar da heurística automática, já que ela é comparada justamente
+com o consenso destes avaliadores.
+
 O \textbf{rótulo de consenso} foi definido por maioria simples (pelo menos 2 dos 3
 avaliadores). Os casos sem maioria (empates 1-1-1, possíveis nas dimensões com mais de
-duas categorias) foram decididos em reunião dos três autores ([[n]] casos). O
+duas categorias) seriam decididos em reunião dos três autores; não houve nenhum caso
+nessa situação, de modo que a regra não precisou ser aplicada. O
 consenso sobre o tipo do projeto é usado como fator na RQ~06, e o consenso sobre
 \textit{releases} corretivas é a referência para avaliar a heurística do CFR (b).

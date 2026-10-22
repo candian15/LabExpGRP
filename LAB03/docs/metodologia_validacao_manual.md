@@ -1,8 +1,8 @@
 # Metodologia — protocolo de validação manual
 
-> Rascunho da parte do Pedro na seção de Metodologia. Os trechos entre `[[ ]]` só podem ser
-> preenchidos depois da rotulagem (`kappa_fleiss.py` e `consenso.py`). A versão LaTeX está
-> em `metodologia_validacao_manual.tex`.
+> Parte do Pedro na seção de Metodologia. Os números saem de `validacao/kappa.csv` e
+> `validacao/consenso*.csv`, gerados por `kappa_fleiss.py` e `consenso.py`. A versão LaTeX
+> está em `metodologia_validacao_manual.tex`.
 
 ## Validação manual
 
@@ -12,7 +12,7 @@ releases corretivas, comparamos parte dos dados com o julgamento humano. Sorteam
 após ordenar os repositórios pelo nome) e, para cada um, 5 releases da janela (mesma
 semente). Só entraram no sorteio as releases com release anterior e comparação de commits
 disponível, porque sem a lista de commits não é possível julgar se uma release é corretiva.
-[[N]] repositórios tinham menos de 5 releases nessa condição, e a amostra ficou com [[N]]
+Um repositório tinha menos de 5 releases nessa condição, e a amostra ficou com 299
 releases.
 
 Os três autores rotularam a amostra **de forma independente**, sem consultar uns aos
@@ -26,19 +26,39 @@ escrito antes da rotulagem (`validacao/PROTOCOLO.md`).
 
 A concordância entre os avaliadores foi medida pelo **kappa de Fleiss** em cada dimensão,
 que desconta a concordância esperada por acaso, e interpretada pela escala de Landis e
-Koch (1977). A Tabela [[X]] resume os resultados.
+Koch (1977). A tabela abaixo resume os resultados.
 
 | Dimensão | Itens | κ de Fleiss | Concordância |
 |---|---|---|---|
-| Tipo do projeto | 60 | [[κ]] | [[ ]] |
-| Releases são entregas reais | 60 | [[κ]] | [[ ]] |
-| Release corretiva | [[N]] | [[κ]] | [[ ]] |
+| Tipo do projeto | 60 | 0,835 | Quase perfeita |
+| Releases são entregas reais | 60 | 0,745 | Substancial |
+| Release corretiva | 299 | 0,876 | Quase perfeita |
 
-[[Comentar a dimensão com menor kappa: um valor baixo indica que o critério é ambíguo
-mesmo para humanos, o que limita o quanto se pode esperar da heurística automática.]]
+O menor kappa é o de **releases são entregas reais** (0,745), mas ele não indica a
+dimensão mais ambígua: indica a mais desbalanceada. O consenso classificou 59 dos 60
+repositórios como `sim` e apenas um como `incerto`, de modo que a concordância esperada
+por acaso é altíssima e uma única divergência — o `BtbN/FFmpeg-Builds`, que publica
+binários por automação mensal — já derruba o coeficiente. A concordância bruta nessa
+dimensão é de 98,3% (59 de 60). É o comportamento conhecido do kappa sob distribuições
+concentradas, e por isso reportamos também a distribuição dos rótulos ao lado do
+coeficiente.
+
+A dimensão de fato mais ambígua é o **tipo do projeto** (0,835), com 9 divergências em
+60. Elas se concentram em dois limites: o que separa biblioteca de aplicação em projetos
+que entregam ao mesmo tempo um servidor e um SDK (`vllm-project/vllm`,
+`sgl-project/sglang-omni`, `rerun-io/rerun` e `Skyvern-AI/skyvern`) e o alcance da
+categoria `outro`, usada por parte dos avaliadores para extensões de banco de dados e
+repositórios de automação de *builds* (`timescale/timescaledb`, `BtbN/FFmpeg-Builds`).
+
+Na dimensão que interessa à heurística, **release corretiva**, o kappa é de 0,876, com 26
+divergências em 299. O critério, portanto, não é inteiramente objetivo nem para humanos:
+releases que misturam correções e novidades admitem leitura dupla. Esse valor funciona
+como teto prático para o que se pode esperar da heurística automática avaliada na seção
+anterior, já que ela é comparada justamente com o consenso destes avaliadores.
 
 O **rótulo de consenso** foi definido por maioria simples (pelo menos 2 dos 3 avaliadores).
 Os casos sem maioria (empates 1-1-1, possíveis nas dimensões com mais de duas categorias)
-foram decididos em reunião dos três autores ([[n]] casos). O consenso sobre o tipo do
+seriam decididos em reunião dos três autores; não houve nenhum caso nessa situação, de
+modo que a regra não precisou ser aplicada. O consenso sobre o tipo do
 projeto é usado como fator na RQ 06, e o consenso sobre releases corretivas é a referência
 para avaliar a heurística do CFR (b), descrita na seção anterior.
