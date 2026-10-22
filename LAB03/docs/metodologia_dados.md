@@ -44,7 +44,7 @@ nova execução do *pipeline* chegue ao mesmo valor.
 Os candidatos passaram por filtros em sequência. Cada repositório parou no primeiro filtro
 em que falhou e por isso tem um único motivo de descarte. Os filtros mais caros em chamadas
 à API vêm por último. A coleta parou ao completar 350 repositórios aprovados, acima do
-mínimo de 300 exigido. A Tabela [[X]] mostra o funil.
+mínimo de 300 exigido. A tabela abaixo mostra o funil.
 
 | Etapa | Restantes | Descartados | Motivo do descarte |
 |---|---:|---:|---|
