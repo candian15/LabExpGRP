@@ -1,8 +1,8 @@
 # Metodologia: definições operacionais e heurística de release corretiva
 
 > Parte do Arthur na seção de Metodologia. Os números da heurística saem de
-> `validacao/historico_heuristica.md`, gerado por `avaliar_heuristica.py`. A versão LaTeX
-> está em `metodologia_definicoes_heuristica.tex`.
+> `validacao/historico_heuristica.md`, gerado por `avaliar_heuristica.py`. A versão condensada,
+> usada no artigo, está em `metodologia_definicoes_heuristica.tex`.
 
 ## Definições operacionais
 

@@ -1,8 +1,8 @@
 # Metodologia: protocolo de validação manual
 
 > Parte do Pedro na seção de Metodologia. Os números saem de `validacao/kappa.csv` e
-> `validacao/consenso*.csv`, gerados por `kappa_fleiss.py` e `consenso.py`. A versão LaTeX
-> está em `metodologia_validacao_manual.tex`.
+> `validacao/consenso*.csv`, gerados por `kappa_fleiss.py` e `consenso.py`. A versão condensada,
+> usada no artigo, está em `metodologia_validacao_manual.tex`.
 
 ## Validação manual
 

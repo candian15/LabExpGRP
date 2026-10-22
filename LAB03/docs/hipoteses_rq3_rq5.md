@@ -1,7 +1,7 @@
 # Hipóteses informais: RQ 03, RQ 04 e RQ 05 (Introdução do artigo)
 
 > Escritas antes da coleta, como pede o enunciado. Texto pronto para o João
-> juntar na Introdução; a versão LaTeX está em `hipoteses_rq3_rq5.tex`.
+> juntar na Introdução; a versão condensada, usada no artigo, está em `hipoteses_rq3_rq5.tex`.
 
 Antes da coleta, registramos hipóteses para as RQ 03 a 05; as demais questões foram tratadas
 como exploratórias.
