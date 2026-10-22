@@ -1,0 +1,3 @@
+variante_cfr,coluna_cfr,n,rho,p,significativo_5pct,interpretacao
+a (CI),cfr_ci,350,0.1271935780932565,0.017277965481846496,True,fraca positiva
+b (entrega),cfr_entrega,350,0.6127119110248072,1.8808928672753577e-37,True,forte positiva

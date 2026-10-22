@@ -3,8 +3,8 @@
 > Seções escritas pelos três. Os números vêm de `resultados/`, `validacao/kappa.csv` e
 > `dados/funil.csv`. A versão LaTeX está em `discussao_ameacas.tex`.
 >
-> Os trechos entre `[[ ]]` dependem de resultados que ainda não foram gerados: o CFR (b) com
-> a heurística final, e as RQ 05 a RQ 08.
+> Todos os números são definitivos, calculados sobre o dataset final, com a heurística v4
+> do CFR (b).
 
 ## Discussão
 
@@ -19,12 +19,12 @@ projetos open-source populares, com revisão obrigatória e CI rodando sobre o P
 naturalmente baixa.
 
 Para a variante (b) a previsão era de valores "parecidos ou menores" e uma concentração em
-0%. O observado foi o oposto: mediana de **[[0,389]]**, quase oito vezes maior, com apenas
-[[48]] repositórios em zero. Aqui a causa provável não é o fenômeno, e sim o instrumento: a
-heurística que decide o que é uma *release* corretiva ainda não atinge o F1 mínimo de 0,70
-exigido, e a versão em uso classifica como corretiva qualquer mudança de *patch* no SemVer.
-Projetos que publicam *patches* com frequência — a prática recomendada em SemVer — são
-penalizados por ela.
+0%. O observado foi o oposto: mediana de **0,200**, quatro vezes maior que a da variante
+(a), ainda que 80 repositórios (22,9%) de fato fiquem em zero. Parte da diferença vem do
+instrumento: a heurística que decide o que é uma *release* corretiva não atinge o F1 mínimo
+de 0,70 exigido, alcançando 0,65 na versão adotada. A direção do erro, porém, é conhecida —
+a heurística ainda produz mais falsos positivos (57) do que falsos negativos (30) —, de modo
+que 0,200 deve ser lido como um limite superior.
 
 A única hipótese que se confirmou sobre a RQ 03 foi a de que as duas variantes concordariam
 pouco. Ela se confirmou de forma mais forte do que o previsto, e é o resultado central desta
@@ -34,14 +34,15 @@ discussão.
 
 O trabalho mediu duas vezes a mesma métrica DORA, *change failure rate*, com dois *proxies*
 distintos. Os resultados não apenas diferem em magnitude: a correlação de Spearman entre as
-duas variantes é de **[[0,093]]**, praticamente nula. Elas não ordenam os repositórios da
-mesma forma, de modo que um projeto bem avaliado por uma pode ser mal avaliado pela outra.
+duas variantes é de **0,107** (p = 0,045), praticamente nula. Elas não ordenam os
+repositórios da mesma forma, de modo que um projeto bem avaliado por uma pode ser mal
+avaliado pela outra.
 
 O efeito sobre a conclusão do trabalho é direto. A classificação DORA geral usa a nota do
-CFR (a). Recalculando-a com a variante (b), **[[114]] dos 350 repositórios ([[32,6%]]) mudam
-de categoria**, e a faixa *Elite* cai de 25 para [[4]] repositórios. O resultado principal —
-7,1% *Elite* e 40,9% *High* — não é, portanto, uma propriedade dos repositórios estudados,
-mas uma consequência da definição operacional escolhida.
+CFR (a). Recalculando-a com a variante (b), **72 dos 350 repositórios (20,6%) mudam de
+categoria**, e a faixa *Elite* cai de 25 para 8 repositórios. O resultado principal — 7,1%
+*Elite* e 40,9% *High* — não é, portanto, uma propriedade dos repositórios estudados, mas
+uma consequência da definição operacional escolhida.
 
 O contraste com a RQ 02 é instrutivo. Ali, as duas variantes do *lead time* produziram
 medianas próximas (251,7 h e 284,0 h) e correlação de **0,744**. A escolha entre
@@ -75,22 +76,75 @@ taxa de falha de CI e recuperação rápida — mediana de 2,56 h, com 59,4% na 
 a mediana de quatro notas é pouco sensível a uma única delas, a classificação geral acaba
 determinada pelo par CFR/recuperação, as duas dimensões em que a amostra vai melhor.
 
-### [[Velocidade e estabilidade (RQ 05)]]
+### Velocidade e estabilidade (RQ 05)
 
-[[Depende do resultado da RQ 05: a correlação de Spearman entre frequência de deploy e CFR
-nas duas variantes. A hipótese previa correlação fraca negativa ou nula na variante (a), em
-linha com a tese do DORA de que velocidade e estabilidade não são um trade-off, e correlação
-positiva na variante (b), por artefato da métrica — quem publica muitas releases tem mais
-chance de publicar um patch em até 7 dias após qualquer release.]]
+A hipótese previa correlação fraca negativa ou nula entre frequência de *deploy* e CFR na
+variante (a), e positiva na variante (b). As duas previsões se confirmaram na direção, e a
+segunda com força muito maior que a esperada.
 
-### [[O que explica as diferenças entre projetos (RQ 06)]]
+Na variante (a), a correlação de Spearman é de **ρ = 0,127** (p = 0,017, n = 350): positiva,
+mas fraca a ponto de ser praticamente irrelevante na prática. Não há evidência de que
+publicar com mais frequência venha acompanhado de mais falhas de CI, o que é compatível com a
+tese do DORA de que velocidade e estabilidade não constituem um *trade-off*.
 
-[[Depende dos testes de Kruskal-Wallis com correção de Holm sobre linguagem, quartis de
-estrelas, contribuidores, idade e tipo do projeto.]]
+Na variante (b), a correlação é de **ρ = 0,613** (p < 0,001): forte e positiva. Tomada ao pé
+da letra, ela diria que os projetos que publicam mais falham muito mais. A hipótese já
+antecipava que esse resultado seria, em boa medida, um artefato da própria métrica, e a
+explicação se sustenta: o CFR (b) marca uma *release* como falha quando a *release* seguinte,
+publicada em até 7 dias, é corretiva. Quem publica semanalmente tem muito mais oportunidades
+de satisfazer essa condição do que quem publica trimestralmente, independentemente da
+qualidade do que entrega.
 
-### [[A definição de deploy muda a conclusão? (RQ 07 e RQ 08)]]
+Esse par de resultados é o melhor argumento do trabalho a favor de reportar as duas variantes
+em separado. Se apenas a (b) tivesse sido calculada, a conclusão publicada seria o oposto da
+que o DORA sustenta, e a causa seria a construção da métrica, não o comportamento dos
+projetos.
 
-[[Depende da análise de sensibilidade entre as combinações C1, C2 e C3 e do rework rate.]]
+### O que explica as diferenças entre projetos (RQ 06)
+
+Dos 30 testes de Kruskal-Wallis, 12 permanecem significativos após a correção de Holm. Os
+tamanhos de efeito, medidos por ε², são pequenos na maioria dos casos.
+
+A **idade do repositório** é o fator mais forte, e aparece em quatro das seis métricas. O
+efeito mais pronunciado é sobre o *lead time* (ε² = 0,288 na variante (a) e 0,251 na (b)):
+projetos mais antigos acumulam mais tempo entre o *commit* mais antigo e a publicação. A
+idade também afeta a frequência de *deploy* (ε² = 0,106) e o CFR (b) (ε² = 0,164).
+
+O **número de contribuidores** afeta o *lead time* (ε² = 0,171 na variante (b)), e a
+**linguagem** aparece em quatro métricas, sempre com efeito pequeno (ε² entre 0,078 e 0,099).
+A **popularidade**, medida por quartis de estrelas, só sobrevive à correção em uma métrica, o
+*lead time* (b), com o menor efeito de todos (ε² = 0,049) — o que é, em si, um resultado:
+o número de estrelas quase não explica desempenho de entrega.
+
+Nenhum teste sobre o **tipo do projeto** foi significativo. Esse fator, porém, só existe para
+os 60 repositórios da amostra-ouro, e os testes sobre ele têm poder reduzido: a ausência de
+significância ali não deve ser lida como ausência de efeito.
+
+### A definição de deploy muda a conclusão? (RQ 07 e RQ 08)
+
+A RQ 07 compara a classificação DORA sob três definições de *deploy*: C1, que usa apenas
+*releases*; C2, que inclui pré-*releases* e adota as variantes (b); e C3, que usa *tags* com
+o CFR na variante (a).
+
+| Par | Repositórios que mudam | Kappa ponderado |
+|---|---|---|
+| C1 × C2 | 32,9% | 0,515 |
+| C1 × C3 | 25,4% | 0,657 |
+| C2 × C3 | 28,0% | 0,602 |
+
+Entre um quarto e um terço dos repositórios trocam de categoria conforme a definição
+adotada, e a concordância entre as classificações é apenas moderada. A faixa *Elite* é a mais
+instável de todas: 25 repositórios em C1, 8 em C2 e 33 em C3 — uma variação de quatro vezes
+entre os extremos, sobre o mesmo conjunto de projetos e a mesma janela.
+
+A RQ 08 mede o *rework rate*, a proporção de *releases* corretivas publicadas, com mediana de
+**0,500** contra 0,200 do CFR (b). As duas se correlacionam (ρ = 0,522, p < 0,001), mas 309
+dos 350 repositórios têm *rework rate* maior que o CFR (b), e 21 não publicaram nenhuma
+*release* corretiva na janela. A diferença é esperada e esclarecedora: o *rework rate* conta
+toda *release* corretiva, enquanto o CFR (b) só conta as que vieram em até 7 dias depois de
+outra. Metade das *releases* desses projetos corrige algo, mas apenas uma em cinco corrige
+algo publicado na semana anterior — ou seja, a maior parte da correção é manutenção de rotina,
+e não resposta a uma entrega recém-quebrada.
 
 ## Ameaças à Validade
 
@@ -116,7 +170,7 @@ atingiram produção. Essa é a explicação mais provável para o CFR (a) obser
 ficado abaixo do previsto.
 
 *As duas variantes do CFR não medem a mesma coisa.* Como discutido acima, a correlação entre
-elas é de [[0,093]] e [[32,6%]] dos repositórios mudam de categoria conforme a variante
+elas é de 0,107 e 20,6% dos repositórios mudam de categoria conforme a variante
 adotada. Qualquer afirmação sobre a taxa de falha da amostra é condicional à variante
 escolhida, e assim deve ser lida.
 

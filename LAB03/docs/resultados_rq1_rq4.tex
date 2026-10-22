@@ -1,7 +1,6 @@
 % Resultados -- RQ 01 a RQ 04 (parte do João).
 % Números de resultados/rq1_rq4_descritiva.csv, rq1_rq4_dora.csv e rq1_rq4_notas.csv,
 % gerados por: python -m analises.rq1_rq4_descritiva
-% Os valores entre [[ ]] são do CFR (b) e dependem da heurística final.
 
 \subsection{Visão geral}
 
@@ -21,7 +20,7 @@ Frequência de deploy (releases/semana) & 350 & 0,19 & 0,42 & 1,04 & 0,84 \\
 Lead time (a) (horas)                  & 350 & 50,8 & 251,7 & 848,4 & 797,6 \\
 Lead time (b) (horas)                  & 350 & 65,4 & 284,0 & 845,4 & 780,1 \\
 CFR (a), proxy de CI                   & 350 & 0,021 & 0,049 & 0,121 & 0,100 \\
-CFR (b), proxy de entrega              & 350 & [[0,167]] & [[0,389]] & [[0,633]] & [[0,467]] \\
+CFR (b), proxy de entrega              & 350 & 0,052 & 0,200 & 0,416 & 0,364 \\
 Tempo de recuperação (horas)           & 330 & 0,98 & 2,56 & 9,53 & 8,55 \\
 \hline
 \end{tabular}
@@ -78,14 +77,14 @@ explicação provável é que os \textit{runs} contados são disparados por \tex
 \textit{merge}: mede-se a taxa de falha do que já foi aprovado, e não a de todas as mudanças
 propostas.
 
-A variante (b), proxy de entrega, tem mediana de \textbf{[[0,389]]} (38,9\%) e IQR de
-[[0,467]]. A hipótese previa valores parecidos ou menores que os da variante (a) e
-concentração em 0\%; o observado é quase oito vezes maior, e apenas [[48]] repositórios
-([[13,7\%]]) ficam em zero.
+A variante (b), proxy de entrega, tem mediana de \textbf{0,200} (20,0\%) e IQR de 0,364. A
+hipótese previa valores parecidos ou menores que os da variante (a) e concentração em 0\%;
+o observado é quatro vezes maior que o da variante (a), embora 80 repositórios (22,9\%) de
+fato fiquem em zero.
 
 Confirmou-se a terceira hipótese: \textbf{as duas variantes concordam pouco}. A divergência
-vai além das medianas --- a correlação de Spearman entre elas é de \textbf{[[0,093]]},
-praticamente nula. Elas não apenas produzem valores diferentes, mas ordenam os repositórios
+vai além das medianas --- a correlação de Spearman entre elas é de \textbf{0,107}
+($p = 0{,}045$), praticamente nula. Elas não apenas produzem valores diferentes, mas ordenam os repositórios
 de maneiras diferentes, de modo que um repositório bem avaliado por uma pode ser mal
 avaliado pela outra. Esse é o ponto de maior fragilidade de constructo do trabalho, retomado
 na seção de Ameaças à Validade. Pela variante (a), 283 repositórios (80,9\%) ficam na faixa

@@ -4,11 +4,8 @@
 > `resultados/rq1_rq4_descritiva.csv`, `rq1_rq4_dora.csv` e `rq1_rq4_notas.csv`, gerados por
 > `python -m analises.rq1_rq4_descritiva`. A versão LaTeX está em `resultados_rq1_rq4.tex`.
 >
-> **Os valores do CFR (b) estão entre `[[ ]]`**: os que aparecem foram calculados com a
-> heurística v1 e precisam ser refeitos com a v4, adotada depois da validação manual. Para
-> atualizá-los, regere o dataset (`python -m pipeline`) e rode
-> `python -m analises.rq1_rq4_descritiva --saida resultados`. Todos os outros números são
-> definitivos.
+> Todos os números são definitivos, calculados sobre o dataset final, com a heurística v4
+> do CFR (b).
 
 ## Visão geral
 
@@ -22,7 +19,7 @@ e desvio padrão. A Tabela~1 resume as seis variáveis.
 | Lead time (a) (horas) | 350 | 50,8 | 251,7 | 848,4 | 797,6 |
 | Lead time (b) (horas) | 350 | 65,4 | 284,0 | 845,4 | 780,1 |
 | CFR (a), proxy de CI | 350 | 0,021 | 0,049 | 0,121 | 0,100 |
-| CFR (b), proxy de entrega | 350 | [[0,167]] | [[0,389]] | [[0,633]] | [[0,467]] |
+| CFR (b), proxy de entrega | 350 | 0,052 | 0,200 | 0,416 | 0,364 |
 | Tempo de recuperação (horas) | 330 | 0,98 | 2,56 | 9,53 | 8,55 |
 
 ## RQ 01 — Com que frequência são feitos deploys?
@@ -70,14 +67,14 @@ que os *runs* contados são disparados por *push* no *default branch*, ou seja, 
 já passaram pela validação de um *pull request* antes do *merge*: o que se mede ali é a
 taxa de falha do que já foi aprovado, e não a de todas as mudanças propostas.
 
-A variante (b), proxy de entrega, tem mediana de **[[0,389]]** (38,9%), com IQR de
-[[0,467]]. A hipótese previa valores "parecidos ou menores" que os da variante (a) e uma
-concentração em 0%; o observado é quase oito vezes maior, e apenas [[48]] repositórios
-([[13,7%]]) ficam em zero.
+A variante (b), proxy de entrega, tem mediana de **0,200** (20,0%), com IQR de 0,364. A
+hipótese previa valores "parecidos ou menores" que os da variante (a) e uma concentração em
+0%; o observado é quatro vezes maior que o da variante (a), embora 80 repositórios (22,9%)
+de fato fiquem em zero.
 
 A hipótese que se confirmou foi a terceira: **as duas variantes concordam pouco.** A
-divergência vai além das medianas — a correlação de Spearman entre elas é de **[[0,093]]**,
-praticamente nula, o que significa que elas não apenas produzem valores diferentes, mas
+divergência vai além das medianas — a correlação de Spearman entre elas é de **0,107**
+(p = 0,045), praticamente nula, o que significa que elas não apenas produzem valores diferentes, mas
 ordenam os repositórios de maneiras diferentes. Um repositório bem avaliado por uma pode
 ser mal avaliado pela outra. A Figura~2, à direita, mostra as duas distribuições lado a
 lado.
