@@ -8,6 +8,29 @@
 
 ## Discussão
 
+### Hipóteses e resultados
+
+\* = hipótese formulada depois da coleta, a partir da literatura.
+
+| RQ | Hipótese | Observado | Situação |
+|---|---|---|---|
+| 01* | Mediana entre 1/mês e 1/semana; maioria abaixo de 1/semana | 0,42/semana; 74,3% abaixo de 1/semana | Confirmada |
+| 02* | Mediana de semanas; (a) maior que (b) | 10,5 dias; (a) maior em 62% dos repositórios, mas não na mediana | Parcial |
+| 03 | CFR (a) de 10% a 25%; (b) igual ou menor; pouca concordância | 4,9%; 20,0%; ρ = 0,107 | Parcial |
+| 04 | Horas, maioria *High*, cauda longa, censura não trivial | 2,56 h; 59,4% *High*; até 1.418 h; censura desprezível | Parcial |
+| 05 | (a) fraca negativa ou nula; (b) positiva | (a) fraca e positiva, 0,127; (b) 0,613 | Parcial |
+| 06* | Estrelas e contribuidores melhoram; idade reduz a frequência; linguagem pesa pouco | Idade é o fator mais forte; estrelas quase sem efeito; mais contribuidores, *lead time* maior | Parcial |
+| 07* | Menos de 20% mudam; tags aumentam os *Elite* | 25% a 33% mudam; *Elite* de 25 para 33 | Parcial |
+| 08* | Maior que o CFR (b), cerca de um terço | 0,500 contra 0,200 | Parcial |
+
+Das oito hipóteses, só a da RQ 01 se confirmou por inteiro. As que mais erraram foram as de
+taxa de falha e a da RQ 07, que esperava uma classificação estável entre as definições de
+*deploy*. Na RQ 02, a variante (a) é maior que a (b) na maioria dos repositórios, como
+esperado, mas a mediana da amostra se inverte, provavelmente porque a (b) dá mais peso às
+releases grandes, que acumulam *commits* antigos. Na RQ 06, o efeito dos contribuidores foi o
+oposto do esperado: os repositórios com mais contribuidores têm *lead time* maior (mediana de
+628 h no quartil superior, contra 67 h no inferior, na variante (b)).
+
 ### As hipóteses sobre a taxa de falha erraram nas duas direções
 
 A Introdução previa que o CFR na variante (a) ficaria entre 10% e 25%. O valor observado foi

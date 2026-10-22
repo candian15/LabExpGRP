@@ -1,22 +1,42 @@
-% Hipóteses informais, registradas antes da coleta (Sprint 1, commit 0e9bcc6).
-% Só as RQ 03 a 05 tiveram hipótese registrada; as demais são tratadas como exploratórias.
+% Hipóteses informais.
+% As das RQ 03 a 05 foram registradas antes da coleta (Sprint 1, commit 0e9bcc6).
+% As das RQ 01, 02, 06, 07 e 08 foram formuladas depois, a partir da literatura e do que se
+% espera de projetos open-source, sem ajustá-las aos resultados; o texto diz isso.
 
-Antes da coleta, registramos hipóteses para as RQ~03 a 05; as demais questões foram tratadas
-como exploratórias.
+As hipóteses das RQ~03 a 05 foram registradas antes da coleta. As das RQ~01, 02, 06, 07 e 08
+foram formuladas depois, a partir da literatura e do que se costuma esperar de projetos
+\textit{open-source}, sem ajustá-las aos resultados. A Tabela~\ref{tab:hipoteses}, na
+Discussão, confronta cada uma com o que foi observado.
 
-\textbf{RQ 03.} Esperávamos o CFR (a) entre 10\% e 25\% na mediana: os \textit{runs} vêm de
-\textit{push} no \textit{default branch}, já validados por um \textit{pull request}, mas
-testes instáveis e dependências externas ainda devem falhar. Para o CFR (b), esperávamos
-valores parecidos ou menores, com muitos repositórios em 0\%, e pouca concordância entre as
-variantes, porque a (a) mede falha de \textit{pipeline} e a (b) aproxima falha percebida pelo
-usuário.
+\textbf{RQ 01.} A maioria dos projetos deve publicar menos de uma \textit{release} por semana,
+com mediana entre uma por mês e uma por semana (faixa \textit{Medium}), já que
+\textit{releases} open-source costumam agrupar várias mudanças.
 
-\textbf{RQ 04.} Esperávamos uma mediana de algumas horas, com a maioria na faixa
-\textit{High}, uma cauda longa (de minutos a dias, já que mantenedores trabalham de forma
-voluntária e assíncrona) e uma proporção não trivial de episódios censurados.
+\textbf{RQ 02.} O \textit{lead time} deve ser de semanas (mediana entre uma semana e 30 dias),
+com a variante (a) maior que a (b), porque ela mede a partir do \textit{commit} mais antigo
+de cada \textit{release}.
 
-\textbf{RQ 05.} Para o CFR (a), esperávamos correlação fraca negativa ou nula, como afirma o
-DORA ao dizer que velocidade e estabilidade não são um \textit{trade-off}. Para o CFR (b),
-esperávamos correlação positiva, em parte por artefato da métrica: quem publica muitas
-\textit{releases} tem mais chance de publicar um \textit{patch} em até 7 dias após qualquer
-uma delas.
+\textbf{RQ 03.} CFR (a) entre 10\% e 25\% na mediana, porque testes instáveis e dependências
+externas falham mesmo depois do \textit{pull request}; CFR (b) parecido ou menor, com muitos
+zeros; e pouca concordância entre as variantes, que medem falha de \textit{pipeline} e falha
+percebida pelo usuário.
+
+\textbf{RQ 04.} Mediana de algumas horas, maioria \textit{High}, cauda longa (mantenedores
+trabalham de forma voluntária e assíncrona) e uma proporção não trivial de episódios
+censurados.
+
+\textbf{RQ 05.} Correlação fraca negativa ou nula com o CFR (a), como afirma o DORA, e
+positiva com o CFR (b), em parte por artefato: quem publica muito tem mais chance de publicar
+um \textit{patch} em até 7 dias após qualquer \textit{release}.
+
+\textbf{RQ 06.} Projetos mais populares e com mais contribuidores devem ter desempenho melhor
+(publicar mais e com \textit{lead time} menor), projetos mais antigos devem publicar menos,
+com ritmo mais estável, e a linguagem deve ter pouco efeito.
+
+\textbf{RQ 07.} A classificação deve ser razoavelmente robusta, com menos de 20\% dos
+repositórios mudando de categoria, porque pré-\textit{releases} e \textit{tags} costumam
+acompanhar as \textit{releases}; usar \textit{tags} deve aumentar a frequência e o número de
+repositórios \textit{Elite}.
+
+\textbf{RQ 08.} O \textit{rework rate} deve ser maior que o CFR (b), por contar toda
+\textit{release} corretiva, e ficar em torno de um terço das \textit{releases}.

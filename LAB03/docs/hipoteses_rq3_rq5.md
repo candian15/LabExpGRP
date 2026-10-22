@@ -1,10 +1,20 @@
-# Hipóteses informais: RQ 03, RQ 04 e RQ 05 (Introdução do artigo)
+# Hipóteses informais (Introdução do artigo)
 
-> Escritas antes da coleta, como pede o enunciado. Texto pronto para o João
-> juntar na Introdução; a versão condensada, usada no artigo, está em `hipoteses_rq3_rq5.tex`.
+> As das RQ 03 a 05 foram escritas antes da coleta; as das RQ 01, 02, 06, 07 e 08, depois,
+> a partir da literatura. A versão condensada, usada no artigo, está em `hipoteses_rq3_rq5.tex`.
 
-Antes da coleta, registramos hipóteses para as RQ 03 a 05; as demais questões foram tratadas
-como exploratórias.
+As hipóteses das RQ 03 a 05 foram registradas antes da coleta. As das RQ 01, 02, 06, 07 e 08
+foram formuladas depois, a partir da literatura e do que se costuma esperar de projetos
+open-source, sem ajustá-las aos resultados. A tabela "Hipóteses e resultados", na Discussão,
+confronta cada uma com o que foi observado.
+
+**RQ 01 (formulada depois da coleta).** A maioria dos projetos deve publicar menos de uma
+release por semana, com mediana entre uma por mês e uma por semana (faixa *Medium*), já que
+releases open-source costumam agrupar várias mudanças.
+
+**RQ 02 (formulada depois da coleta).** O *lead time* deve ser de semanas (mediana entre uma
+semana e 30 dias), com a variante (a) maior que a (b), porque ela mede a partir do *commit*
+mais antigo de cada release.
 
 **RQ 03: taxa de falha das mudanças.** Esperamos que a variante de CI (a)
 fique, na mediana, entre 10% e 25%. Como os runs considerados são disparados
@@ -38,3 +48,15 @@ não necessariamente de pior qualidade. Quem publica muitas releases tem mais
 chances de publicar um *patch* em até 7 dias após qualquer release, e então a
 release anterior é marcada como falha. Se isso se confirmar, a resposta da RQ 05 depende
 da definição operacional, assim como a análise de sensibilidade da RQ 07 investiga.
+
+**RQ 06 (formulada depois da coleta).** Projetos mais populares e com mais contribuidores
+devem ter desempenho melhor (publicar mais e com *lead time* menor), projetos mais antigos
+devem publicar menos, com ritmo mais estável, e a linguagem deve ter pouco efeito.
+
+**RQ 07 (formulada depois da coleta).** A classificação deve ser razoavelmente robusta, com
+menos de 20% dos repositórios mudando de categoria, porque pré-releases e tags costumam
+acompanhar as releases; usar tags deve aumentar a frequência e o número de repositórios
+*Elite*.
+
+**RQ 08 (formulada depois da coleta).** O *rework rate* deve ser maior que o CFR (b), por
+contar toda release corretiva, e ficar em torno de um terço das releases.

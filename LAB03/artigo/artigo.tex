@@ -107,18 +107,15 @@ no CI (mediana de 0,049) e se recupera rápido (mediana de 2,56~h); 86,3\% dos r
 Esses valores dependem bastante de decisões de medição. As duas variantes da taxa de falha
 correlacionam-se a $\rho = 0{,}107$ e discordam sobre a categoria de 20,6\% da amostra; trocar
 a definição de \textit{deploy} move entre 25\% e 33\% dos repositórios, e a faixa
-\textit{Elite} varia de 8 a 33 projetos. A correlação entre frequência e taxa de falha é fraca
-no CI ($\rho = 0{,}127$) e forte na entrega ($\rho = 0{,}613$), em boa parte por artefato da
-métrica. Na validação manual, o \textit{proxy} de \textit{release} se sustentou (59 de 60
+\textit{Elite} varia de 8 a 33 projetos. Na validação manual, o \textit{proxy} de \textit{release} se sustentou (59 de 60
 repositórios), mas a melhor heurística de \textit{release} corretiva ficou em F1 de 0,65, numa
 dimensão em que os próprios avaliadores divergiram em 26 de 299 casos. Uma classificação DORA
 de projetos \textit{open-source} só pode ser interpretada junto com as escolhas operacionais
 que a produziram.
 
-Como trabalhos futuros, sugerimos usar projetos com ambiente de produção observável (por
-exemplo, imagens de contêiner com data de implantação) no lugar do \textit{proxy} de
-\textit{release}, estender a janela para além de 12 meses e ampliar a amostra-ouro para treinar
-e validar a heurística em conjuntos disjuntos.
+Como trabalhos futuros, sugerimos usar projetos com ambiente de produção observável no lugar
+do \textit{proxy} de \textit{release}, estender a janela para além de 12 meses e ampliar a
+amostra-ouro para treinar e validar a heurística em conjuntos disjuntos.
 
 \section*{Disponibilidade dos dados}
 

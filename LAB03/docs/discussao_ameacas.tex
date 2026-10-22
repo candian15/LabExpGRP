@@ -3,15 +3,43 @@
 
 \section{Discussão}
 
-\textbf{As hipóteses sobre a taxa de falha erraram nas duas direções.} Esperávamos o CFR (a)
-entre 10\% e 25\%, e ele ficou em 4,9\%. Os \textit{runs} contados são de \textit{push} no
-\textit{default branch}, ou seja, de mudanças que já passaram por um \textit{pull request}
-com CI; a métrica mede a falha do que já foi aprovado, que em projetos populares com revisão
-obrigatória é baixa. Para o CFR (b) esperávamos valores iguais ou menores, e a mediana foi
-quatro vezes maior. Parte disso vem do instrumento: a heurística adotada tem mais falsos
-positivos (57) que falsos negativos (30) na amostra-ouro, então o valor de 0,200 tende a
-superestimar o real. A única hipótese confirmada na RQ~03 foi a de que as variantes
-concordariam pouco.
+\begin{table}[ht]
+\centering
+\caption{Hipóteses e resultados. * = hipótese formulada depois da coleta, a partir da
+literatura.}
+\label{tab:hipoteses}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lp{6.0cm}p{6.0cm}l@{}}
+\hline
+\textbf{RQ} & \textbf{Hipótese} & \textbf{Observado} & \textbf{Situação} \\
+\hline
+01* & Mediana entre 1/mês e 1/semana; maioria abaixo de 1/semana & 0,42/semana; 74,3\% abaixo de 1/semana & Confirmada \\
+02* & Mediana de semanas; (a) maior que (b) & 10,5 dias; (a) maior em 62\% dos repositórios, mas não na mediana & Parcial \\
+03 & CFR (a) de 10\% a 25\%; (b) igual ou menor; pouca concordância & 4,9\%; 20,0\%; $\rho = 0{,}107$ & Parcial \\
+04 & Horas, maioria \textit{High}, cauda longa, censura não trivial & 2,56~h; 59,4\% \textit{High}; até 1.418~h; censura desprezível & Parcial \\
+05 & (a) fraca negativa ou nula; (b) positiva & (a) fraca e positiva, 0,127; (b) 0,613 & Parcial \\
+06* & Estrelas e contribuidores melhoram; idade reduz a frequência; linguagem pesa pouco & Idade é o fator mais forte; estrelas quase sem efeito; mais contribuidores, \textit{lead time} maior & Parcial \\
+07* & Menos de 20\% mudam; \textit{tags} aumentam os \textit{Elite} & 25\% a 33\% mudam; \textit{Elite} de 25 para 33 & Parcial \\
+08* & Maior que o CFR (b), cerca de um terço & 0,500 contra 0,200 & Parcial \\
+\hline
+\end{tabular}
+\end{table}
+
+Das oito hipóteses, só a da RQ~01 se confirmou por inteiro. As que mais erraram foram as de
+taxa de falha e a da RQ~07, que esperava uma classificação estável entre as definições de
+\textit{deploy}. Na RQ~02, a variante (a) é maior que a (b) na maioria dos repositórios, como
+esperado, mas a mediana da amostra se inverte, provavelmente porque a (b) dá mais peso às \textit{releases}
+grandes, que acumulam \textit{commits} antigos. Na RQ~06, o efeito dos contribuidores foi o
+oposto do esperado: os repositórios com mais contribuidores têm \textit{lead time} maior
+(mediana de 628~h no quartil superior, contra 67~h no inferior, na variante (b)).
+
+\textbf{Por que a taxa de falha errou nas duas direções.} O CFR (a) ficou abaixo do previsto
+porque os \textit{runs} contados são de \textit{push} no \textit{default branch}, de mudanças
+que já passaram por um \textit{pull request} com CI: a métrica mede a falha do que já foi
+aprovado. O CFR (b) ficou acima em parte por causa do instrumento: a heurística tem mais falsos
+positivos (57) que falsos negativos (30) na amostra-ouro, então 0,200 tende a superestimar o
+valor real.
 
 \textbf{As duas variantes do CFR medem coisas diferentes.} Com $\rho = 0{,}107$ e IC que
 encosta no zero, um projeto bem avaliado por uma variante pode ser mal avaliado pela outra.
@@ -80,6 +108,4 @@ do período.
 
 \textbf{Conclusão.} Usamos mediana, IQR e testes não paramétricos por causa da assimetria, e a
 correção de Holm nos 30 testes da RQ~06. O tipo do projeto só existe para 60 repositórios, e os
-testes sobre ele têm pouco poder. Os ICs por \textit{bootstrap} mostram que as medianas e as
-proporções de mudança de categoria são estáveis, mas que a correlação entre as variantes do CFR
-não se distingue com segurança de zero.
+testes sobre ele têm pouco poder.
