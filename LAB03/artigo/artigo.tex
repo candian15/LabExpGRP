@@ -9,7 +9,6 @@
 % .tex continuarem iguais. As figuras vêm de ../resultados/, geradas pelos scripts de
 % ../analises/.
 %
-% Trechos [[ ]] ainda não foram preenchidos; veja a lista no fim deste arquivo.
 
 \documentclass[12pt]{article}
 
@@ -28,7 +27,7 @@ GitHub}
 
 \address{Pontifícia Universidade Católica de Minas Gerais (PUC Minas)\\
   Laboratório de Experimentação de Software
-  \email{[[e-mails]]}
+  \email{joaovslopes20@gmail.com, pedromaiasilva17@gmail.com, acandian15@gmail.com}
 }
 
 \begin{document}
@@ -36,12 +35,36 @@ GitHub}
 \maketitle
 
 \begin{abstract}
-[[Abstract em inglês, 10 linhas: contexto, o que foi medido, amostra, principal achado e
-implicação. Escrever por último, quando os números finais estiverem fechados.]]
+The DORA metrics describe software delivery performance through four indicators, but they
+were established from self-reported surveys of corporate teams, which makes them neither
+auditable nor obviously applicable to open-source projects. We compute the four metrics for
+350 popular GitHub repositories over a fixed 12-month window, using only public API data,
+with releases as a proxy for deployments and failed CI runs as a proxy for failed changes. We
+validate the proxies against a gold sample of 60 repositories and 299 releases labelled
+independently by three raters. The median deployment frequency is 0.42 releases per week and
+the median recovery time is 2.56 hours, but the change failure rate depends critically on how
+failure is operationalised: the CI proxy and the delivery proxy correlate at only
+$\rho = 0.107$ and disagree on the DORA category of 20.6\% of the sample. A sensitivity
+analysis over three definitions of deployment moves between 25\% and 33\% of repositories
+across categories. We conclude that DORA classifications derived from public repository data
+are contingent on operational choices that are rarely made explicit.
 \end{abstract}
 
 \begin{resumo}
-[[Resumo em português, mesma estrutura do abstract.]]
+As métricas DORA descrevem o desempenho de entrega de software por quatro indicadores, mas
+foram estabelecidas a partir de questionários autorrelatados por equipes corporativas, o que
+as torna não auditáveis e de aplicação incerta a projetos \textit{open-source}. Calculamos as
+quatro métricas para 350 repositórios populares do GitHub em uma janela fixa de 12 meses,
+usando apenas dados públicos da API, com \textit{releases} como \textit{proxy} de
+\textit{deploy} e falhas de CI como \textit{proxy} de falha. Validamos os \textit{proxies}
+contra uma amostra-ouro de 60 repositórios e 299 \textit{releases}, rotuladas de forma
+independente por três avaliadores. A mediana da frequência de \textit{deploy} é de 0,42
+\textit{release} por semana e a do tempo de recuperação é de 2,56 horas, mas a taxa de falha
+depende de como a falha é operacionalizada: o \textit{proxy} de CI e o de entrega
+correlacionam-se a apenas $\rho = 0{,}107$ e discordam sobre a categoria DORA de 20,6\% da
+amostra. Uma análise de sensibilidade sobre três definições de \textit{deploy} move entre
+25\% e 33\% dos repositórios de categoria. Concluímos que classificações DORA obtidas de
+dados públicos são contingentes a escolhas operacionais raramente explicitadas.
 \end{resumo}
 
 % ---------------------------------------------------------------- Introdução
@@ -65,8 +88,8 @@ implicação. Escrever por último, quando os números finais estiverem fechados
 
 \input{../docs/resultados_rq1_rq4}
 
-% [[ \input{../docs/resultados_rq5_rq6} -- Artur, depois de rodar as RQ 05 e RQ 06 ]]
-% [[ \input{../docs/resultados_rq7_rq8} -- Pedro, depois de rodar as RQ 07 e RQ 08 ]]
+\input{../docs/resultados_rq5_rq6}
+\input{../docs/resultados_rq7_rq8}
 
 % ------------------------------------------------- Discussão e ameaças à validade
 \input{../docs/discussao_ameacas}
@@ -83,9 +106,35 @@ de analises/comparar\_replicacao.py.]]
 % ---------------------------------------------------------------- Conclusão
 \section{Conclusão}
 
-[[Retomar as oito RQs em um parágrafo, o achado central (duas operacionalizações do CFR
-discordam a ponto de mudar a categoria de um terço da amostra) e o que fica para trabalhos
-futuros.]]
+Medimos as quatro métricas DORA em 350 repositórios \textit{open-source} populares usando
+somente dados públicos do GitHub. A amostra publica com pouca frequência (mediana de 0,42
+\textit{release} por semana, com 74,3\% abaixo de uma por semana), leva cerca de dez dias
+entre o \textit{commit} mais antigo e a publicação, registra baixa taxa de falha de
+integração contínua (mediana de 0,049) e se recupera rápido (mediana de 2,56~h, com 59,4\%
+na faixa \textit{High}). A classificação geral concentra-se no meio da escala: 86,3\% dos
+repositórios são \textit{High} ou \textit{Medium}.
+
+O achado central, porém, não é nenhum desses valores, e sim o quanto eles dependem de
+decisões de medição. As duas operacionalizações da taxa de falha correlacionam-se a
+$\rho = 0{,}107$ e discordam sobre a categoria de 20,6\% da amostra; trocar a definição de
+\textit{deploy} move entre 25\% e 33\% dos repositórios, e a faixa \textit{Elite} varia de
+8 a 33 projetos conforme a combinação adotada. A correlação entre frequência e taxa de falha
+chega a inverter de sinal prático entre as variantes, por artefato da construção da métrica.
+Reportar uma classificação DORA de projetos \textit{open-source} sem explicitar essas
+escolhas é, portanto, reportar um número subdeterminado.
+
+A validação manual confirma que o problema é de constructo e não apenas de implementação: o
+consenso dos três avaliadores considerou que as \textit{releases} representam entregas reais
+em 59 dos 60 repositórios da amostra-ouro, mas a melhor heurística automática para identificar
+\textit{releases} corretivas alcançou F1 de 0,65, abaixo do limiar de 0,70, em uma dimensão
+na qual os próprios avaliadores humanos divergiram em 26 de 299 casos.
+
+Para trabalhos futuros, três caminhos nos parecem promissores: usar projetos que publicam
+ambiente de produção observável (por exemplo, imagens de contêiner com data de implantação)
+para substituir o \textit{proxy} de \textit{release}; estender a janela para além de 12 meses,
+separando característica estável de efeito de período; e ampliar a amostra-ouro, de modo a
+permitir treinar e validar a heurística de \textit{release} corretiva em conjuntos
+disjuntos.
 
 % ---------------------------------------------------------------- Disponibilidade
 \section*{Disponibilidade dos dados}
@@ -100,12 +149,9 @@ por um único comando, e o dicionário de dados descreve cada coluna dos CSVs.
 \end{document}
 
 % =====================================================================
-% LACUNAS, por responsável
+% ÚNICA LACUNA RESTANTE
 %
-% Todos   abstract, resumo, Introdução, Conclusão, e-mails dos autores
-% Artur   tabela de F1 das versões da heurística (metodologia_definicoes_heuristica)
-%         resultados_rq5_rq6.{md,tex}
-% Pedro   resultados_rq7_rq8.{md,tex}
-% João    valores do CFR (b) em resultados_rq1_rq4 e discussao_ameacas (dependem da v4)
-%         seção de Replicação cruzada (entrega final)
+% A seção "Replicação cruzada", que só pode ser escrita na entrega final, depois de
+% executar o pipeline do outro grupo. Base: replicacao_outro_grupo/notas.md e a saída
+% de analises/comparar_replicacao.py.
 % =====================================================================
