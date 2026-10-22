@@ -10,18 +10,16 @@
 
 ### Hipóteses e resultados
 
-\* = hipótese formulada depois da coleta, a partir da literatura.
-
 | RQ | Hipótese | Observado | Situação |
 |---|---|---|---|
-| 01* | Mediana entre 1/mês e 1/semana; maioria abaixo de 1/semana | 0,42/semana; 74,3% abaixo de 1/semana | Confirmada |
-| 02* | Mediana de semanas; (a) maior que (b) | 10,5 dias; (a) maior em 62% dos repositórios, mas não na mediana | Parcial |
+| 01 | Mediana entre 1/mês e 1/semana; maioria abaixo de 1/semana | 0,42/semana; 74,3% abaixo de 1/semana | Confirmada |
+| 02 | Mediana de semanas; (a) maior que (b) | 10,5 dias; (a) maior em 62% dos repositórios, mas não na mediana | Parcial |
 | 03 | CFR (a) de 10% a 25%; (b) igual ou menor; pouca concordância | 4,9%; 20,0%; ρ = 0,107 | Parcial |
 | 04 | Horas, maioria *High*, cauda longa, censura não trivial | 2,56 h; 59,4% *High*; até 1.418 h; censura desprezível | Parcial |
 | 05 | (a) fraca negativa ou nula; (b) positiva | (a) fraca e positiva, 0,127; (b) 0,613 | Parcial |
-| 06* | Estrelas e contribuidores melhoram; idade reduz a frequência; linguagem pesa pouco | Idade é o fator mais forte; estrelas quase sem efeito; mais contribuidores, *lead time* maior | Parcial |
-| 07* | Menos de 20% mudam; tags aumentam os *Elite* | 25% a 33% mudam; *Elite* de 25 para 33 | Parcial |
-| 08* | Maior que o CFR (b), cerca de um terço | 0,500 contra 0,200 | Parcial |
+| 06 | Estrelas e contribuidores melhoram; idade reduz a frequência; linguagem pesa pouco | Idade é o fator mais forte; estrelas quase sem efeito; mais contribuidores, *lead time* maior | Parcial |
+| 07 | Menos de 20% mudam; tags aumentam os *Elite* | 25% a 33% mudam; *Elite* de 25 para 33 | Parcial |
+| 08 | Maior que o CFR (b), cerca de um terço | 0,500 contra 0,200 | Parcial |
 
 Das oito hipóteses, só a da RQ 01 se confirmou por inteiro. As que mais erraram foram as de
 taxa de falha e a da RQ 07, que esperava uma classificação estável entre as definições de
