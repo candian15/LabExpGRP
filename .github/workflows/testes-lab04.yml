@@ -1,0 +1,37 @@
+name: testes LAB04
+
+on:
+  push:
+    paths:
+      - 'LAB04/**'
+      - '.github/workflows/testes-lab04.yml'
+  pull_request:
+    paths:
+      - 'LAB04/**'
+      - '.github/workflows/testes-lab04.yml'
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: LAB04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: LAB04/requirements.txt
+
+      - name: Instalar dependências
+        run: pip install -r requirements.txt
+
+      - name: Rodar os testes
+        run: pytest -q
+
+      - name: Conferir que o dashboard executa
+        # O Streamlit só desenha com um servidor; aqui garantimos que o script roda
+        # de ponta a ponta, que é onde erro de import ou de dado quebraria a página.
+        run: python -c "import runpy, sys; sys.path.insert(0, '.'); runpy.run_path('dashboard/app.py', run_name='__main__')"
