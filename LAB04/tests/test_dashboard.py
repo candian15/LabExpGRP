@@ -93,6 +93,20 @@ def test_links_do_cabecalho_estao_na_pagina():
     texto = (RAIZ / "dashboard" / "app.py").read_text(encoding="utf-8")
     assert "github.com/candian15/LabExpGRP" in texto, "falta o link do repositório"
     assert "projects/2" in texto, "falta o link do GitHub Projects"
+    assert "DASHBOARD" in texto, "falta o campo do link do dashboard publicado"
+
+
+def test_as_sete_secoes_do_enunciado_na_ordem():
+    """A seção 4 do enunciado fixa os nomes e a ordem; a S02 e a entrega final só preenchem."""
+    texto = (RAIZ / "dashboard" / "app.py").read_text(encoding="utf-8")
+    esperado = ["1. Cenário", "2. Os dados", "3. Como os testes funcionam",
+                "4. Erro tipo I", "5. Poder", "6. Dados reais", "7. Conclusão"]
+    posicoes = []
+    for titulo in esperado:
+        marca = f'st.header("{titulo}")'
+        assert marca in texto, f"falta a seção {titulo!r}"
+        posicoes.append(texto.index(marca))
+    assert posicoes == sorted(posicoes), "as seções estão fora da ordem do enunciado"
 
 
 def test_secao_indisponivel_nao_levanta():

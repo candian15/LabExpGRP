@@ -23,6 +23,9 @@ if str(RAIZ) not in sys.path:
 
 REPOSITORIO = "https://github.com/candian15/LabExpGRP"
 PROJECTS = "https://github.com/users/candian15/projects/2"
+# Preencher quando o dashboard for publicado (Streamlit Community Cloud ou GitHub Pages).
+# O enunciado exige os três links no topo da página.
+DASHBOARD = ""
 
 st.set_page_config(page_title="LAB04 — Welch × Mann-Whitney", layout="wide")
 
@@ -60,9 +63,12 @@ def secao_indisponivel(titulo: str, erro: Exception, de_quem: str) -> None:
 
 # ------------------------------------------------------------------- cabeçalho
 st.title("Welch × Mann-Whitney: tempo até o merge de PRs")
+_links = [f"[Repositório]({REPOSITORIO})", f"[GitHub Projects]({PROJECTS})"]
+if DASHBOARD:
+    _links.insert(0, f"[Dashboard]({DASHBOARD})")
 st.caption(
-    f"Laboratório de Experimentação de Software — LAB04, Sprint 01 &nbsp;·&nbsp; "
-    f"[Repositório]({REPOSITORIO}) &nbsp;·&nbsp; [GitHub Projects]({PROJECTS})"
+    "Laboratório de Experimentação de Software — LAB04, Sprint 01 &nbsp;·&nbsp; "
+    + " &nbsp;·&nbsp; ".join(_links)
 )
 
 try:
@@ -115,7 +121,8 @@ with col_b:
 st.divider()
 
 # -------------------------------------------------------------------- 2. G1
-st.header("2. G1 — Os dados reais e os simulados")
+st.header("2. Os dados")
+st.caption("G1 — dados reais ao lado dos simulados")
 
 try:
     from src.graficos_g1 import fig_g1, simular_para_g1
@@ -129,20 +136,26 @@ except Exception as e:  # noqa: BLE001
 
 st.markdown(
     """
-Os tempos de merge são **muito assimétricos**: a mediana é de 7,7 h sem bot e 1,5 h
-com bot, mas há PRs que levaram mais de 300 h, e a média de cada grupo fica bem acima
-da mediana. Por isso os grupos são simulados com distribuições **lognormais** ajustadas
-aos dados reais, com σ ≈ 2,4 e 2,0 na escala log. O eixo está em escala logarítmica
-para que a forma de cada grupo apareça; em escala linear os outliers achatariam tudo
-contra o zero. A comparação entre a linha de cima e a de baixo mostra que a simulação
-reproduz a assimetria e a cauda longa observadas.
+Os tempos de merge são **muito assimétricos**: a mediana é de 7,7 h sem bot e 1,5 h com
+bot, mas há PRs que levaram mais de 300 h, e a média de cada grupo (81 h e 21 h) fica muito
+acima da mediana. Cada grupo tem 5 outliers pelo critério de Tukey, e o teste de
+Shapiro-Wilk rejeita normalidade nos dois (p < 0,001).
+
+Escolhemos a **lognormal** por três razões: o tempo é sempre positivo, a cauda é longa à
+direita, e em escala log os dados reais ficam bem mais próximos de uma normal (p = 0,91 no
+grupo sem bot). Os parâmetros μ e σ de cada grupo foram ajustados diretamente aos dados
+reais, e não escolhidos à mão, o que faz a simulação herdar a assimetria observada em vez de
+supor uma forma conveniente. O eixo está em escala logarítmica para que a forma de cada grupo
+apareça; em escala linear os outliers achatariam tudo contra o zero. Comparando a linha de
+cima com a de baixo dá para ver que a simulação reproduz a assimetria e a cauda longa.
     """.strip()
 )
 
 st.divider()
 
 # -------------------------------------------------------------------- 3. G2
-st.header("3. G2 — A distribuição da estatística sob H₀")
+st.header("3. Como os testes funcionam")
+st.caption("G2 — distribuição da estatística sob H₀")
 
 grupos = gerar_conjunto(cenario)
 controle, tratamento = cenario["controle"], cenario["tratamento"]
@@ -178,7 +191,11 @@ except Exception as e:  # noqa: BLE001
 
 st.markdown(
     """
-Cada painel mostra a distribuição da estatística **quando H₀ é verdadeira**: a t de
+Os dois testes respondem à mesma pergunta comparando coisas diferentes: o **Welch compara
+as médias** dos dois grupos, dividindo a diferença observada por um erro padrão que não
+supõe variâncias iguais; o **Mann-Whitney compara os postos**, ou seja, estima a
+probabilidade de um PR sorteado de um grupo demorar mais que um do outro, sem olhar o valor
+em si. Cada painel mostra a distribuição da estatística **quando H₀ é verdadeira**: a t de
 Student para o Welch e a normal padrão para o U padronizado do Mann-Whitney. A área
 sombreada é a região de rejeição a 5%, e a linha marca a estatística obtida neste
 conjunto simulado. O p-valor é a probabilidade, sob H₀, de observar uma estatística
@@ -187,6 +204,33 @@ p < 0,05. Como o conjunto foi gerado com medianas diferentes entre os grupos, o 
 existe de fato, e aqui os dois testes o detectam; a S02 vai repetir isso 10.000 vezes
 para medir **com que frequência** cada um acerta.
     """.strip()
+)
+
+st.divider()
+
+# ------------------------------------------------------- 4 a 7: S02 e entrega final
+st.header("4. Erro tipo I")
+st.caption("G3 — proporção de rejeições com H₀ verdadeira, com a linha em 5%")
+st.info("Entra na Sprint 02, com as simulações da Q1 e da Q3.")
+
+st.divider()
+
+st.header("5. Poder")
+st.caption("G4 — curvas de poder dos dois testes por tamanho do efeito")
+st.info("Entra na Sprint 02, com as simulações da Q2 e da Q3.")
+
+st.divider()
+
+st.header("6. Dados reais")
+st.caption("Os dois testes aplicados aos 60 PRs coletados")
+st.info("Entra na entrega final.")
+
+st.divider()
+
+st.header("7. Conclusão")
+st.info(
+    "Entra na entrega final: o que o grupo esperava antes de simular, o que encontrou, "
+    "e qual teste recomendamos para este cenário."
 )
 
 st.divider()
