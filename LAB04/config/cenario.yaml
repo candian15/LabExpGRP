@@ -1,0 +1,31 @@
+cenario: Tempo até o merge de PRs com e sem bot de revisão
+unidade: horas
+fonte:
+  repositorio: ant-design/ant-design
+  bot: copilot-pull-request-reviewer
+  janela_pr_criados: 2026-07-01..2026-10-31
+  detalhes: data/FONTE.md
+semente: 42
+n_por_grupo: 30
+controle: sem_bot
+tratamento: com_bot
+grupos:
+  sem_bot:
+    distribuicao: lognormal
+    mediana: 8.3134
+    mu: 2.117863
+    sigma: 2.42125
+  com_bot:
+    distribuicao: lognormal
+    mediana: 1.5596
+    mu: 0.444411
+    sigma: 1.997148
+razao_medianas_observada: 0.1876
+efeitos_razao_medianas:
+- 1.0
+- 0.8
+- 0.6
+- 0.4
+- 0.2
+convencao_efeito: 'tratamento: mu = mu_controle + ln(razao); mesmo sigma do controle;
+  razao = 1 -> H0'
