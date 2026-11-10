@@ -1,0 +1,11 @@
+situacao,n,sigma,razao,teste,taxa_rejeicao
+real,30,2.42125,1.0,Welch,0.0141
+real,30,2.42125,1.0,Mann-Whitney,0.043
+real,30,2.42125,0.8,Welch,0.0184
+real,30,2.42125,0.8,Mann-Whitney,0.0633
+real,30,2.42125,0.6,Welch,0.0277
+real,30,2.42125,0.6,Mann-Whitney,0.1186
+real,30,2.42125,0.4,Welch,0.0554
+real,30,2.42125,0.4,Mann-Whitney,0.2851
+real,30,2.42125,0.2,Welch,0.1513
+real,30,2.42125,0.2,Mann-Whitney,0.6907
