@@ -84,7 +84,11 @@ def main():
     cenario = ler_cenario()
     tabela = testar_dados_reais(pd.read_csv(DADOS), cenario["controle"], cenario["tratamento"])
     SAIDA.parent.mkdir(exist_ok=True)
-    tabela.to_csv(SAIDA, index=False)
+    # 12 dígitos significativos: mais do que o suficiente para qualquer leitura daqui e
+    # pouco o bastante para o arquivo não mudar por causa do último bit de um float. Sem
+    # isso, o p-valor do Welch sai com o 17º dígito diferente de máquina para máquina e o
+    # passo de reprodutibilidade do CI (`git diff --exit-code -- resultados`) acusa.
+    tabela.to_csv(SAIDA, index=False, float_format="%.12g")
     for _, r in tabela.iterrows():
         print(f"{r['teste']}: estatística = {r['estatistica']:.3f}, p = {r['p_valor']:.4f}, "
               f"{r['nome_efeito']} = {r['efeito']:+.3f} ({r['interpretacao_efeito']})")

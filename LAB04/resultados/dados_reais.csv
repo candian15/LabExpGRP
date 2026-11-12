@@ -1,3 +1,3 @@
 teste,n_sem_bot,n_com_bot,mediana_sem_bot_h,mediana_com_bot_h,estatistica,p_valor,nome_efeito,efeito,interpretacao_efeito,rejeita_h0,testes_concordam,conclusao
-Welch,30,30,7.6615,1.4534500000000001,1.3871017923857,0.17436942791829185,d de Cohen,0.3581481427602849,pequeno,False,False,"Não rejeita H₀ (p = 0,174): sem evidência de diferença no tempo até o merge a 5%. Efeito pequeno (d de Cohen = +0,36)."
-Mann-Whitney,30,30,7.6615,1.4534500000000001,646.0,0.003848067983551401,delta de Cliff,0.4355555555555555,médio,True,False,"Rejeita H₀ (p = 0,004): o tempo até o merge difere entre os grupos, e os PRs sem bot demoram mais. Efeito médio (delta de Cliff = +0,44)."
+Welch,30,30,7.6615,1.45345,1.38710179239,0.174369427918,d de Cohen,0.35814814276,pequeno,False,False,"Não rejeita H₀ (p = 0,174): sem evidência de diferença no tempo até o merge a 5%. Efeito pequeno (d de Cohen = +0,36)."
+Mann-Whitney,30,30,7.6615,1.45345,646,0.00384806798355,delta de Cliff,0.435555555556,médio,True,False,"Rejeita H₀ (p = 0,004): o tempo até o merge difere entre os grupos, e os PRs sem bot demoram mais. Efeito médio (delta de Cliff = +0,44)."
