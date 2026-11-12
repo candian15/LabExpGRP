@@ -4,10 +4,12 @@ on:
   push:
     paths:
       - 'LAB04/**'
+      - 'index.html'
       - '.github/workflows/testes-lab04.yml'
   pull_request:
     paths:
       - 'LAB04/**'
+      - 'index.html'
       - '.github/workflows/testes-lab04.yml'
 
 jobs:
