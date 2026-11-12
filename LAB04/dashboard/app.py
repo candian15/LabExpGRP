@@ -1,13 +1,16 @@
-"""Dashboard da S01: cenário, G1 e G2.
+"""Dashboard do Lab04: as sete seções do enunciado, na ordem dele.
+
+Preenchidas até agora: 1 a 5 (cenário, G1, G2, G3 e G4). As seções 6 e 7 entram na
+entrega final.
 
 Roda a partir da pasta LAB04:
 
     streamlit run dashboard/app.py
 
-As figuras vêm dos módulos dos outros integrantes (``src.graficos_g1.fig_g1`` e
-``src.graficos.fig_g2``). Se algum ainda não estiver disponível, a seção mostra um
-aviso em vez de quebrar a página — assim o esqueleto roda mesmo com a integração
-pela metade.
+As figuras vêm de ``src.graficos_g1`` e ``src.graficos``, e os números das seções 4 e 5
+saem dos CSVs de ``resultados/`` (gerados por ``python -m src.rodar_tudo``). Se um módulo
+ou um CSV ainda não estiver lá, a seção mostra um aviso em vez de quebrar a página —
+assim a página roda mesmo com a integração pela metade.
 """
 
 from __future__ import annotations
@@ -53,6 +56,29 @@ def gerar_conjunto(_cenario: dict) -> dict:
     return gerar_grupos(_cenario)
 
 
+@st.cache_data
+def carregar_taxas():
+    """As taxas de rejeição das simulações (Q1, Q2 e Q3), do jeito que o G3 e o G4 leem."""
+    from src import resultados
+
+    return resultados.ler_taxas(RAIZ / "resultados")
+
+
+def taxa(taxas, teste: str, razao: float = 1.0, situacao: str = "real"):
+    """Uma taxa de rejeição da tabela, para escrever o número no meio do texto.
+
+    Devolve ``None`` quando a simulação daquela linha ainda não existe, e aí o
+    parágrafo que usaria o número simplesmente não aparece.
+    """
+    linha = taxas[(taxas["situacao"] == situacao) & (taxas["teste"] == teste)
+                  & (taxas["razao"] == razao)]
+    return None if linha.empty else float(linha["taxa_rejeicao"].iloc[0])
+
+
+def pct(valor: float, casas: int = 1) -> str:
+    return f"{valor:.{casas}%}".replace(".", ",")
+
+
 def secao_indisponivel(titulo: str, erro: Exception, de_quem: str) -> None:
     """Aviso no lugar da figura, para o esqueleto rodar com a integração incompleta."""
     st.warning(
@@ -67,7 +93,7 @@ _links = [f"[Repositório]({REPOSITORIO})", f"[GitHub Projects]({PROJECTS})"]
 if DASHBOARD:
     _links.insert(0, f"[Dashboard]({DASHBOARD})")
 st.caption(
-    "Laboratório de Experimentação de Software — LAB04, Sprint 01 &nbsp;·&nbsp; "
+    "Laboratório de Experimentação de Software — LAB04, Sprint 02 &nbsp;·&nbsp; "
     + " &nbsp;·&nbsp; ".join(_links)
 )
 
@@ -208,16 +234,83 @@ para medir **com que frequência** cada um acerta.
 
 st.divider()
 
-# ------------------------------------------------------- 4 a 7: S02 e entrega final
+# ----------------------------------------------------------------- 4 e 5: G3 e G4
+# As duas seções leem a mesma tabela (Q1, Q2 e Q3), então a leitura é feita uma vez só.
+try:
+    from src import resultados
+    from src.graficos import fig_g3, fig_g4
+
+    taxas = carregar_taxas()
+except Exception as e:  # noqa: BLE001
+    taxas = None
+    erro_dos_resultados = e
+
+
 st.header("4. Erro tipo I")
 st.caption("G3 — proporção de rejeições com H₀ verdadeira, com a linha em 5%")
-st.info("Entra na Sprint 02, com as simulações da Q1 e da Q3.")
+
+if taxas is None:
+    secao_indisponivel("G3", erro_dos_resultados, "as simulações da Q1 e da Q3")
+else:
+    try:
+        st.pyplot(fig_g3(taxas), width="stretch")
+    except Exception as e:  # noqa: BLE001
+        secao_indisponivel("G3", e, "as simulações da Q1 e da Q3")
+
+    welch_h0, mw_h0 = taxa(taxas, "Welch"), taxa(taxas, "Mann-Whitney")
+    if None not in (welch_h0, mw_h0):
+        st.markdown(
+            f"""
+Aqui os dois grupos foram gerados com **a mesma distribuição**, então toda rejeição é erro
+tipo I e o esperado é 5%. O **Mann-Whitney rejeitou em {pct(mw_h0, 2)}** das 10.000
+repetições, dentro da margem de ±0,4 ponto percentual que a simulação tem nesse tamanho;
+o **Welch ficou em {pct(welch_h0, 2)}**, bem abaixo. Quem se desvia, portanto, é o Welch, e
+para menos: ele é **conservador** neste cenário, porque com σ ≈ 2,4 na escala log a média de
+cada grupo é dominada por poucos valores enormes, o desvio padrão estimado fica inflado e a
+estatística t quase nunca alcança o valor crítico. Isso não sai de graça — o preço aparece
+na seção seguinte, como perda de poder.
+            """.strip()
+        )
+
+    faltam = [s for s in resultados.ORDEM if s not in resultados.situacoes(taxas)]
+    if faltam:
+        st.info(
+            "Por enquanto só o cenário real. As outras situações entram quando o "
+            f"`resultados/q3.csv` chegar ({', '.join(resultados.nome(s) for s in faltam)})."
+        )
 
 st.divider()
 
 st.header("5. Poder")
 st.caption("G4 — curvas de poder dos dois testes por tamanho do efeito")
-st.info("Entra na Sprint 02, com as simulações da Q2 e da Q3.")
+
+if taxas is None:
+    secao_indisponivel("G4", erro_dos_resultados, "as simulações da Q2 e da Q3")
+else:
+    try:
+        st.pyplot(fig_g4(taxas), width="stretch")
+    except Exception as e:  # noqa: BLE001
+        secao_indisponivel("G4", e, "as simulações da Q2 e da Q3")
+
+    menor = min(taxas["razao"])
+    mw_efeito = taxa(taxas, "Mann-Whitney", menor)
+    welch_efeito = taxa(taxas, "Welch", menor)
+    razao_simulada = f"{menor:.1f}".replace(".", ",")
+    razao_real = f"{cenario['razao_medianas_observada']:.2f}".replace(".", ",")
+    if None not in (mw_efeito, welch_efeito):
+        st.markdown(
+            f"""
+Agora existe efeito de verdade, e a pergunta é com que frequência cada teste o encontra. No
+maior efeito simulado (razão de medianas = {razao_simulada}, perto dos {razao_real} que
+medimos nos dados reais), o **Mann-Whitney detecta em {pct(mw_efeito)}** das repetições e o **Welch em
+{pct(welch_efeito)}** — a vantagem é do Mann-Whitney em toda a curva e aumenta junto com o
+efeito. É o que o grupo esperava antes de simular: o Welch compara médias, e a variância
+causada pelos outliers esconde a diferença, enquanto o Mann-Whitney compara postos e quase
+não sente os valores extremos. Vale notar que **nenhum dos dois chega aos 80% de poder** com
+30 PRs por grupo, ou seja, a amostra real que coletamos seria pequena demais para garantir a
+detecção mesmo do efeito que de fato observamos.
+            """.strip()
+        )
 
 st.divider()
 
