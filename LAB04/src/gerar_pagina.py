@@ -53,9 +53,6 @@ ALFA_ESTRITO = 0.01       # o α alternativo da pergunta 12
 PODER_ALVO = 0.80
 MARGEM = 1.96 * np.sqrt(ALFA * (1 - ALFA) / N_REP)   # ±0,4 p.p. em 10.000 repetições
 
-# Quem narra cada seção nos 7 minutos de apresentação.
-APRESENTA = {s: "Santana" for s in (1, 2, 3, 6)} | {s: "Pedro" for s in (4, 5, 7)}
-
 # Quem responde cada uma das 15 perguntas da seção 5 do enunciado. A regra é que cada
 # integrante responda a pelo menos 4; as perguntas foram para quem fez a parte
 # correspondente (Arthur: coleta, parâmetros, Q3 e dados reais).
@@ -486,11 +483,9 @@ def _tabela(cabecalho, linhas, classe="") -> str:
 
 
 def _secao(ident, numero, titulo, legenda, kpis, conteudo) -> str:
-    """Uma seção do enunciado: cabeçalho, quem apresenta, a faixa de números e o conteúdo."""
-    quem = APRESENTA.get(numero, "Santana")
+    """Uma seção do enunciado: cabeçalho, a faixa de números e o conteúdo."""
     return (f'<section id="s{ident}"><div class="cab">'
-            f'<h2><span class="n">{numero}</span>{titulo}</h2>'
-            f'<span class="quem">apresenta: {quem}</span></div>'
+            f'<h2><span class="n">{numero}</span>{titulo}</h2></div>'
             f'<p class="leg">{legenda}</p>{kpis}{conteudo}</section>')
 
 
@@ -867,8 +862,7 @@ def pagina(d) -> str:
             f'{p_valor(p_m)}</span>')])
 
     secao_resumo = (
-        '<section id="s0"><div class="cab"><h2>Resumo dos resultados</h2>'
-        '<span class="quem">apresenta: Santana</span></div>'
+        '<section id="s0"><div class="cab"><h2>Resumo dos resultados</h2></div>'
         + resumo_kpis + '<div class="card">' + resumo
         + '<p style="margin:10px 0 0;color:var(--mu);font-size:15px">As barras de erro tipo I '
           'estão na escala de 0 a 8%; as de poder, de 0 a 100%.</p></div>'
