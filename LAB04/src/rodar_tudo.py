@@ -101,6 +101,10 @@ ETAPAS: tuple[Etapa, ...] = (
           saidas=("docs/g1_dados_reais_vs_simulados.png", "docs/g2_estatistica_sob_h0.png",
                   "docs/g3_erro_tipo_i.png", "docs/g4_curvas_de_poder.png"),
           acao=salvar_figuras),
+    Etapa(nome="Página do dashboard publicado (GitHub Pages)",
+          de_quem="João",
+          saidas=("../index.html",),
+          modulo="src.gerar_pagina"),
 )
 
 
