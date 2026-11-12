@@ -31,6 +31,17 @@ jobs:
       - name: Rodar os testes
         run: pytest -q
 
+      - name: Rodar o pipeline com o comando único
+        # É o comando que o README promete. Roda as simulações e salva as figuras;
+        # etapa cujo módulo ainda não existe sai como PENDENTE e não derruba o CI.
+        run: python -m src.rodar_tudo
+
+      - name: Conferir que a simulação é reprodutível
+        # Mesma semente, mesmos números: o passo acima regerou os CSVs e eles têm de
+        # sair iguais aos que estão commitados. Se este passo falhar, ou alguém mudou
+        # a simulação sem atualizar os resultados, ou a semente deixou de valer.
+        run: git diff --exit-code --stat -- resultados
+
       - name: Conferir que o dashboard executa
         # O Streamlit só desenha com um servidor; aqui garantimos que o script roda
         # de ponta a ponta, que é onde erro de import ou de dado quebraria a página.

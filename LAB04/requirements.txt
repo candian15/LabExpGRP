@@ -1,7 +1,12 @@
+# Simulação e análise
 numpy>=1.26
 scipy>=1.11
 pandas>=2.0
 pyyaml>=6.0
+
+# Gráficos e dashboard
 matplotlib>=3.8
 streamlit>=1.30
+
+# Testes (pytest.ini põe a pasta LAB04 no sys.path)
 pytest>=8.0
