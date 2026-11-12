@@ -11,3 +11,4 @@ venv/
 *.blg
 *.log
 *.out
+.pytest_cache/
