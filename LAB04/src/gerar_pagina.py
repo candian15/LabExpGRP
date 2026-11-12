@@ -485,12 +485,43 @@ def _tabela(cabecalho, linhas, classe="") -> str:
     return f"<table{cls}><thead><tr>{cab}</tr></thead><tbody>{corpo}</tbody></table>"
 
 
-def _secao(ident, numero, titulo, legenda, conteudo) -> str:
+def _secao(ident, numero, titulo, legenda, kpis, conteudo) -> str:
+    """Uma seção do enunciado: cabeçalho, quem apresenta, a faixa de números e o conteúdo."""
     quem = APRESENTA.get(numero, "Santana")
     return (f'<section id="s{ident}"><div class="cab">'
             f'<h2><span class="n">{numero}</span>{titulo}</h2>'
             f'<span class="quem">apresenta: {quem}</span></div>'
-            f'<p class="leg">{legenda}</p>{conteudo}</section>')
+            f'<p class="leg">{legenda}</p>{kpis}{conteudo}</section>')
+
+
+def _kpis(*cartoes) -> str:
+    """A faixa de indicadores no topo da seção, que é o que o olho pega primeiro."""
+    return f'<div class="kpis">{"".join(cartoes)}</div>'
+
+
+def _tile(rotulo, valor, classe="", sub="") -> str:
+    """Cartão de um número só."""
+    return (f'<div class="tile {classe}"><span class="rot">{rotulo}</span>'
+            f'<b>{valor}</b><span class="vs">{sub}</span></div>')
+
+
+def _duo(rotulo, valor_a, classe_a, valor_b, classe_b, sub="", cor_a=None, cor_b=None) -> str:
+    """Cartão que compara dois números lado a lado, que é a forma do trabalho inteiro."""
+    def lado(valor, classe, cor):
+        estilo = f' style="color:{cor}"' if cor else ""
+        return f'<i class="{classe}"{estilo}>{valor}</i>'
+
+    return (f'<div class="tile"><span class="rot">{rotulo}</span>'
+            f'<div class="duo">{lado(valor_a, classe_a, cor_a)}<s>×</s>'
+            f'{lado(valor_b, classe_b, cor_b)}</div>'
+            f'<span class="vs">{sub}</span></div>')
+
+
+def _barra(valor, cor, maximo=1.0) -> str:
+    """Barra proporcional dentro da célula da tabela, para comparar de relance."""
+    largura = min(max(valor / maximo, 0.0), 1.0) * 100
+    return (f'<div class="bar"><span style="width:{largura:.1f}%;background:{cor}"></span>'
+            f'<em>{pct(valor, 2 if maximo < 0.5 else 1)}</em></div>')
 
 
 def _nota(texto) -> str:
@@ -502,76 +533,102 @@ def _pill(texto, tipo) -> str:
 
 
 CSS = """
-:root{color-scheme:light;--bg:#f4f6f9;--card:#ffffff;--tx:#111827;--mu:#4b5563;
---bd:#dde2ea;--w:#e8590c;--m:#2563eb;--ok:#15803d;--al:#b91c1c;--ac:#5b21b6}
+:root{color-scheme:light;--bg:#eef1f6;--card:#ffffff;--tx:#0f172a;--mu:#64748b;
+--bd:#dbe1ea;--w:#e8590c;--m:#2563eb;--ok:#15803d;--al:#b91c1c;--ac:#5b21b6;
+--wbg:#fff2e8;--mbg:#eaf1fe;--okbg:#ecfdf5}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--tx);
-font:19px/1.6 "Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif}
-.wrap{max-width:1300px;margin:0 auto;padding:0 34px}
+font:18px/1.55 "Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif}
+.wrap{max-width:1360px;margin:0 auto;padding:0 28px}
 nav{position:sticky;top:0;z-index:9;background:#ffffff;border-bottom:1px solid var(--bd)}
-nav .wrap{display:flex;flex-wrap:wrap;gap:4px;padding:7px 34px;align-items:center}
+nav .wrap{display:flex;flex-wrap:wrap;gap:2px;padding:7px 28px;align-items:center}
 nav a{color:var(--mu);text-decoration:none;font-size:15px;padding:4px 11px;border-radius:8px}
 nav a:hover{background:var(--bg);color:var(--tx)}
-nav b{font-size:15px;margin-right:14px;color:var(--tx)}
-header{padding:38px 0 6px}
-.tag{color:var(--ac);font-weight:700;font-size:16px;letter-spacing:.06em;text-transform:uppercase}
-h1{font-size:54px;line-height:1.08;margin:10px 0 14px;letter-spacing:-.02em;font-weight:800}
+nav b{font-size:15px;margin-right:12px;color:var(--tx)}
+header{padding:30px 0 6px}
+.tag{color:var(--ac);font-weight:700;font-size:15px;letter-spacing:.07em;text-transform:uppercase}
+h1{font-size:46px;line-height:1.08;margin:8px 0 10px;letter-spacing:-.025em;font-weight:800}
 h1 .w{color:var(--w)}h1 .m{color:var(--m)}
-.lead{color:var(--mu);font-size:22px;max-width:980px;margin:0}
-.links{margin:20px 0 0;display:flex;flex-wrap:wrap;gap:10px}
-.links a{display:inline-block;padding:9px 18px;border:1px solid var(--bd);border-radius:10px;
-background:var(--card);color:var(--tx);text-decoration:none;font-size:17px;font-weight:600}
+.lead{color:var(--mu);font-size:19px;max-width:900px;margin:0}
+.links{margin:16px 0 0;display:flex;flex-wrap:wrap;gap:9px}
+.links a{display:inline-block;padding:8px 16px;border:1px solid var(--bd);border-radius:9px;
+background:var(--card);color:var(--tx);text-decoration:none;font-size:16px;font-weight:600}
 .links a.on{background:var(--ac);border-color:var(--ac);color:#ffffff}
-section{padding:24px 0;border-top:1px solid var(--bd);scroll-margin-top:52px}
-.cab{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
-h2{font-size:38px;margin:0;letter-spacing:-.01em;font-weight:800;display:flex;
-align-items:center;gap:14px}
-h2 .n{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;
-border-radius:12px;background:var(--ac);color:#ffffff;font-size:24px;flex:none}
-.quem{background:#ede9fe;color:var(--ac);font-weight:700;font-size:16px;padding:5px 14px;
+section{padding:22px 0 26px;border-top:1px solid var(--bd);scroll-margin-top:52px}
+.cab{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:4px}
+h2{font-size:34px;margin:0;letter-spacing:-.015em;font-weight:800;display:flex;
+align-items:center;gap:12px}
+h2 .n{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;
+border-radius:11px;background:var(--ac);color:#ffffff;font-size:22px;flex:none}
+.quem{background:#ede9fe;color:var(--ac);font-weight:700;font-size:15px;padding:4px 13px;
 border-radius:999px;white-space:nowrap}
-.leg{color:var(--mu);font-size:19px;margin:8px 0 14px}
-.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:24px}
-.g2c{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.g32{display:grid;grid-template-columns:1.25fr 1fr;gap:20px}
-h3{font-size:22px;margin:0 0 12px}
-p{margin:0 0 12px}
-table{width:100%;border-collapse:collapse;font-size:18px}
-th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--bd);vertical-align:top}
-th{color:var(--mu);font-size:15px;text-transform:uppercase;letter-spacing:.04em;font-weight:700}
+.leg{color:var(--mu);font-size:17px;margin:0 0 14px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:18px 20px}
+.g2c{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.g32{display:grid;grid-template-columns:1.2fr 1fr;gap:16px}
+h3{font-size:19px;margin:0 0 10px;font-weight:700}
+p{margin:0 0 9px}
+ul{margin:6px 0 0;padding-left:20px}li{margin-bottom:5px}
+
+/* faixa de indicadores: o que o olho pega primeiro em cada seção */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:14px;
+margin:0 0 16px}
+.tile{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px 16px;
+display:flex;flex-direction:column;justify-content:space-between;min-height:116px}
+.tile .rot{color:var(--mu);font-size:14px;font-weight:600;text-transform:uppercase;
+letter-spacing:.04em;line-height:1.3}
+.tile b{font-size:40px;line-height:1.02;letter-spacing:-.03em;margin:6px 0 2px;font-weight:800}
+.tile .vs{color:var(--mu);font-size:14px}
+.tile.w{border-left:5px solid var(--w)}.tile.w b{color:var(--w)}
+.tile.m{border-left:5px solid var(--m)}.tile.m b{color:var(--m)}
+.tile.ok{border-left:5px solid var(--ok)}.tile.ok b{color:var(--ok)}
+.tile.al{border-left:5px solid var(--al)}.tile.al b{color:var(--al)}
+.tile.ac{border-left:5px solid var(--ac)}
+.duo{display:flex;align-items:baseline;gap:9px;margin:6px 0 2px;flex-wrap:wrap}
+.duo i{font-style:normal;font-size:36px;font-weight:800;letter-spacing:-.03em;line-height:1.02}
+.duo i.m{color:var(--m)}.duo i.w{color:var(--w)}
+.duo s{text-decoration:none;color:var(--mu);font-size:22px;font-weight:600}
+
+/* barra proporcional dentro das tabelas */
+.bar{position:relative;background:#eef1f6;border-radius:6px;height:30px;min-width:120px;
+display:flex;align-items:center}
+.bar span{position:absolute;left:0;top:0;bottom:0;border-radius:6px;opacity:.85}
+.bar em{position:relative;font-style:normal;font-weight:700;font-size:16px;padding-left:9px}
+
+table{width:100%;border-collapse:collapse;font-size:17px}
+th,td{text-align:left;padding:9px 11px;border-bottom:1px solid var(--bd);vertical-align:middle}
+th{color:var(--mu);font-size:14px;text-transform:uppercase;letter-spacing:.04em;font-weight:700}
 tbody tr:last-child td{border-bottom:none}
 .w{color:var(--w);font-weight:700}.m{color:var(--m);font-weight:700}
 .pill{display:inline-block;padding:3px 12px;border-radius:999px;font-size:15px;font-weight:700}
 .pill.y{background:#dcfce7;color:#14532d}
 .pill.n{background:#ffedd5;color:#7c2d12}
 .pill.p{background:#fef9c3;color:#713f12}
-.nota{border-left:5px solid var(--ac);background:var(--card);border-radius:0 12px 12px 0;
-padding:16px 22px;margin:18px 0 0;font-size:19px}
-.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:22px 0 0}
-.kpi{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:18px 20px}
-.kpi b{display:block;font-size:40px;line-height:1.05;letter-spacing:-.02em}
-.kpi span{color:var(--mu);font-size:16px;display:block;margin-top:6px}
-.kpi.w b{color:var(--w)}.kpi.m b{color:var(--m)}
-.rec{background:#ecfdf5;border:2px solid var(--ok);border-radius:16px;padding:20px 24px;
-margin:20px 0 0;font-size:21px}
-.rec b{color:var(--ok);font-size:24px}
-.svgbox{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:14px}
-.perg{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:14px}
-.q{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:16px 18px}
-.q .cabq{display:flex;align-items:center;gap:10px;margin-bottom:8px}
-.q .num{background:var(--ac);color:#ffffff;border-radius:8px;width:34px;height:34px;
-display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:17px;
+
+/* a leitura do gráfico, curta: 2 a 4 frases, como o enunciado pede */
+.nota{background:var(--card);border:1px solid var(--bd);border-left:5px solid var(--ac);
+border-radius:0 12px 12px 0;padding:13px 18px;margin:14px 0 0;font-size:17px;color:#1f2937}
+.rec{background:var(--okbg);border:2px solid var(--ok);border-radius:14px;padding:16px 20px;
+margin:14px 0 0;font-size:19px}
+.rec b{color:var(--ok)}
+.svgbox{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:10px}
+
+.perg{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:12px}
+.q{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:13px 15px}
+.q .cabq{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.q .num{background:var(--ac);color:#ffffff;border-radius:7px;width:30px;height:30px;
+display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;
 flex:none}
-.q .dono{font-size:14px;font-weight:700;color:var(--ac);background:#ede9fe;padding:3px 10px;
+.q .dono{font-size:13px;font-weight:700;color:var(--ac);background:#ede9fe;padding:2px 9px;
 border-radius:999px}
-.q h4{margin:0 0 9px;font-size:18px;line-height:1.35}
-.q p{font-size:17px;color:#1f2937;margin:0}
-footer{padding:28px 0 56px;color:var(--mu);font-size:16px;border-top:1px solid var(--bd)}
-code{background:#eef1f6;padding:2px 7px;border-radius:6px;font-size:.88em}
-@media(max-width:1100px){.g2c,.g32,.perg{grid-template-columns:1fr}
-.kpis{grid-template-columns:1fr 1fr}h1{font-size:40px}h2{font-size:30px}}
+.q h4{margin:0 0 6px;font-size:16px;line-height:1.3;font-weight:700}
+.q p{font-size:15px;line-height:1.45;color:#334155;margin:0}
+footer{padding:22px 0 44px;color:var(--mu);font-size:15px;border-top:1px solid var(--bd)}
+code{background:#eef1f6;padding:2px 6px;border-radius:5px;font-size:.88em}
+@media(max-width:1150px){.g2c,.g32{grid-template-columns:1fr}h1{font-size:34px}h2{font-size:27px}}
 """
+
 
 SECOES = (("1", "Cenário"), ("2", "Os dados"), ("3", "Como os testes funcionam"),
           ("4", "Erro tipo I"), ("5", "Poder"), ("6", "Dados reais"),
@@ -740,102 +797,119 @@ def perguntas(d) -> list[tuple[int, str, str, str]]:
 
 
 # ---------------------------------------------------------------- a página inteira
+
 def pagina(d) -> str:
     c, t, g2 = d["cenario"], d["taxas"], d["info_g2"]
     desc = d["descritivas"].set_index("grupo")
     nos_reais = d["nos_reais"].set_index("teste")
     welch_r, mw_r = nos_reais.loc["Welch"], nos_reais.loc["Mann-Whitney"]
+    CINZA_SEM, VERDE_COM = COR_GRUPO["sem_bot"], COR_GRUPO["com_bot"]
 
     def q(situacao, razao, teste):
         return taxa(t, situacao, razao, teste)
 
+    etI = {s: {teste: q(s, 1.0, teste) for teste in COR} for s in resultados.situacoes(t)}
+    mw_h0 = [v["Mann-Whitney"] for v in etI.values() if v["Mann-Whitney"] is not None]
+    med_sem = float(welch_r["mediana_sem_bot_h"])
+    med_com = float(welch_r["mediana_com_bot_h"])
+    p_w, p_m = float(welch_r["p_valor"]), float(mw_r["p_valor"])
+
     # ---------------------------------------------------------------- cabeçalho
     nav = '<nav><div class="wrap"><b>LAB04</b>' + "".join(
         f'<a href="#s{i}">{i}. {nome}</a>' for i, nome in SECOES) + "</div></nav>"
-
-    links = (f'<div class="links"><a href="{REPOSITORIO}">Repositório</a>'
-             f'<a href="{PROJECTS}">GitHub Projects</a>'
-             f'<a class="on" href="{DASHBOARD}">Dashboard</a></div>')
 
     cabecalho = (
         '<header><div class="tag">Laboratório de Experimentação de Software · LAB04 · '
         'par P1</div>'
         '<h1>O tempo até o merge de PRs muda com um bot de revisão?<br>'
         '<span class="w">t de Welch</span> × <span class="m">Mann-Whitney</span></h1>'
-        f'<p class="lead">Simulação de Monte Carlo com {milhar(N_REP)} repetições por '
-        'situação para medir quantas vezes cada teste acerta, mais os dois testes '
-        f'aplicados a {len(d["reais"])} pull requests reais do '
-        '<code>ant-design/ant-design</code>.</p>'
-        + links + "</header>")
+        f'<p class="lead">{milhar(N_REP)} repetições por situação para medir quantas vezes '
+        f'cada teste acerta, e os dois testes aplicados a {len(d["reais"])} pull requests '
+        'reais do <code>ant-design/ant-design</code>.</p>'
+        f'<div class="links"><a href="{REPOSITORIO}">Repositório</a>'
+        f'<a href="{PROJECTS}">GitHub Projects</a>'
+        f'<a class="on" href="{DASHBOARD}">Dashboard</a></div></header>')
 
     # ---------------------------------------------------- resumo dos resultados
-    kpis = "".join([
-        f'<div class="kpi m"><b>{pct(q("real", 0.2, "Mann-Whitney"))}</b>'
-        '<span>poder do Mann-Whitney no efeito que medimos (razão 0,2)</span></div>',
-        f'<div class="kpi w"><b>{pct(q("real", 0.2, "Welch"))}</b>'
-        '<span>poder do Welch no mesmo efeito</span></div>',
-        f'<div class="kpi w"><b>{pct(q("real", 1.0, "Welch"), 2)}</b>'
-        f'<span>erro tipo I do Welch no cenário real, contra os 5% esperados</span></div>',
-        f'<div class="kpi m"><b>{p_valor(float(mw_r["p_valor"]))}</b>'
-        f'<span>Mann-Whitney nos PRs reais; o Welch deu '
-        f'{p_valor(float(welch_r["p_valor"]))}</span></div>',
-    ])
+    resumo_kpis = _kpis(
+        _duo("Poder no efeito que medimos", pct(q("real", 0.2, "Mann-Whitney")), "m",
+             pct(q("real", 0.2, "Welch")), "w", "razão de medianas 0,2, cenário real"),
+        _duo("Erro tipo I sem efeito", pct(q("real", 1.0, "Mann-Whitney"), 2), "m",
+             pct(q("real", 1.0, "Welch"), 2), "w", "o esperado é 5,00%"),
+        _duo("Poder com outliers", pct(q("outliers", 0.6, "Mann-Whitney")), "m",
+             pct(q("outliers", 0.6, "Welch")), "w", "razão 0,6"),
+        _duo(f"p-valor nos {len(d['reais'])} PRs reais", vg(f"{p_m:.3f}"), "m",
+             vg(f"{p_w:.3f}"), "w", "rejeita H₀ × não rejeita H₀"))
 
+    linhas_resumo = [
+        ("Erro tipo I no cenário real", "o esperado é 5%",
+         _barra(q("real", 1.0, "Welch"), COR["Welch"], 0.08),
+         _barra(q("real", 1.0, "Mann-Whitney"), COR["Mann-Whitney"], 0.08)),
+        ("Poder no cenário real", "razão de medianas 0,2",
+         _barra(q("real", 0.2, "Welch"), COR["Welch"]),
+         _barra(q("real", 0.2, "Mann-Whitney"), COR["Mann-Whitney"])),
+        ("Poder com outliers", "razão de medianas 0,6",
+         _barra(q("outliers", 0.6, "Welch"), COR["Welch"]),
+         _barra(q("outliers", 0.6, "Mann-Whitney"), COR["Mann-Whitney"])),
+        ("Poder com dados bem comportados", "razão de medianas 0,8",
+         _barra(q("bem_comportada", 0.8, "Welch"), COR["Welch"]),
+         _barra(q("bem_comportada", 0.8, "Mann-Whitney"), COR["Mann-Whitney"])),
+    ]
     resumo = _tabela(
-        ("Medida", "t de Welch", "Mann-Whitney"),
-        [("Erro tipo I no cenário real (o esperado é 5%)",
-          f'<span class="pill n">{pct(q("real", 1.0, "Welch"), 2)}</span>',
-          f'<span class="pill y">{pct(q("real", 1.0, "Mann-Whitney"), 2)}</span>'),
-         ("Poder com razão 0,2 no cenário real",
-          pct(q("real", 0.2, "Welch")), f'<b>{pct(q("real", 0.2, "Mann-Whitney"))}</b>'),
-         ("Poder com outliers, razão 0,6",
-          pct(q("outliers", 0.6, "Welch")), f'<b>{pct(q("outliers", 0.6, "Mann-Whitney"))}</b>'),
-         ("Poder com dados bem comportados, razão 0,8",
-          f'<b>{pct(q("bem_comportada", 0.8, "Welch"))}</b>',
-          pct(q("bem_comportada", 0.8, "Mann-Whitney"))),
-         (f"Nos {len(d['reais'])} PRs reais",
-          f'não rejeita H₀ ({p_valor(float(welch_r["p_valor"]))})',
-          f'rejeita H₀ ({p_valor(float(mw_r["p_valor"]))})')])
+        ("Medida", "", "t de Welch", "Mann-Whitney"),
+        [(nome, f'<span style="color:var(--mu);font-size:15px">{detalhe}</span>', bw, bm)
+         for nome, detalhe, bw, bm in linhas_resumo]
+        + [(f"Nos {len(d['reais'])} PRs reais",
+            '<span style="color:var(--mu);font-size:15px">dados coletados</span>',
+            f'{_pill("não rejeita H₀", "n")} <span style="color:var(--mu)">'
+            f'{p_valor(p_w)}</span>',
+            f'{_pill("rejeita H₀", "y")} <span style="color:var(--mu)">'
+            f'{p_valor(p_m)}</span>')])
 
     secao_resumo = (
         '<section id="s0"><div class="cab"><h2>Resumo dos resultados</h2>'
         '<span class="quem">apresenta: Santana</span></div>'
-        + f'<div class="kpis">{kpis}</div><div class="card" style="margin-top:22px">'
-        + resumo + "</div>"
-        + '<div class="rec"><b>Recomendação: Mann-Whitney.</b> Ele foi o único a manter o '
-          'erro tipo I perto de 5% em todas as situações, e tem muito mais poder quando os '
-          'dados são assimétricos ou têm outliers, que é o caso dos tempos de merge. O '
-          'Welch só compensa com dados próximos de simétricos.</div></section>')
+        + resumo_kpis + '<div class="card">' + resumo
+        + '<p style="margin:10px 0 0;color:var(--mu);font-size:15px">As barras de erro tipo I '
+          'estão na escala de 0 a 8%; as de poder, de 0 a 100%.</p></div>'
+        + '<div class="rec"><b>Recomendação: Mann-Whitney.</b> Único a manter o erro tipo I '
+          'perto de 5% nas quatro situações, e com muito mais poder quando os dados são '
+          'assimétricos ou têm outliers, que é o caso dos tempos de merge.</div></section>')
 
     # ------------------------------------------------------------- 1. cenário
     parametros = _tabela(
         ("Grupo", "Distribuição", "μ (log)", "σ (log)", "Mediana"),
         [(nome.replace("_", " "), p["distribuicao"], num(p["mu"], 3), num(p["sigma"], 3),
           num(p["mediana"], 1) + " h") for nome, p in c["grupos"].items()])
-    razoes = " · ".join(vg(f"{r:.1f}") for r in c["efeitos_razao_medianas"])
-    s1 = _secao("1", 1, "Cenário",
-                "A pergunta, as hipóteses e de onde saíram os parâmetros da simulação.",
-                '<div class="g32"><div class="card">'
-                "<p><b>Pergunta.</b> O tempo até o merge de um PR é diferente quando ele "
-                "recebe a revisão automática de um bot?</p>"
-                "<p><b>H₀:</b> os dois grupos têm a mesma distribuição de tempo até o merge."
-                "<br><b>H₁:</b> o tempo é diferente.</p>"
-                f"<p><b>Teste bicaudal, α = {vg(f'{ALFA:.2f}')}</b>, porque o bot tanto pode "
-                "acelerar o merge, dando retorno na hora, quanto atrasá-lo, gerando mais "
-                "rodadas de correção: as duas direções interessam ao projeto.</p>"
-                f"<p><b>Fonte dos dados.</b> <code>{c['fonte']['repositorio']}</code>, bot "
-                f"<code>{c['fonte']['bot']}</code>, PRs criados de julho a outubro de 2026 e "
-                f"já mesclados, coletados pela API do GitHub: {c['n_por_grupo']} PRs por "
-                "grupo, sorteados com semente "
-                f"{c['semente']} de 190 com bot e 455 sem bot.</p></div>"
-                '<div class="card"><h3>Parâmetros da simulação</h3>' + parametros
-                + f"<p style='margin-top:14px'>n = {c['n_por_grupo']} por grupo · semente "
-                  f"{c['semente']} · razões de medianas simuladas: {razoes}. O efeito entra "
-                  "como μ<sub>com bot</sub> = μ<sub>sem bot</sub> + ln(razão), com o mesmo σ, "
-                  "e razão = 1,0 é H₀ verdadeira.</p>"
-                + _nota("<b>Erro tipo I</b> é dizer que o bot muda o tempo quando não muda. "
-                        "<b>Erro tipo II</b> é não ver um efeito que existe.")
-                + "</div></div>")
+    s1 = _secao(
+        "1", 1, "Cenário", "A pergunta, as hipóteses e de onde saíram os parâmetros.",
+        _kpis(
+            _tile("PRs reais coletados", str(len(d["reais"])), "ac",
+                  f"{c['n_por_grupo']} por grupo, API do GitHub"),
+            _tile("Nível de significância", f"α = {pct(ALFA, 0)}", "ac",
+                  "teste bicaudal, as duas direções"),
+            _tile("Repetições por situação", milhar(N_REP), "ac",
+                  "margem de ±" + vg(f"{MARGEM * 100:.1f}") + " p.p."),
+            _tile("Razão de medianas observada",
+                  num(float(c["razao_medianas_observada"]), 2), "ac",
+                  "com bot ÷ sem bot, nos dados reais")),
+        '<div class="g32"><div class="card">'
+        "<p><b>Pergunta.</b> O tempo até o merge de um PR é diferente quando ele recebe a "
+        "revisão automática de um bot?</p>"
+        "<p><b>H₀:</b> os dois grupos têm a mesma distribuição de tempo até o merge.<br>"
+        "<b>H₁:</b> o tempo é diferente.</p>"
+        "<p><b>Bicaudal</b> porque o bot tanto pode acelerar o merge, dando retorno na hora, "
+        "quanto atrasá-lo, gerando mais rodadas de correção.</p>"
+        f"<p><b>Fonte.</b> <code>{c['fonte']['repositorio']}</code>, bot "
+        f"<code>{c['fonte']['bot']}</code>, PRs criados de julho a outubro de 2026 e já "
+        f"mesclados, {c['n_por_grupo']} sorteados por grupo com semente {c['semente']}.</p>"
+        "</div>"
+        '<div class="card"><h3>Parâmetros da simulação</h3>' + parametros
+        + '<p style="margin-top:12px;color:var(--mu);font-size:15px">O efeito entra como '
+          "μ<sub>com bot</sub> = μ<sub>sem bot</sub> + ln(razão), com o mesmo σ. Razão = 1,0 "
+          "é H₀ verdadeira; as simuladas são "
+        + " · ".join(vg(f"{r:.1f}") for r in c["efeitos_razao_medianas"]) + ".</p>"
+          "</div></div>")
 
     # -------------------------------------------------------------- 2. G1
     estat = _tabela(
@@ -847,21 +921,30 @@ def pagina(d) -> str:
           num(float(desc.loc[g, "assimetria"])),
           str(int(float(desc.loc[g, "n_outliers_tukey"]))))
          for g in ("sem_bot", "com_bot")])
-    s2 = _secao("2", 2, "Os dados",
-                "G1: o histograma de cada grupo, os dados reais em cima e os simulados "
-                "embaixo.",
-                f'<div class="svgbox">{d["g1"]}</div>'
-                + '<div class="card" style="margin-top:18px">' + estat + "</div>"
-                + _nota(
-                    "O gráfico mostra que os dois grupos têm a mesma forma: uma massa de PRs "
-                    "rápidos e uma cauda longa que vai até centenas de horas. A média fica "
-                    f"muito acima da mediana ({num(float(desc.loc['sem_bot', 'media']))} h "
-                    f"contra {num(float(desc.loc['sem_bot', 'mediana']))} h sem bot) e a "
-                    f"assimetria passa de {num(float(desc.loc['com_bot', 'assimetria']), 0)} "
-                    "nos dois, com cinco outliers de Tukey em cada. Por isso simulamos com "
-                    "uma <b>lognormal ajustada aos dados reais</b>, e não com uma normal: a "
-                    "linha de baixo reproduz a assimetria e a cauda da linha de cima. É "
-                    "exatamente essa assimetria que vai separar os dois testes."))
+    media_sem = float(desc.loc["sem_bot", "media"])
+    s2 = _secao(
+        "2", 2, "Os dados", "G1: o histograma de cada grupo, os reais em cima e os "
+        "simulados embaixo.",
+        _kpis(
+            _duo("Mediana do tempo até o merge", num(med_sem) + " h", "", num(med_com) + " h",
+                 "", "sem bot × com bot", CINZA_SEM, VERDE_COM),
+            _tile("Assimetria dos dois grupos",
+                  num(float(desc.loc["sem_bot", "assimetria"])) + " e "
+                  + num(float(desc.loc["com_bot", "assimetria"])), "al",
+                  "cauda longa à direita"),
+            _tile("Outliers de Tukey",
+                  f"{int(float(desc.loc['sem_bot', 'n_outliers_tukey']))} + "
+                  f"{int(float(desc.loc['com_bot', 'n_outliers_tukey']))}", "al",
+                  "em 30 PRs de cada grupo"),
+            _tile("Média contra mediana", num(media_sem) + " h", "al",
+                  f"contra {num(med_sem)} h de mediana, sem bot")),
+        f'<div class="svgbox">{d["g1"]}</div>'
+        + '<div class="card" style="margin-top:14px">' + estat + "</div>"
+        + _nota(
+            "Os dois grupos têm a mesma forma: uma massa de PRs rápidos e uma cauda que vai "
+            "a centenas de horas. A média fica muito acima da mediana e cada grupo tem cinco "
+            "outliers, então simulamos com uma <b>lognormal ajustada aos dados reais</b>, e a "
+            "linha de baixo reproduz essa assimetria. É ela que vai separar os dois testes."))
 
     # -------------------------------------------------------------- 3. G2
     exemplo = _tabela(
@@ -876,65 +959,79 @@ def pagina(d) -> str:
           "delta de Cliff = " + num(d["exemplo"][1]["efeito"], 2)
           + f' ({interpretar_efeito("delta de Cliff", d["exemplo"][1]["efeito"])})',
           _pill("rejeita H₀", "y"))])
-    s3 = _secao("3", 3, "Como os testes funcionam",
-                "G2: a distribuição da estatística de cada teste sob H₀, a região de "
-                "rejeição sombreada e o p-valor de um exemplo marcado como área.",
-                f'<div class="svgbox">{d["g2"]}</div>'
-                + '<div class="card" style="margin-top:18px">' + exemplo + "</div>"
-                + _nota(
-                    "Cada painel mostra onde a estatística cairia se H₀ fosse verdadeira. A "
-                    "faixa vermelha das duas pontas é a região de rejeição, 2,5% de cada "
-                    "lado, e a área colorida a partir do valor observado é o p-valor: quanto "
-                    "menor essa área, mais improvável o resultado sob H₀. Neste conjunto "
-                    "simulado os dois testes rejeitam H₀, mas o p-valor do Mann-Whitney é "
-                    f"cerca de {num(g2['p_t'] / g2['p_z'], 0)} vezes menor, porque o Welch "
-                    "divide a diferença entre as médias por um erro padrão que a cauda longa "
-                    "deixa grande."))
+    s3 = _secao(
+        "3", 3, "Como os testes funcionam",
+        "G2: a estatística de cada teste sob H₀, a região de rejeição sombreada e o p-valor "
+        "do exemplo marcado como área.",
+        _kpis(
+            _tile("t de Welch no exemplo", "t = " + num(g2["t"], 2), "w",
+                  "p-valor = " + vg(f'{g2["p_t"]:.4f}')),
+            _tile("Mann-Whitney no exemplo", "z = " + num(g2["z"], 2), "m",
+                  "p-valor = " + vg(f'{g2["p_z"]:.4f}')),
+            _tile("Evidência do Mann-Whitney", num(g2["p_t"] / g2["p_z"], 0) + "×", "ok",
+                  "mais forte que a do Welch"),
+            _tile("Valor crítico (α = 5%)", "|t| ≥ " + num(g2["crit_t"], 2), "ac",
+                  "e |z| ≥ " + num(g2["crit_z"], 2) + ", 2,5% em cada ponta")),
+        f'<div class="svgbox">{d["g2"]}</div>'
+        + '<div class="card" style="margin-top:14px">' + exemplo + "</div>"
+        + _nota(
+            "Cada painel mostra onde a estatística cairia se H₀ fosse verdadeira. A faixa "
+            "vermelha das duas pontas é a região de rejeição e a área colorida a partir do "
+            "valor observado é o p-valor: quanto menor, mais improvável o resultado sob H₀. "
+            "Neste conjunto os dois rejeitam H₀, mas o p do Mann-Whitney é cerca de "
+            f"{num(g2['p_t'] / g2['p_z'], 0)} vezes menor, porque a cauda longa infla o erro "
+            "padrão que o Welch usa."))
 
     # -------------------------------------------------------------- 4. G3
-    etI = {s: {teste: q(s, 1.0, teste) for teste in COR} for s in resultados.situacoes(t)}
-    mw_h0 = [v["Mann-Whitney"] for v in etI.values() if v["Mann-Whitney"] is not None]
-    s4 = _secao("4", 4, "Erro tipo I",
-                f"G3: proporção de rejeições quando H₀ é verdadeira, em cada situação. O "
-                f"esperado é 5%, com margem de ±{vg(f'{MARGEM * 100:.1f}')} p.p.",
-                f'<div class="svgbox">{d["g3"]}</div>'
-                + _nota(
-                    "Aqui os dois grupos foram gerados com a mesma distribuição, então toda "
-                    "rejeição é erro tipo I. O <b>Mann-Whitney ficou perto de 5% nas quatro "
-                    f"situações</b> ({pct(min(mw_h0))} a {pct(max(mw_h0))}), dentro da "
-                    "margem da simulação. Quem se desviou foi o <b>Welch, e sempre para "
-                    f"baixo</b>: {pct(etI['real']['Welch'], 2)} no cenário real e "
-                    f"{pct(etI['n_pequeno']['Welch'], 2)} com n = 10, ou seja, ele é "
-                    f"conservador, embora acerte quando os dados são bem comportados "
-                    f"({pct(etI['bem_comportada']['Welch'], 2)}). <b>Nenhum dos dois é "
-                    "liberal</b>, e ser conservador não sai de graça: o preço aparece no "
-                    "poder, na seção seguinte."))
+    s4 = _secao(
+        "4", 4, "Erro tipo I",
+        "G3: proporção de rejeições quando H₀ é verdadeira, em cada situação simulada.",
+        _kpis(
+            _duo("Cenário real", pct(etI["real"]["Mann-Whitney"], 2), "m",
+                 pct(etI["real"]["Welch"], 2), "w", "o esperado é 5,00%"),
+            _tile("Mann-Whitney nas 4 situações",
+                  pct(min(mw_h0)) + " a " + pct(max(mw_h0)), "ok", "sempre dentro da margem"),
+            _tile("Pior caso do Welch", pct(etI["n_pequeno"]["Welch"], 2), "al",
+                  "com n = 10, seis vezes abaixo de 5%"),
+            _tile("Welch com dados bem comportados", pct(etI["bem_comportada"]["Welch"], 2),
+                  "ok", "aqui ele acerta o alvo")),
+        f'<div class="svgbox">{d["g3"]}</div>'
+        + _nota(
+            "Os dois grupos foram gerados com a mesma distribuição, então toda rejeição aqui "
+            "é erro tipo I. O <b>Mann-Whitney ficou perto de 5% nas quatro situações</b> e "
+            "quem se desviou foi o <b>Welch, sempre para baixo</b>: ele é conservador quando "
+            "os dados são muito assimétricos, porque poucos valores enormes inflam o desvio "
+            "padrão estimado. <b>Nenhum dos dois é liberal</b>, e ser conservador tem preço: "
+            "aparece no poder, na seção seguinte."))
 
     # -------------------------------------------------------------- 5. G4
-    s5 = _secao("5", 5, "Poder",
-                "G4: com que frequência cada teste detecta o efeito, por razão entre as "
-                "medianas (1,0 = sem efeito, 0,2 = efeito grande). As quatro situações "
-                "estão lado a lado.",
-                f'<div class="svgbox">{d["g4"]}</div>'
-                + _nota(
-                    "Agora o efeito existe, e a pergunta é quantas vezes cada teste o "
-                    "encontra. O <b>Mann-Whitney ganha no cenário real</b> "
-                    f"({pct(q('real', 0.2, 'Mann-Whitney'))} contra "
-                    f"{pct(q('real', 0.2, 'Welch'))} na razão 0,2), ganha com amostra "
-                    f"pequena ({pct(q('n_pequeno', 0.2, 'Mann-Whitney'))} contra "
-                    f"{pct(q('n_pequeno', 0.2, 'Welch'))}) e ganha de longe <b>com "
-                    f"outliers</b> ({pct(q('outliers', 0.6, 'Mann-Whitney'))} contra "
-                    f"{pct(q('outliers', 0.6, 'Welch'))} na razão 0,6). A vantagem <b>muda "
-                    "de lado só com dados bem comportados</b>, onde eles empatam e o Welch "
-                    f"fica à frente por pouco ({pct(q('bem_comportada', 0.8, 'Welch'))} "
-                    f"contra {pct(q('bem_comportada', 0.8, 'Mann-Whitney'))} na razão 0,8). "
-                    "Vale notar que <b>nenhum dos dois chega a 80% de poder no cenário "
-                    f"real</b> com {c['n_por_grupo']} PRs por grupo."))
+    s5 = _secao(
+        "5", 5, "Poder",
+        "G4: com que frequência cada teste detecta o efeito, por razão entre as medianas "
+        "(1,0 = sem efeito, 0,2 = efeito grande).",
+        _kpis(
+            _duo("Cenário real, razão 0,2", pct(q("real", 0.2, "Mann-Whitney")), "m",
+                 pct(q("real", 0.2, "Welch")), "w", "a vantagem é do Mann-Whitney"),
+            _duo("Com outliers, razão 0,6", pct(q("outliers", 0.6, "Mann-Whitney")), "m",
+                 pct(q("outliers", 0.6, "Welch")), "w", "a maior diferença de todas"),
+            _duo("Bem comportada, razão 0,8", pct(q("bem_comportada", 0.8, "Mann-Whitney")),
+                 "m", pct(q("bem_comportada", 0.8, "Welch")), "w",
+                 "empate: aqui a vantagem some"),
+            _tile("Poder de 80% no cenário real", "nenhum", "al",
+                  f"com {c['n_por_grupo']} PRs por grupo")),
+        f'<div class="svgbox">{d["g4"]}</div>'
+        + _nota(
+            "Agora o efeito existe, e a pergunta é quantas vezes cada teste o encontra. O "
+            "<b>Mann-Whitney ganha no cenário real, com amostra pequena e, de longe, com "
+            "outliers</b>, e a diferença cresce junto com o efeito. A vantagem <b>muda de "
+            "lado só com dados bem comportados</b>, onde eles empatam e o Welch fica à frente "
+            "por pouco, que é o esperado quando o pressuposto vale. Vale notar que nenhum dos "
+            "dois chega a 80% de poder no cenário real."))
 
     # -------------------------------------------------------------- 6. dados reais
     tabela_reais = _tabela(
         ("Teste", "Estatística", "p-valor", "Tamanho do efeito", "Conclusão a 5%"),
-        [(f'<span class="{ "w" if teste == "Welch" else "m" }">{teste}</span>',
+        [(f'<span class="{"w" if teste == "Welch" else "m"}">{teste}</span>',
           ("t = " + num(float(linha["estatistica"]), 2) if teste == "Welch"
            else "U = " + num(float(linha["estatistica"]), 0)),
           p_valor(float(linha["p_valor"])),
@@ -942,58 +1039,67 @@ def pagina(d) -> str:
           f'({linha["interpretacao_efeito"]})',
           _pill("rejeita H₀", "y") if bool(linha["rejeita_h0"])
           else _pill("não rejeita H₀", "n"))
-         for teste, linha in ((t_, nos_reais.loc[t_]) for t_ in ("Welch", "Mann-Whitney"))])
-    s6 = _secao("6", 6, "Dados reais",
-                f"Os dois testes aplicados aos {len(d['reais'])} PRs coletados "
-                f"({c['n_por_grupo']} por grupo).",
-                '<div class="card">' + tabela_reais + "</div>"
-                + _nota(
-                    "Os <b>dois testes discordam</b>: o Welch não rejeita H₀ "
-                    f"({p_valor(float(welch_r['p_valor']))}) e o Mann-Whitney rejeita "
-                    f"({p_valor(float(mw_r['p_valor']))}). É o desencontro que a simulação "
-                    "previa para dados com essa cauda, e ele mostra que a escolha do teste "
-                    "pode mudar a resposta do estudo. Na prática a diferença é grande: a "
-                    f"mediana vai de {num(float(welch_r['mediana_sem_bot_h']))} h sem bot "
-                    f"para {num(float(welch_r['mediana_com_bot_h']))} h com bot, cerca de "
-                    f"{num(float(welch_r['mediana_sem_bot_h']) - float(welch_r['mediana_com_bot_h']))}"
-                    " h mais rápido. Mas é <b>associação, não causa</b>: o bot não foi "
-                    "sorteado entre os PRs, e quem o aciona pode escolher PRs mais simples."))
+         for teste, linha in ((n, nos_reais.loc[n]) for n in ("Welch", "Mann-Whitney"))])
+    s6 = _secao(
+        "6", 6, "Dados reais",
+        f"Os dois testes aplicados aos {len(d['reais'])} PRs coletados.",
+        _kpis(
+            _tile("t de Welch", p_valor(p_w), "w", "não rejeita H₀"),
+            _tile("Mann-Whitney", p_valor(p_m), "m", "rejeita H₀"),
+            _duo("Mediana observada", num(med_sem) + " h", "", num(med_com) + " h", "",
+                 "sem bot × com bot", CINZA_SEM, VERDE_COM),
+            _tile("Diferença entre as medianas", num(med_sem - med_com) + " h", "ok",
+                  "mais rápido com bot, mas não é causa")),
+        '<div class="card">' + tabela_reais + "</div>"
+        + _nota(
+            "Os <b>dois testes discordam</b>, exatamente o desencontro que a simulação previa "
+            "para dados com essa cauda, e isso mostra que a escolha do teste pode mudar a "
+            "resposta do estudo. Na prática a diferença é grande, de "
+            f"{num(med_sem)} h para {num(med_com)} h de mediana. Mas é <b>associação, não "
+            "causa</b>: o bot não foi sorteado entre os PRs, e quem o aciona pode estar "
+            "escolhendo PRs mais simples."))
 
     # -------------------------------------------------------------- 7. conclusão
     esperado = _tabela(
         ("O que esperávamos antes de simular", "O que encontramos", ""),
         [("O Mann-Whitney teria mais poder em dados assimétricos",
-          "Confirmado em todas as situações com assimetria ou outliers: "
+          f"Confirmado em todas as situações com assimetria ou outliers: "
           f"{pct(q('real', 0.2, 'Mann-Whitney'))} contra {pct(q('real', 0.2, 'Welch'))} na "
-          "razão 0,2 do cenário real", _pill("confirmado", "y")),
+          "razão 0,2", _pill("confirmado", "y")),
          ("Os dois ficariam perto de 5% quando não há efeito",
           f"Só o Mann-Whitney ({pct(etI['real']['Mann-Whitney'], 2)}); o Welch ficou "
           f"conservador, em {pct(etI['real']['Welch'], 2)} no cenário real e "
           f"{pct(etI['n_pequeno']['Welch'], 2)} com n = 10", _pill("em parte", "p")),
-         ("A vantagem do Mann-Whitney sumiria com dados bem comportados",
+         ("A vantagem sumiria com dados bem comportados",
           f"Confirmado: {pct(q('bem_comportada', 0.8, 'Welch'))} contra "
-          f"{pct(q('bem_comportada', 0.8, 'Mann-Whitney'))} na razão 0,8, e empate técnico "
-          "nas razões maiores", _pill("confirmado", "y"))])
-    s7 = _secao("7", 7, "Conclusão",
-                "O que o grupo esperava, o que apareceu, e qual teste recomendamos.",
-                '<div class="card">' + esperado + "</div>"
-                + '<div class="g32" style="margin-top:18px"><div class="card">'
-                + "<h3>Recomendação</h3><p>Para o tempo até o merge de PRs, use o "
-                  "<b>Mann-Whitney</b>. Ele foi o único a manter o erro tipo I perto de 5% "
-                  "nas quatro situações e tem bem mais poder justamente onde esses dados "
-                  "vivem: assimetria alta e outliers.</p>"
-                  "<h3>Quando mudaríamos</h3><p>Se os dados fossem simétricos e sem "
-                  "outliers, onde os dois empatam e o Welch fica um pouco à frente, ou se a "
-                  "pergunta fosse sobre a <b>média</b> e não sobre a tendência central, "
-                  "como no total de horas gastas em revisão.</p></div>"
-                + '<div class="card"><h3>Limitações</h3><ul>'
-                  "<li>Estudo <b>observacional</b>: o bot não foi sorteado entre os PRs, "
-                  "então a diferença observada não prova causa.</li>"
-                  "<li>Um único repositório e uma janela de quatro meses.</li>"
-                  f"<li>{c['n_por_grupo']} PRs por grupo: pelo G4, nem o Mann-Whitney chega "
-                  "a 80% de poder nesse tamanho.</li>"
-                  "<li>A simulação supõe lognormal; se a forma real fosse outra, as taxas "
-                  "mudariam.</li></ul></div></div>")
+          f"{pct(q('bem_comportada', 0.8, 'Mann-Whitney'))} na razão 0,8",
+          _pill("confirmado", "y"))])
+    s7 = _secao(
+        "7", 7, "Conclusão", "O que o grupo esperava, o que apareceu, e o que recomendamos.",
+        _kpis(
+            _tile("Recomendação", "Mann-Whitney", "ok", "para tempos de merge"),
+            _tile("Expectativas confirmadas", "2 de 3", "ac",
+                  "a terceira só em parte: o Welch ficou conservador"),
+            _tile("Mudaríamos se", "dados simétricos", "ac",
+                  "sem outliers, ou pergunta sobre a média"),
+            _tile("Limitação principal", "observacional", "al",
+                  "o bot não foi sorteado entre os PRs")),
+        '<div class="card">' + esperado + "</div>"
+        + '<div class="g32" style="margin-top:14px"><div class="card">'
+        + "<h3>Recomendação e quando ela mudaria</h3>"
+          "<p>Para o tempo até o merge de PRs, use o <b>Mann-Whitney</b>: foi o único a "
+          "manter o erro tipo I perto de 5% nas quatro situações e tem bem mais poder onde "
+          "esses dados vivem, com assimetria alta e outliers.</p>"
+          "<p>Mudaríamos com dados simétricos e sem outliers, onde os dois empatam e o Welch "
+          "fica um pouco à frente, ou se a pergunta fosse sobre a <b>média</b> e não sobre a "
+          "tendência central, como no total de horas gastas em revisão.</p></div>"
+        + '<div class="card"><h3>Limitações</h3><ul>'
+          "<li>Estudo <b>observacional</b>: a diferença observada não prova causa.</li>"
+          "<li>Um único repositório e uma janela de quatro meses.</li>"
+          f"<li>{c['n_por_grupo']} PRs por grupo: pelo G4, nem o Mann-Whitney chega a 80% de "
+          "poder nesse tamanho.</li>"
+          "<li>A simulação supõe lognormal; com outra forma, as taxas mudariam.</li>"
+          "</ul></div></div>")
 
     # -------------------------------------------------------------- 8. perguntas
     lista = perguntas(d)
@@ -1011,12 +1117,11 @@ def pagina(d) -> str:
 
     rodape = (
         "<footer>Todos os números desta página são gerados por "
-        "<code>python -m src.gerar_pagina</code> a partir de <code>config/cenario.yaml</code>, "
-        "<code>data/dados_reais.csv</code>, <code>data/estatisticas_descritivas.csv</code> e "
-        "<code>resultados/*.csv</code>, com a semente "
-        f"{c['semente']} e {milhar(N_REP)} repetições por situação. Rodar de novo produz "
-        "exatamente a mesma página. Código, issues e histórico no "
-        f'<a href="{REPOSITORIO}">repositório</a>.</footer>')
+        "<code>python -m src.gerar_pagina</code> a partir de "
+        "<code>config/cenario.yaml</code>, <code>data/</code> e "
+        f"<code>resultados/*.csv</code>, com a semente {c['semente']} e {milhar(N_REP)} "
+        "repetições por situação. Rodar de novo produz exatamente a mesma página. Código, "
+        f'issues e histórico no <a href="{REPOSITORIO}">repositório</a>.</footer>')
 
     return ("<!DOCTYPE html>\n<html lang=\"pt-BR\"><head><meta charset=\"utf-8\">"
             "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">"

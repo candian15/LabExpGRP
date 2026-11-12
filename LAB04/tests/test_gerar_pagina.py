@@ -41,12 +41,26 @@ def test_os_tres_links_no_topo(html):
 
 
 def test_cada_grafico_tem_um_texto_de_duas_a_quatro_frases(html):
-    """O enunciado pede um texto curto junto de cada gráfico."""
+    """O enunciado pede um texto de 2 a 4 frases junto de cada gráfico, e não mais."""
     notas = re.findall(r'<div class="nota">(.*?)</div>', html, re.S)
     assert len(notas) >= 4, "falta o texto de algum gráfico"
     for nota in notas:
         frases = [f for f in re.sub(r"<[^>]+>", "", nota).split(". ") if f.strip()]
-        assert 2 <= len(frases) <= 6, f"texto com {len(frases)} frases: {nota[:60]}"
+        assert 2 <= len(frases) <= 4, f"texto com {len(frases)} frases: {nota[:60]}"
+
+
+def test_toda_secao_abre_com_uma_faixa_de_indicadores(html):
+    """A página é um painel: cada seção mostra os números antes do texto."""
+    for ident in ("s0", "s1", "s2", "s3", "s4", "s5", "s6", "s7"):
+        inicio = html.index(f'id="{ident}"')
+        fim = html.index("<section", inicio + 1) if "<section" in html[inicio + 1:] else len(html)
+        assert 'class="kpis"' in html[inicio:fim], f"a seção {ident} não tem faixa de números"
+
+
+def test_os_cartoes_de_numero_usam_as_cores_dos_testes(html):
+    """Welch e Mann-Whitney mantêm a cor deles também nos cartões."""
+    assert html.count('class="tile') >= 24, "faltam cartões de indicador"
+    assert '<i class="m"' in html and '<i class="w"' in html
 
 
 def test_os_quatro_graficos_estao_na_pagina(html):

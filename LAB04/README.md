@@ -51,7 +51,7 @@ python -m src.gerar_pagina  # gera o index.html publicado no GitHub Pages
 pytest -q
 ```
 
-São 88 testes. O CI do GitHub Actions
+São 90 testes. O CI do GitHub Actions
 ([`testes-lab04.yml`](../.github/workflows/testes-lab04.yml)) roda a suíte, executa
 `python -m src.rodar_tudo` e executa o script do dashboard de ponta a ponta — o Streamlit
 só desenha com um servidor, e é nessa execução que um erro de import ou de dado apareceria.
