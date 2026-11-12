@@ -22,6 +22,12 @@ CHAVE = ["situacao", "n", "sigma", "razao", "teste"]
 
 SEM_EFEITO = 1.0  # razão entre as medianas com H₀ verdadeira
 
+# A cor de cada teste, definida aqui e em mais lugar nenhum: o enunciado pede a mesma
+# cor para o mesmo teste em todos os gráficos, e as figuras do matplotlib e a página
+# publicada são desenhadas por módulos diferentes. A ordem também vale: é a ordem em
+# que os dois testes aparecem nas barras e nas legendas.
+CORES = {"Welch": "#e8590c", "Mann-Whitney": "#2563eb"}
+
 # As situações da Q3 saem do docs/cenario.md. A situação que não estiver aqui ainda
 # aparece nos gráficos, no fim da ordem e com o nome que vier do CSV.
 ORDEM = ("real", "bem_comportada", "n_pequeno", "outliers")

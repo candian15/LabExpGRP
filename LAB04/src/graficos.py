@@ -13,8 +13,9 @@ from scipy import stats
 
 from src import resultados
 
-# Mesma cor para cada teste em todos os gráficos
-CORES = {"Welch": "#1f77b4", "Mann-Whitney": "#ff7f0e"}
+# Mesma cor para cada teste em todos os gráficos, inclusive na página publicada:
+# quem define é o src.resultados, para não haver duas listas de cores no repositório.
+CORES = resultados.CORES
 ALFA = 0.05
 N_REP = 10_000
 PODER_ALVO = 0.80
