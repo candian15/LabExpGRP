@@ -1,7 +1,7 @@
 """Dashboard do Lab04: as sete seções do enunciado, na ordem dele.
 
-Preenchidas até agora: 1 a 5 (cenário, G1, G2, G3 e G4). As seções 6 e 7 entram na
-entrega final.
+Esta é a versão que roda localmente. A versão publicada (GitHub Pages) é a mesma
+história em uma página só, gerada por ``python -m src.gerar_pagina``.
 
 Roda a partir da pasta LAB04:
 
@@ -26,9 +26,8 @@ if str(RAIZ) not in sys.path:
 
 REPOSITORIO = "https://github.com/candian15/LabExpGRP"
 PROJECTS = "https://github.com/users/candian15/projects/2"
-# Preencher quando o dashboard for publicado (Streamlit Community Cloud ou GitHub Pages).
 # O enunciado exige os três links no topo da página.
-DASHBOARD = ""
+DASHBOARD = "https://candian15.github.io/LabExpGRP/"
 
 st.set_page_config(page_title="LAB04 — Welch × Mann-Whitney", layout="wide")
 
@@ -64,6 +63,14 @@ def carregar_taxas():
     return resultados.ler_taxas(RAIZ / "resultados")
 
 
+@st.cache_data
+def carregar_dados_reais():
+    """Os dois testes já aplicados aos 60 PRs (``python -m src.dados_reais``)."""
+    import pandas as pd
+
+    return pd.read_csv(RAIZ / "resultados" / "dados_reais.csv")
+
+
 def taxa(taxas, teste: str, razao: float = 1.0, situacao: str = "real"):
     """Uma taxa de rejeição da tabela, para escrever o número no meio do texto.
 
@@ -93,7 +100,7 @@ _links = [f"[Repositório]({REPOSITORIO})", f"[GitHub Projects]({PROJECTS})"]
 if DASHBOARD:
     _links.insert(0, f"[Dashboard]({DASHBOARD})")
 st.caption(
-    "Laboratório de Experimentação de Software — LAB04, Sprint 02 &nbsp;·&nbsp; "
+    "Laboratório de Experimentação de Software — LAB04 &nbsp;·&nbsp; "
     + " &nbsp;·&nbsp; ".join(_links)
 )
 
@@ -259,16 +266,30 @@ else:
 
     welch_h0, mw_h0 = taxa(taxas, "Welch"), taxa(taxas, "Mann-Whitney")
     if None not in (welch_h0, mw_h0):
+        # uma linha por situação já simulada, para o texto falar de todas elas
+        h0 = {s: {teste: taxa(taxas, teste, situacao=s) for teste in ("Welch", "Mann-Whitney")}
+              for s in resultados.situacoes(taxas)}
+        mw_todas = [v["Mann-Whitney"] for v in h0.values() if v["Mann-Whitney"] is not None]
+        faixa_mw = (f"ficou entre {pct(min(mw_todas))} e {pct(max(mw_todas))} nas "
+                    f"{len(mw_todas)} situações" if len(mw_todas) > 1
+                    else f"ficou em {pct(mw_h0, 2)}")
+        welch_n10 = taxa(taxas, "Welch", situacao="n_pequeno")
+        welch_bem = taxa(taxas, "Welch", situacao="bem_comportada")
+        piores = f"{pct(welch_h0, 2)} no cenário real"
+        if welch_n10 is not None:
+            piores += f" e {pct(welch_n10, 2)} com n = 10"
+        acerta = (f", embora acerte quando os dados são bem comportados "
+                  f"({pct(welch_bem, 2)})" if welch_bem is not None else "")
         st.markdown(
             f"""
 Aqui os dois grupos foram gerados com **a mesma distribuição**, então toda rejeição é erro
-tipo I e o esperado é 5%. O **Mann-Whitney rejeitou em {pct(mw_h0, 2)}** das 10.000
-repetições, dentro da margem de ±0,4 ponto percentual que a simulação tem nesse tamanho;
-o **Welch ficou em {pct(welch_h0, 2)}**, bem abaixo. Quem se desvia, portanto, é o Welch, e
-para menos: ele é **conservador** neste cenário, porque com σ ≈ 2,4 na escala log a média de
-cada grupo é dominada por poucos valores enormes, o desvio padrão estimado fica inflado e a
-estatística t quase nunca alcança o valor crítico. Isso não sai de graça — o preço aparece
-na seção seguinte, como perda de poder.
+tipo I e o esperado é 5%. O **Mann-Whitney {faixa_mw}**, sempre dentro da margem de ±0,4
+ponto percentual que a simulação tem nesse tamanho. Quem se desvia é o **Welch, e sempre
+para menos**: {piores}{acerta}. Ou seja, ele é **conservador** quando os dados são muito
+assimétricos, porque com σ ≈ 2,4 na escala log a média de cada grupo é dominada por poucos
+valores enormes, o desvio padrão estimado fica inflado e a estatística t quase nunca
+alcança o valor crítico. **Nenhum dos dois ficou liberal**, e ser conservador não sai de
+graça: o preço aparece na seção seguinte, como perda de poder.
             """.strip()
         )
 
@@ -298,16 +319,37 @@ else:
     razao_simulada = f"{menor:.1f}".replace(".", ",")
     razao_real = f"{cenario['razao_medianas_observada']:.2f}".replace(".", ",")
     if None not in (mw_efeito, welch_efeito):
+        # onde a vantagem muda de lado: a comparação par a par em cada situação
+        mw_n10 = taxa(taxas, "Mann-Whitney", menor, "n_pequeno")
+        welch_n10 = taxa(taxas, "Welch", menor, "n_pequeno")
+        mw_out = taxa(taxas, "Mann-Whitney", 0.6, "outliers")
+        welch_out = taxa(taxas, "Welch", 0.6, "outliers")
+        mw_bem = taxa(taxas, "Mann-Whitney", 0.8, "bem_comportada")
+        welch_bem = taxa(taxas, "Welch", 0.8, "bem_comportada")
+        outras = ""
+        if None not in (mw_n10, welch_n10):
+            outras += (f" Ganha também com **amostra pequena** ({pct(mw_n10)} contra "
+                       f"{pct(welch_n10)} na mesma razão)")
+        if None not in (mw_out, welch_out):
+            outras += (f" e ganha de longe **com outliers** ({pct(mw_out)} contra "
+                       f"{pct(welch_out)} na razão 0,6), que é a situação em que a média "
+                       f"sofre e os postos não.")
+        vira = ""
+        if None not in (mw_bem, welch_bem):
+            vira = (f" A vantagem **muda de lado só com dados bem comportados**: ali eles "
+                    f"empatam e o Welch fica à frente por pouco ({pct(welch_bem)} contra "
+                    f"{pct(mw_bem)} na razão 0,8), que é o esperado quando o pressuposto "
+                    f"de normalidade vale.")
         st.markdown(
             f"""
 Agora existe efeito de verdade, e a pergunta é com que frequência cada teste o encontra. No
 maior efeito simulado (razão de medianas = {razao_simulada}, perto dos {razao_real} que
-medimos nos dados reais), o **Mann-Whitney detecta em {pct(mw_efeito)}** das repetições e o **Welch em
-{pct(welch_efeito)}** — a vantagem é do Mann-Whitney em toda a curva e aumenta junto com o
-efeito. É o que o grupo esperava antes de simular: o Welch compara médias, e a variância
-causada pelos outliers esconde a diferença, enquanto o Mann-Whitney compara postos e quase
-não sente os valores extremos. Vale notar que **nenhum dos dois chega aos 80% de poder** com
-30 PRs por grupo, ou seja, a amostra real que coletamos seria pequena demais para garantir a
+medimos nos dados reais), o **Mann-Whitney detecta em {pct(mw_efeito)}** das repetições e o
+**Welch em {pct(welch_efeito)}**, e a diferença entre os dois aumenta junto com o
+efeito.{outras}{vira} É o que o grupo esperava antes de simular: o Welch compara médias, e a
+variância causada pelos valores extremos esconde a diferença, enquanto o Mann-Whitney
+compara postos. Vale notar que **nenhum dos dois chega aos 80% de poder no cenário real**
+com 30 PRs por grupo, ou seja, a amostra que coletamos seria pequena demais para garantir a
 detecção mesmo do efeito que de fato observamos.
             """.strip()
         )
@@ -316,15 +358,129 @@ st.divider()
 
 st.header("6. Dados reais")
 st.caption("Os dois testes aplicados aos 60 PRs coletados")
-st.info("Entra na entrega final.")
+
+try:
+    nos_reais = carregar_dados_reais().set_index("teste")
+except Exception as e:  # noqa: BLE001
+    nos_reais = None
+    secao_indisponivel("Tabela dos dados reais", e, "`python -m src.dados_reais`")
+
+if nos_reais is not None:
+    st.dataframe(
+        [
+            {
+                "Teste": nome,
+                "Estatística": round(float(linha["estatistica"]), 3),
+                "p-valor": round(float(linha["p_valor"]), 4),
+                "Tamanho do efeito": (
+                    f"{linha['nome_efeito']} = {float(linha['efeito']):+.2f} "
+                    f"({linha['interpretacao_efeito']})"
+                ),
+                "Conclusão (α = 5%)": ("rejeita H₀" if bool(linha["rejeita_h0"])
+                                       else "não rejeita H₀"),
+            }
+            for nome, linha in ((n, nos_reais.loc[n]) for n in ("Welch", "Mann-Whitney"))
+        ],
+        hide_index=True,
+        width="stretch",
+    )
+
+    welch_r, mw_r = nos_reais.loc["Welch"], nos_reais.loc["Mann-Whitney"]
+    med_sem = float(welch_r["mediana_sem_bot_h"])
+    med_com = float(welch_r["mediana_com_bot_h"])
+    p_welch = f"{float(welch_r['p_valor']):.3f}".replace(".", ",")
+    p_mw = f"{float(mw_r['p_valor']):.3f}".replace(".", ",")
+    efeito_mw = f"{float(mw_r['efeito']):+.2f}".replace(".", ",")
+    st.markdown(
+        f"""
+Aqui não há resposta certa conhecida: estes são os PRs de verdade, e os **dois testes
+discordam**. O Welch **não rejeita H₀** (p = {p_welch}), o Mann-Whitney **rejeita**
+(p = {p_mw}), e é exatamente o desencontro que a simulação previa para dados com esta
+cauda: a média é arrastada por poucos PRs muito lentos e o Welch perde poder, enquanto
+o Mann-Whitney olha só a ordem. Na prática a diferença é grande: a mediana vai de
+**{med_sem:.1f} h sem bot para {med_com:.1f} h com bot**, e o delta de Cliff de
+{efeito_mw} ({mw_r['interpretacao_efeito']}) diz que o PR sem bot demora mais na maioria
+das comparações. Mas isso é **associação, não causa**: o bot não foi sorteado entre os
+PRs, e quem o aciona pode estar escolhendo PRs mais simples.
+        """.strip()
+    )
 
 st.divider()
 
 st.header("7. Conclusão")
-st.info(
-    "Entra na entrega final: o que o grupo esperava antes de simular, o que encontrou, "
-    "e qual teste recomendamos para este cenário."
-)
+st.caption("O que o grupo esperava × o que encontrou, e qual teste recomendamos")
+
+if taxas is None or nos_reais is None:
+    st.info(
+        "A conclusão depende dos resultados das simulações e dos testes nos dados "
+        "reais. Rode `python -m src.rodar_tudo` para gerá-los."
+    )
+else:
+    welch_h0 = taxa(taxas, "Welch")
+    mw_h0 = taxa(taxas, "Mann-Whitney")
+    welch_n10 = taxa(taxas, "Welch", situacao="n_pequeno")
+    mw_forte = taxa(taxas, "Mann-Whitney", 0.2)
+    welch_forte = taxa(taxas, "Welch", 0.2)
+    welch_bem = taxa(taxas, "Welch", 0.8, "bem_comportada")
+    mw_bem = taxa(taxas, "Mann-Whitney", 0.8, "bem_comportada")
+
+    st.dataframe(
+        [
+            {
+                "O que esperávamos antes de simular":
+                    "O Mann-Whitney teria mais poder em dados assimétricos",
+                "O que encontramos":
+                    f"Confirmado em todas as situações com assimetria ou outliers: "
+                    f"{pct(mw_forte)} contra {pct(welch_forte)} na razão 0,2",
+                "Veredito": "confirmado",
+            },
+            {
+                "O que esperávamos antes de simular":
+                    "Os dois ficariam perto de 5% quando não há efeito",
+                "O que encontramos":
+                    f"Só o Mann-Whitney ({pct(mw_h0, 2)}); o Welch ficou conservador, em "
+                    f"{pct(welch_h0, 2)} no cenário real e {pct(welch_n10, 2)} com n = 10",
+                "Veredito": "em parte",
+            },
+            {
+                "O que esperávamos antes de simular":
+                    "A vantagem do Mann-Whitney sumiria com dados bem comportados",
+                "O que encontramos":
+                    f"Confirmado: {pct(welch_bem)} contra {pct(mw_bem)} na razão 0,8",
+                "Veredito": "confirmado",
+            },
+        ],
+        hide_index=True,
+        width="stretch",
+    )
+
+    col_rec, col_lim = st.columns(2)
+    with col_rec:
+        st.markdown(
+            f"""
+**Recomendação: Mann-Whitney.** Para o tempo até o merge de PRs, ele foi o único a
+manter o erro tipo I perto de 5% nas quatro situações e tem bem mais poder justamente
+onde estes dados vivem, com assimetria alta e outliers.
+
+**Quando mudaríamos.** Se os dados fossem simétricos e sem outliers, onde os dois
+empatam e o Welch fica um pouco à frente ({pct(welch_bem)} contra {pct(mw_bem)}), ou se
+a pergunta fosse sobre a **média** e não sobre a tendência central, como no total de
+horas gastas em revisão.
+            """.strip()
+        )
+    with col_lim:
+        st.markdown(
+            f"""
+**Limitações.**
+
+- Estudo **observacional**: o bot não foi sorteado entre os PRs, então a diferença
+  observada não prova causa.
+- Um único repositório e uma janela de quatro meses.
+- {cenario['n_por_grupo']} PRs por grupo: pelo G4, nem o Mann-Whitney chega aos 80% de
+  poder nesse tamanho.
+- A simulação supõe lognormal; com outra forma, as taxas mudariam.
+            """.strip()
+        )
 
 st.divider()
 st.caption(
